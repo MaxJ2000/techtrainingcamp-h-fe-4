@@ -1,14 +1,15 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import EnterRoom from "../views/EnterRoom.vue";
 import CreateRoom from "../views/CreateRoom.vue";
+import GodControl from "../views/GodControl.vue";
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home,
+    component: EnterRoom,
   },
   {
     path: "/createroom",
@@ -17,6 +18,11 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: CreateRoom,
+  },
+  {
+    path: "/godcontrol",
+    name: "GodControl",
+    component: GodControl,
   },
 ];
 
