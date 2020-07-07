@@ -8,6 +8,6 @@
 const state = () => ({
   god: "",
   nightNums: 0,
-  time: [[], []],
+  active: [[], []],
   start: 0,
 });
