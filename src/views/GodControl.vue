@@ -16,14 +16,14 @@ export default {
   components: {
     Title,
     List,
-    Button
+    Button,
   },
   data: () => ({
     eachStatus: [
       ["aaa是女巫", "被刀", "猎杀"],
       ["dafsfa", "daf", "fdaf", "dfass"],
-      ["dfafasdf", "fdas", "daf"]
-    ]
-  })
+      ["dfafasdf", "fdas", "daf"],
+    ],
+  }),
 };
 </script>

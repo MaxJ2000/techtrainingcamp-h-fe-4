@@ -4,7 +4,6 @@
     <v-text-field v-model="email" :error-messages="errors" label="房间号" required></v-text-field>
   </form>
 </template>
-
 <script>
 export default {
   components: {},
