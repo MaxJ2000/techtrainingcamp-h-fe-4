@@ -16,7 +16,7 @@ export default {
   components: {
     Title,
     InfChip,
-    Button
-  }
+    Button,
+  },
 };
 </script>
