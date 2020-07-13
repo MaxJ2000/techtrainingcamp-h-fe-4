@@ -26,9 +26,9 @@
  
 import Vue from 'vue'
 import Vuex from 'vuex'
+import gameInit from './modules/gameInit'
 import gameStatus from './modules/gameStatus'
-// import playerInf from './modules/playerInf'
-// import ranking from './modules/ranking'
+import ranking from './modules/ranking'
 // import createLogger from '../../../src/plugins/logger'
 
 Vue.use(Vuex)
@@ -37,7 +37,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    gameStatus
+    gameInit,
+    gameStatus,
+    ranking
   }
   // strict: debug,
   // plugins: debug ? [createLogger()] : []
