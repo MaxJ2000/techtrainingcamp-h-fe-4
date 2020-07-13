@@ -1,4 +1,5 @@
 <template>
+<v-app>
   <div id="app">
     <div id="nav">
       <router-link to="/">首页</router-link> |
@@ -8,6 +9,7 @@
     <router-view />
     <!-- <HelloWorld /> -->
   </div>
+</v-app>
 </template>
 <style>
 #app {

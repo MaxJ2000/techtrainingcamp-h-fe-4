@@ -13,10 +13,10 @@
       max-width="290"
     >
       <v-card>
-        <v-card-title class="headline">Use Google's location service?</v-card-title>
+        <v-card-title class="headline">狼人杀游戏规则</v-card-title>
 
         <v-card-text>
-          Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
+          具体游戏规则
         </v-card-text>
 
         <v-card-actions>
@@ -27,15 +27,7 @@
             text
             @click="dialog = false"
           >
-            Disagree
-          </v-btn>
-
-          <v-btn
-            color="green darken-1"
-            text
-            @click="dialog = false"
-          >
-            Agree
+            关闭
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -48,7 +40,9 @@ div.row.btn.justify-center {
   height: 40px;
 }
 div.row.justify-center {
-    margin: 0;
+  margin: 0;
+  width: 125px;
+  height: 40px;
 }
 </style>
 <script>
