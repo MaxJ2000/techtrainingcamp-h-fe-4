@@ -1,17 +1,20 @@
 <template>
-<v-app>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">首页</router-link> |
-      <router-link to="/about">加入房间</router-link> |
-      <router-link to="/home">创建房间</router-link> |
-      <router-link to="/player">角色信息</router-link> |
-      <router-link to="/result">游戏结果</router-link>
+  <v-app>
+    <div id="app">
+      <div id="nav">
+        <router-link to="/">首页</router-link> |
+        <router-link to="/about">加入房间</router-link> |
+        <router-link to="/home">创建房间</router-link> |
+        <router-link to="/result">游戏结果</router-link> |
+        <router-link to="/wait">等待</router-link> |
+        <router-link to="/player">角色信息</router-link> |
+        <router-link to="/status">游戏状态</router-link> |
+        <router-link to="/result">游戏结果</router-link>
+      </div>
+      <router-view />
+      <!-- <HelloWorld /> -->
     </div>
-    <router-view />
-    <!-- <HelloWorld /> -->
-  </div>
-</v-app>
+  </v-app>
 </template>
 <style>
 #app {
