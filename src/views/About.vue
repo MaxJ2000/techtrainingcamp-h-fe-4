@@ -1,14 +1,14 @@
 <template>
   <div class="about">
-    <h3>[加入房间]</h3>
+    <Title>[加入房间]</Title>
     <form>
       <div>
         <label for="name">昵称</label>
-        <input type="text" placeholder="请输入昵称" id="name">
+        <input type="text" placeholder="请输入昵称" id="name" />
       </div>
       <div>
         <label for="room">房间号</label>
-        <input type="text" placeholder="请输入房间号" id="room">
+        <input type="text" placeholder="请输入房间号" id="room" />
       </div>
     </form>
   </div>
@@ -25,3 +25,10 @@ label {
   text-align: right;
 }
 </style>
+<script>
+import Title from "@/components/Title.vue";
+
+export default {
+  components: { Title },
+};
+</script>
