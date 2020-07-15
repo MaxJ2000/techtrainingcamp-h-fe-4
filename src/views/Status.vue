@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column align-center">
-    <Title>[创建房间]</Title>
+    <Title>[夜晚：狼人行动]</Title>
     <List :eachStatus="eachStatus" :isChecked="isChecked" />
     <Button msg="创建"></Button>
   </div>

@@ -16,7 +16,15 @@ export default {
     Title,
   },
   data: () => ({
-    progress: 80,
+    playerNum: 10,
+    curNum: 7,
   }),
+  computed: {
+    progress: {
+      get: function() {
+        return (this.curNum / this.playerNum) * 100;
+      },
+    },
+  },
 };
 </script>
