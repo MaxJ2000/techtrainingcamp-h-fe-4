@@ -2,6 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import HelloWorld from "../components/HelloWorld.vue";
+import Player from "../views/player.vue";
+import Result from "../views/result.vue";
 
 Vue.use(VueRouter);
 
@@ -24,6 +26,16 @@ const routes = [
     path: "/home",
     name: "Home",
     component: Home
+  },
+  {
+    path: "/player",
+    name: "Player",
+    component: Player
+  },
+  {
+    path: "/result",
+    name: "Result",
+    component: Result
   }
 ];
 
