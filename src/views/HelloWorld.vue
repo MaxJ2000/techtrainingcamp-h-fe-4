@@ -4,10 +4,10 @@
     <img alt="WolfKill logo" src="../assets/timg.jpg" />
     <div class="row">
       <div>
-        <v-btn depressed large color="primary" class="btn1">创建房间</v-btn>
+        <v-btn depressed large color="primary" class="btn1" to="/home">创建房间</v-btn>
       </div>
       <div>
-        <v-btn depressed large  color="primary" class="btn1 right">加入房间</v-btn>
+        <v-btn depressed large color="primary" class="btn1 right" to="/about">加入房间</v-btn>
       </div>
     </div>
     <div id="rule">
@@ -32,11 +32,11 @@ h3 {
   right: 0;
 }
 #rule {
-  position: absolute!important;
-  bottom: 20px!important;
-  right: 20px!important;
-  width: 125px!important;
-  height: 40px!important;
+  position: absolute !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  width: 125px !important;
+  height: 40px !important;
 }
 </style>
 

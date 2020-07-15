@@ -1,10 +1,5 @@
 <template>
   <v-app>
-<<<<<<< HEAD
-    <router-view />
-  </v-app>
-</template>
-=======
     <div id="app">
       <div id="nav">
         <router-link to="/">首页</router-link> |
@@ -54,4 +49,3 @@ export default {
   // }
 };
 </script>
->>>>>>> jiangjun-component
