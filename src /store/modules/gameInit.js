@@ -3,7 +3,7 @@
 // isGod: key
 // wolfNum: number
 // villagerNum: number
-// godsList: [ id ]
+// deitiesList: [ id ]
 // playerNum: number
 // currentPlayerNum: number
 // killSideOrAll: bool
@@ -13,30 +13,35 @@ const state = () => ({
   isGod: false,
   wolfNum: 0,
   villagerNum: 0,
-  godsList: [],
+  deitiesList: [],
   playerNum: 0,
   currentPlayerNum: 0,
-  killSideOrAll: true
+  killSideOrAll: true,
+  isStart: false
 })
 
 // getters
-// ableToStart: only when players number larger than 6 can we launch the game
+// ableToCreate: only when players number larger than 6 can we launch the game
 const getters = () => ({
+  ableToCreate: state => {
+    return (state.wolfNum + state.villagerNum + state.deitiesList.length > 6)
+  },
   ableToStart: state => {
-    return (state.wolfNum + state.villagerNum + state.godsList.length > 6)
+    // more to judge
+    return (state.currentPlayerNum == state.playerNum)
   }
 })
 
 // mutations
 // createRoom: initialize the game
 const mutations = () => ({
-  createRoom: (state, wolfNum, villagerNum, godsList, killSideOrAll) => {
+  createRoom: (state, wolfNum, villagerNum, deitiesList, killSideOrAll) => {
     // state.roomId = JIANGJUN_giveMeOneRoomId()
     state.isGod = true,
     state.wolfNum = wolfNum,
     state.villagerNum = villagerNum,
-    state.godsList = godsList,
-    state.playerNum = state.wolfNum + state.villagerNum + state.godsList.length,
+    state.deitiesList = deitiesList,
+    state.playerNum = state.wolfNum + state.villagerNum + state.deitiesList.length,
     state.killSideOrAll = killSideOrAll
   },
 
@@ -44,7 +49,7 @@ const mutations = () => ({
     // howToMatchThisRoom
     if (state.currentPlayerNum < state.playerNum) {
       state.roomId = roomId;
-      rootState.gameStatus.playerInf.push(currentPlayer+1, userName, 0, true);
+      rootState.gameStatus.playerInf.push({key:state.currentPlayerNum-1, name:userName, identity:"", isAlive:true, killedBy:""});
       state.currentPlayerNum ++; 
       return true;
     } 
@@ -53,36 +58,20 @@ const mutations = () => ({
     } 
   },
 
-  assignIdentity: (state, rootGetters) => {
-    if (!Array.prototype.shuffle) { 
-      Array.prototype.shuffle = function() {
-        for(var j, x, i = this.length; i; j = parseInt(Math.random() * i), x = this[--i], this[i] = this[j], this[j] = x);
-        return this;
-      };
-    }
-
-    var identities = []
-    for(var i = 0; i < state.wolfNum; ++i){
-      identities.push("Wolf");
-    }
-    for(i; i < state.wolfNum + state.villagerNum; ++i){
-      identities.push("Villager");
-    }
-    for(i = 0; i < state.godsList.length; ++i){
-      identities.push(godsList[i]);
-    }
-
-    identities.shuffle();
-    for(i = 0; i < state.playerNum; ++i){
-      rootGetters.getPlayerByKey(i).identity = identities[i]
-    }
+  startAndAssignIdentity: (state, rootGetters) => {
+    state.isStart = true;
+    // identities = getListFromJIANGJUN
+     for(var i = 0; i < state.playerNum; ++i){
+       rootGetters.getPlayerByKey(i).identity = identities[i]
+     }    
   },
 })
 
 // actions
 // const actions = () => ({
-//   increment: ({commit}) => {
-//     commit('increment')
+//   startGame: ({commit, getters}) => {
+    
+//     commit('')
 //   },
 //   decrement: ({commit}) => {
 //     commit('decrement')

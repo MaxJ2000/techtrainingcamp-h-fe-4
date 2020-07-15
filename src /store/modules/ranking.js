@@ -27,3 +27,31 @@ const mutations = {
     }
   },
 };
+
+gameOver: (state, rootState, whoWins) => {
+  if (whoWins == 1) { // wolf win
+    for (x in rootState.gameStatus.playerInf) {
+      if (x.identity == "wolf") {
+        wolfPlayer = state.rankings.find(player => player.name === x.name);  
+        wolfPlayer.winTimes++;
+      }
+      else{
+        goodfellowPlayer = state.rankings.find(player => player.name === x.name);  
+        goodfellowPlayer.winTimes--;
+      }
+    }
+  }
+
+  else {  // kind win
+    for (x in rootState.gameStatus.playerInf) {
+      if (x.identity == "wolf") {
+        wolfPlayer = state.rankings.find(player => player.name === x.name);  
+        wolfPlayer.winTimes--;
+      }
+      else{
+        goodfellowPlayer = state.rankings.find(player => player.name === x.name);  
+        goodfellowPlayer.winTimes++;
+      }
+    }
+  }
+}
