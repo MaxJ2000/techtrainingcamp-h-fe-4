@@ -10,5 +10,9 @@ new Vue({
   router,
   store,
   vuetify,
+<<<<<<< HEAD
   render: (h) => h(App),
+=======
+  render: h => h(App)
+>>>>>>> jiangjun-component
 }).$mount("#app");
