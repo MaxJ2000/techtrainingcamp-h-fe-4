@@ -1,57 +1,85 @@
+import {
+  WOLF_WIN, KIND_WIN
+} from '../mutation_type'
+
 // initial state
-// shape: [{ key, winTimes }]
+// rankings: [{ name, winTimes }]
+// winGroup: [{name, identity}]
+// loseGroup: [{name, identity}]
 const state = () => ({
   rankings: [],
+  winGroup: [],
+  loseGroup: []
 });
 
-const getters = {
-  rankings: (state, getters, rootState) => {
-    return state.rankings.map(({ key, winTimes }) => {
-      const name = rootState.identify.key2name(key);
-      return {
-        name,
-        winTimes,
-      };
+const getters = () => ({
+  sortedList: (state) => {
+    return state.rankings.sort(function (a, b) {
+      return (a.winTimes - b.winTimes)
     });
   },
-};
+});
 
-const mutations = {
-  win: (state, keyArr) => {
-    for (key of keyArr) {
-      for (rank of rankings) {
-        if (rank.key === key) {
-          rank.winTimes++;
-        }
+
+const mutations = () => ({
+  [WOLF_WIN]: (state, playerInf) => {
+    winGroup = [];
+    loseGroup = [];
+    for(let x in playerInf){
+      if (x.identity == "wolf") {
+        winGroup.push({name:x.name, identity:x.identity});
+        state.rankings.find(element => element.name == x.name).winTimes++;
       }
+      else {
+        loseGroup.push({name:x.name, identity:x.identity});
+      }
+    }
+    state.winGroup = winGroup;
+    state.loseGroup = loseGroup;
+  },
+
+  [KIND_WIN]: (state, playerInf) => {
+    winGroup = [];
+    loseGroup = [];
+    for(let x in playerInf){
+      if (x.identity == "wolf") {
+        loseGroup.push({name:x.name, identity:x.identity});
+      }
+      else {
+        winGroup.push({name:x.name, identity:x.identity});
+        state.rankings.find(element => element.name == x.name).winTimes++;
+      }
+    }
+    state.winGroup = winGroup;
+    state.loseGroup = loseGroup;
+  }
+})
+
+const actions = () => ({
+  seperWinAndLose: ({commit, dispatch}, payload) => {  // 1 - wolves win, 2 - kind win
+    if (payload.flag == 1){
+      dispatch('wolfWin', payload.playerInf);
+    } else if (payload.flag == 2) {
+      dispatch('kindWin', payload.playerInf);
     }
   },
-};
 
-gameOver: (state, rootState, whoWins) => {
-  if (whoWins == 1) { // wolf win
-    for (x in rootState.gameStatus.playerInf) {
-      if (x.identity == "wolf") {
-        wolfPlayer = state.rankings.find(player => player.name === x.name);  
-        wolfPlayer.winTimes++;
-      }
-      else{
-        goodfellowPlayer = state.rankings.find(player => player.name === x.name);  
-        goodfellowPlayer.winTimes--;
-      }
-    }
-  }
+  wolfWin: ({commit}, playerInf) => {
+    commit('WOLF_WIN', playerInf);
+  },
 
-  else {  // kind win
-    for (x in rootState.gameStatus.playerInf) {
-      if (x.identity == "wolf") {
-        wolfPlayer = state.rankings.find(player => player.name === x.name);  
-        wolfPlayer.winTimes--;
-      }
-      else{
-        goodfellowPlayer = state.rankings.find(player => player.name === x.name);  
-        goodfellowPlayer.winTimes++;
-      }
-    }
+  kindWin: ({commit}, playerInf) => {
+    commit('KIND_WIN', playerInf);
   }
+})
+
+
+export default {
+  namespaced: true,
+  state,
+  getters,
+  actions,
+  mutations
 }
+
+
