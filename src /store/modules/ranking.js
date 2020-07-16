@@ -1,3 +1,4 @@
+import axios from 'axios'
 import {
   WOLF_WIN, KIND_WIN, UPDATE_RANKINGS
 } from '../mutation_type'

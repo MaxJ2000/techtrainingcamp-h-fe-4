@@ -27,6 +27,7 @@ const state = () => ({
 
 // getters
 // ableToCreate: only when players number larger than 6 can we launch the game
+// ableToStart: check if can start, (this work can also be done in front-end)
 const getters = () => ({
   ableToCreate: state => {
     return (state.wolfNum + state.villagerNum + state.deitiesList.length > 6)
@@ -38,7 +39,9 @@ const getters = () => ({
 })
 
 // mutations
-// createRoom: initialize the game
+// CREATE_ROOM: initialize the game
+// INIT_ROOM: god config the settings
+// JOIN_ROOM: player's work
 const mutations = () => ({
   [CREATE_ROOM]: (state, roomID) => {
     state.roomID = roomID;
@@ -57,19 +60,14 @@ const mutations = () => ({
   [JOIN_ROOM]: (state, {roomID, currentPlayerNum}) => {
     state.roomID = roomID;
     state.currentPlayerNum = currentPlayerNum;
-  },
-
-    //  for(var i = 0; i < state.playerNum; ++i){
-    //    rootGetters.getPlayerByKey(i).identity = identities[i]
-    //  }    
-  // },
+  }
 })
 
 // actions
 // createRoom: get room ID
 // initRoom: god's configuration
 // joinRoom: player joining
-// startGame: after assign everything
+// startGame: after assign everything, and restart also from here
 const actions = () => ({
   createRoom: ({commit}) => {
     axios.get('https://afe5o5.fn.thelarkcloud.com/createRoom')
