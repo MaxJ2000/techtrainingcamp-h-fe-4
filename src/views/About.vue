@@ -4,13 +4,16 @@
     <form>
       <div>
         <label for="name">昵称</label>
-        <input type="text" placeholder="请输入昵称" id="name" :value="name"/>
+        <input type="text" placeholder="请输入昵称" id="name" v-model="name" />
       </div>
       <div>
         <label for="room">房间号</label>
-        <input type="text" placeholder="请输入房间号" id="room" :value="roomID"/>
+        <input type="text" placeholder="请输入房间号" id="room" v-model="roomID" />
       </div>
     </form>
+    <div>
+      <v-btn depressed large color="primary" class="btn1" to="/wait" v-on:click.native="join">提交</v-btn>
+    </div>
   </div>
 </template>
 
@@ -30,10 +33,18 @@ import Title from "@/components/Title.vue";
 
 export default {
   components: { Title },
-  data() {
+  data: function() {
     return {
-      // roomID:
-      // name: lihao
+      name,
+      roomID: 0
+    };
+  },
+  methods: {
+    join() {
+      this.$store.dispatch("gameInit/joinRoom", {
+        roomID: this.roomID,
+        name: this.name
+      });
     }
   }
 };

@@ -19,12 +19,8 @@ import {
 const state = {
   roomID: "",
   isGod: false,
-  wolfNum: {
-    type: Number
-  },
-  villagerNum: {
-    type: Number
-  },
+  wolfNum: 0,
+  villagerNum: 0,
   deitiesList: [0, 0, 0],
   playerNum: 0,
   currentPlayerNum: 0,
@@ -72,6 +68,12 @@ const mutations = {
     state.roomID = roomID;
     state.currentPlayerNum = currentPlayerNum;
   },
+  getValueWolf: (state, value) => {
+    state.wolfNum = value;
+  },
+  getValueVillage: (state, value) => {
+    state.villagerNum = value;
+  }
 };
 
 // actions
@@ -83,19 +85,19 @@ const actions = {
   createRoom: context => {
     axios
       .get("https://afe5o5.fn.thelarkcloud.com/createRoom")
-      .then(function(response) {
+      .then(function (response) {
         console.log(response);
         context.commit("CREATE_ROOM", response.data.roomID);
         return true;
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
         return false;
       });
   },
 
   initRoom: (
-    context,payload
+    context, payload
   ) => {
     axios
       .post("https://afe5o5.fn.thelarkcloud.com/iniRoom", {
@@ -106,7 +108,7 @@ const actions = {
         killSideOrAll: payload.killSideOrAll,
         playerNum: payload.wolfNum + payload.villagerNum + payload.deitiesList.length,
       })
-      .then(function(response) {
+      .then(function (response) {
         console.log(response);
         context.commit("initRoom", {
           wolfNum: payload.wolfNum,
@@ -116,30 +118,31 @@ const actions = {
         });
         return true;
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
         return false;
       });
   },
 
-  joinRoom: (commit, roomID, name) => {
-    axios
-      .post("https://afe5o5.fn.thelarkcloud.com/joinRoom", {
-        roomID: roomID,
-        name: name,
-      })
-      .then(function(response) {
-        commit("JOIN_ROOM", {
-          roomID: response.roomState.roomID,
-          currentPlayerNum: response.roomState.currentPlayerNum,
+  joinRoom: (context, payload) => {
+    console.log(payload),
+      axios
+        .post("https://afe5o5.fn.thelarkcloud.com/joinRoom", {
+          roomID: payload.roomID,
+          name: payload.name,
+        })
+        .then(function (response) {
+          context.commit("JOIN_ROOM", {
+            roomID: response.roomState.roomID,
+            currentPlayerNum: response.roomState.currentPlayerNum,
+          });
+          console.log(response);
+          return true;
+        })
+        .catch(function (error) {
+          console.log(error);
+          return false;
         });
-        console.log(response);
-        return true;
-      })
-      .catch(function(error) {
-        console.log(error);
-        return false;
-      });
   },
 
   startGame: ({ dispatch, state }) => {
@@ -149,11 +152,11 @@ const actions = {
       .post("https://afe5o5.fn.thelarkcloud.com/startGame", {
         roomID: state.roomID,
       })
-      .then(function(response) {
+      .then(function (response) {
         dispatch("gameStatus/initGame", response.gameStatus, { root: true }); // need to be completed after assign an action in gameStatus
         console.log(response);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   },

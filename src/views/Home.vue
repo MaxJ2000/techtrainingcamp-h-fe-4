@@ -9,22 +9,22 @@
       </div>
       <div>
         <label for="wolf">狼人人数</label>
-        <input type="number" placeholder="请输入人数" id="wolf" v-model="this.$store.state.gameInit.wolfNum"/>
+        <input type="number" placeholder="请输入人数" id="wolf" @change="getValueWolf($event)" />
       </div>
       <div>
         <label for="village">村民人数</label>
-        <input type="number" placeholder="请输入人数" id="village" v-model="this.$store.state.gameInit.villagerNum"/>
+        <input type="number" placeholder="请输入人数" id="village" @change="getValueVillage($event)" />
       </div>
       <div>
         <label>可选神牌</label>
-        <input type="checkbox" value="女巫" @click="change(0)"/>女巫
-        <input type="checkbox" value="猎人" @click="change(1)"/>猎人
-        <input type="checkbox" value="预言家" @click="change(2)"/>预言家
+        <input type="checkbox" value="女巫" @click="change(0)" />女巫
+        <input type="checkbox" value="猎人" @click="change(1)" />猎人
+        <input type="checkbox" value="预言家" @click="change(2)" />预言家
       </div>
       <div>
         <label>可选模式</label>
-        <input type="radio" value="屠边" name="model" @click="radiochange"/>屠边
-        <input type="radio" value="屠城" name="model" checked @click="radiochange"/>屠城
+        <input type="radio" value="屠边" name="model" @click="radiochange" />屠边
+        <input type="radio" value="屠城" name="model" checked @click="radiochange" />屠城
       </div>
     </form>
     <div>
@@ -56,15 +56,24 @@ export default {
         1 - this.$store.state.gameInit.deitiesList[num];
     },
     radiochange() {
-      this.$store.state.gameInit.killSideOrAll = !this.$store.state.gameInit.killSideOrAll;
+      this.$store.state.gameInit.killSideOrAll = !this.$store.state.gameInit
+        .killSideOrAll;
     },
     init() {
-      this.$store.dispatch("gameInit/initRoom",{ 
-      roomID:this.$store.state.gameInit.roomID,
-      wolfNum:this.$store.state.gameInit.wolfNum,
-      villagerNum:this.$store.state.gameInit.villagerNum,
-      deitiesList:this.$store.state.gameInit.deitiesList,
-      killSideOrAll:this.$store.state.gameInit.killSideOrAll});
+      this.$store.dispatch("gameInit/initRoom", {
+        roomID: this.$store.state.gameInit.roomID,
+        wolfNum: this.$store.state.gameInit.wolfNum,
+        villagerNum: this.$store.state.gameInit.villagerNum,
+        deitiesList: this.$store.state.gameInit.deitiesList,
+        killSideOrAll: this.$store.state.gameInit.killSideOrAll
+      });
+    },
+    getValueWolf(e) {
+      this.$store.commit("gameInit/getValueWolf", e.target.value);
+      console.log(e.target.value);
+    },
+    getValueVillage(e) {
+      this.$store.commit("gameInit/getValueVillage", e.target.value);
     }
   },
   components: {
