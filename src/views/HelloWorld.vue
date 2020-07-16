@@ -4,8 +4,9 @@
     <img alt="WolfKill logo" src="../assets/timg.jpg" />
     <div class="row">
       <div>
-        <v-btn depressed large color="primary" class="btn1" to="/home">创建房间</v-btn>
+        <v-btn depressed large color="primary" class="btn1" to="/home" @click="creat()">创建房间</v-btn>
       </div>
+      <button @click="creat()">asfafa</button>
       <div>
         <v-btn depressed large color="primary" class="btn1 right" to="/about">加入房间</v-btn>
       </div>
@@ -46,6 +47,11 @@ export default {
   name: "HelloWorld",
   components: {
     Dialogs
+  },
+  methods: {
+    creat() {
+      this.$store.dispatch("createRoom");
+    }
   }
 };
 </script>

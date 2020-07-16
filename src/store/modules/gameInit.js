@@ -17,7 +17,7 @@ import {
 // killSideOrAll: bool
 //    false: Side, true: All
 const state = () => ({
-  roomID: "",
+  roomID: "112",
   isGod: false,
   wolfNum: 0,
   villagerNum: 0,
@@ -48,6 +48,7 @@ const mutations = () => ({
   [CREATE_ROOM]: (state, roomID) => {
     state.roomID = roomID;
     state.isGod = true;
+    console.log(state.roomID);
   },
 
   [INIT_ROOM]: (
@@ -75,12 +76,12 @@ const mutations = () => ({
 // joinRoom: player joining
 // startGame: after assign everything, and restart also from here
 const actions = () => ({
-  createRoom: ({ commit }) => {
+  createRoom: context => {
     axios
       .get("https://afe5o5.fn.thelarkcloud.com/createRoom")
       .then(function(response) {
         console.log(response);
-        commit("CREATE_ROOM", response.roomID);
+        context.commit("CREATE_ROOM", response.data.roomID);
         return true;
       })
       .catch(function(error) {

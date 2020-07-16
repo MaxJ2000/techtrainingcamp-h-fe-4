@@ -6,6 +6,7 @@ import Player from "../views/Player.vue";
 import Result from "../views/Result.vue";
 import Status from "../views/Status.vue";
 import Wait from "../views/Wait.vue";
+import About from "../views/About.vue";
 
 Vue.use(VueRouter);
 
@@ -48,6 +49,11 @@ const routes = [
     path: "/wait",
     name: "Wait",
     component: Wait,
+  },
+  {
+    path: "/about",
+    name: "About",
+    component: About,
   },
 ];
 

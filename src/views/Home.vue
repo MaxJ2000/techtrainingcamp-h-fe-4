@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Title>[创建房间]</Title>
-    <div>房间号</div>
+    <div>{{ getRoomId }}</div>
     <form>
       <div>
         <label for="name">昵称</label>
@@ -50,5 +50,10 @@ export default {
   components: {
     Title,
   },
+  computed: {
+    getRoomId(){
+      return this.$store.state.gameInit.roomID;
+    }
+  }
 };
 </script>
