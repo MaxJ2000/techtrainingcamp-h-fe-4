@@ -4,11 +4,11 @@
     <form>
       <div>
         <label for="name">昵称</label>
-        <input type="text" placeholder="请输入昵称" id="name" />
+        <input type="text" placeholder="请输入昵称" id="name" :value="name"/>
       </div>
       <div>
         <label for="room">房间号</label>
-        <input type="text" placeholder="请输入房间号" id="room" />
+        <input type="text" placeholder="请输入房间号" id="room" :value="roomID"/>
       </div>
     </form>
   </div>
@@ -30,5 +30,11 @@ import Title from "@/components/Title.vue";
 
 export default {
   components: { Title },
+  data() {
+    return {
+      // roomID:
+      // name: lihao
+    }
+  }
 };
 </script>

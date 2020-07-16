@@ -16,16 +16,20 @@ import {
 // currentPlayerNum: number
 // killSideOrAll: bool
 //    false: Side, true: All
-const state = () => ({
-  roomID: "112",
+const state = {
+  roomID: "",
   isGod: false,
-  wolfNum: 0,
-  villagerNum: 0,
-  deitiesList: [],
+  wolfNum: {
+    type: Number
+  },
+  villagerNum: {
+    type: Number
+  },
+  deitiesList: [0, 0, 0],
   playerNum: 0,
   currentPlayerNum: 0,
   killSideOrAll: true,
-});
+};
 
 // getters
 // ableToCreate: only when players number larger than 6 can we launch the game
@@ -44,7 +48,7 @@ const getters = () => ({
 // CREATE_ROOM: initialize the game
 // INIT_ROOM: god config the settings
 // JOIN_ROOM: player's work
-const mutations = () => ({
+const mutations = {
   [CREATE_ROOM]: (state, roomID) => {
     state.roomID = roomID;
     state.isGod = true;
@@ -68,14 +72,14 @@ const mutations = () => ({
     state.roomID = roomID;
     state.currentPlayerNum = currentPlayerNum;
   },
-});
+};
 
 // actions
 // createRoom: get room ID
 // initRoom: god's configuration
 // joinRoom: player joining
 // startGame: after assign everything, and restart also from here
-const actions = () => ({
+const actions = {
   createRoom: context => {
     axios
       .get("https://afe5o5.fn.thelarkcloud.com/createRoom")
@@ -91,28 +95,24 @@ const actions = () => ({
   },
 
   initRoom: (
-    { commit, state },
-    wolfNum,
-    villagerNum,
-    deitiesList,
-    killSideOrAll
+    context,payload
   ) => {
     axios
       .post("https://afe5o5.fn.thelarkcloud.com/iniRoom", {
-        roomID: state.roomID,
-        wolfNum: wolfNum,
-        villagerNum: villagerNum,
-        deitiesList: deitiesList,
-        killSideOrAll: killSideOrAll,
-        playerNum: state.wolfNum + state.villagerNum + state.deitiesList.length,
+        roomID: payload.roomID,
+        wolfNum: payload.wolfNum,
+        villagerNum: payload.villagerNum,
+        deitiesList: payload.deitiesList,
+        killSideOrAll: payload.killSideOrAll,
+        playerNum: payload.wolfNum + payload.villagerNum + payload.deitiesList.length,
       })
       .then(function(response) {
         console.log(response);
-        commit("initRoom", {
-          wolfNum: wolfNum,
-          villagerNum: villagerNum,
-          deitiesList: deitiesList,
-          killSideOrAll: killSideOrAll,
+        context.commit("initRoom", {
+          wolfNum: payload.wolfNum,
+          villagerNum: payload.villagerNum,
+          deitiesList: payload.deitiesList,
+          killSideOrAll: payload.killSideOrAll,
         });
         return true;
       })
@@ -157,7 +157,7 @@ const actions = () => ({
         console.log(error);
       });
   },
-});
+};
 
 export default {
   namespaced: true,
