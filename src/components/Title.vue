@@ -1,8 +1,10 @@
 <template>
-  <h3><slot></slot></h3>
+  <h3>
+    <slot></slot>
+  </h3>
 </template>
 <script>
 export default {
-  name: "Title",
+  name: "Title"
 };
 </script>
