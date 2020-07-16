@@ -18,3 +18,4 @@ export const CHECK_EVENTS = 'CHECK_EVENTS'
 
 export const WOLF_WIN = 'WOLF_WIN'
 export const KIND_WIN = 'KIND_WIN'
+export const UPDATE_RANKINGS = 'UPDATE_RANKINGS'

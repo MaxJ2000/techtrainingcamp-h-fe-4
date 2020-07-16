@@ -18,6 +18,7 @@ import {
 //    second array: if night , 0 - wolf , 1 - prophet , 2 - witch , 3 - guard
 //                 if day, 0 - last night situation , 1 - first person speak , 2 - second person speak ......
 // waitingState: {killedByKnife: 0, killedByPoison: 0, savedByCured: 0}
+// hunterShoot: NOTE that players don't need this info
 const state = () => ({
   playerInf: [],
   // isMyTurn: false,
@@ -30,32 +31,11 @@ const state = () => ({
 })
 
 // getters
+// getNightNum: can be adjusted by deities. now consider: wolf, prophet, witch, guard, hunter
+// canHunterShoot: only if hunter is killed by wolf can he shoot
+// canHeDie: deal with the waitingState every night-day change
+// endGame: system's auto judging if the game ends
 const getters = () => ({
-  
-  // getPlayerByKey: (state) => (key) => {
-  //   return state.playerInf[key]
-  // },
-
-  // getPlayerByIdentity: (state) => (identity) => {
-  //   newArray = [];
-  //   j = 0;
-  //   for(let x in state.playerInf){
-  //     if(x.identity == identity){
-  //      newArray[j++] = x;
-  //     }
-  //   }
-  //   return newArray;
-  // },
-
-  // getAliveNumer: (state) => {
-  //   var count = 0;
-  //   for(var i = 0; i < state.playerInf.length; ++i){
-  //     if(playerInf[i].isDead)
-  //         count++;
-  // }
-  //   return count;
-  // },
-
   getNightNum: (rootState) => { // wolf, prophet, witch, guard, hunter
     var nightNum = 1;
     for (x in rootState.gameInit.deitiesList) {
@@ -119,8 +99,18 @@ const getters = () => ({
   }
 })
 
+
 // mutations
-// createRoom: initialize the game
+// INIT_GAME: initialize the game (all the states)
+// MARK_KNIFE: don't need to explain
+// MARK_POISON: don't need to explain
+// MARK_CURE: don't need to explain
+// SHOOT_OUT: NOTE that shoot and vote don't need to wait, can be exert right away
+// VOTE_OUT: only the MARK mutations add to waitingState
+// UPDATE_STATUS: players get info from database
+// NEXT_STEP: adjust activeState
+// CHECK_EVENTS: deal with situations during steps: people die, hunter shoot and daycount
+// GAME_OVER: only turn isStart to false
 const mutations = () => ({
   [INIT_GAME]: (state, payload) => {
     state.playerInf = payload.playerInf;
@@ -129,6 +119,7 @@ const mutations = () => ({
     state.activeState = payload.activeState;
     state.waitingState = payload.waitingState;
     state.isStart = true;
+    state.hunterShoot = false;
   },  
 
   [MARK_KNIFE]: ({state}, key) => {
@@ -298,9 +289,16 @@ const mutations = () => ({
 })
 
 
-
-
-
+// actions
+// initGame: only infered from gameInit/startGame
+// markKnife: don't need to explain
+// markPoison: don't need to explain
+// markCure: don't need to explain
+// shootOut: NOTE that shoot and vote don't need to wait, can be exert right away
+// voteOut: only the MARK actions add to waitingState 
+// nextStep: adjust activeState, god's control
+// updateStatus: deal with situations during steps: people die, hunter shoot and daycount
+// abortGame: restart the game right away
 const actions = () => ({
   initGame: ({commit}, payload) => {
     commit('INIT_GAME', payload);

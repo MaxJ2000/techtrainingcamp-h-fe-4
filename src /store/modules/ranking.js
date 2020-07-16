@@ -1,5 +1,5 @@
 import {
-  WOLF_WIN, KIND_WIN
+  WOLF_WIN, KIND_WIN, UPDATE_RANKINGS
 } from '../mutation_type'
 
 // initial state
@@ -12,6 +12,9 @@ const state = () => ({
   loseGroup: []
 });
 
+
+// getters
+// sortedList: info to show on the leaderboard, shape: [{ name, winTimes }]
 const getters = () => ({
   sortedList: (state) => {
     return state.rankings.sort(function (a, b) {
@@ -21,6 +24,10 @@ const getters = () => ({
 });
 
 
+// mutations
+// WOLF_WIN: seperate two groups and update winTimes
+// KIND_WIN: seperate two groups and update winTimes
+// UPDATE_RANKINGS: update players' interface with data received from database
 const mutations = () => ({
   [WOLF_WIN]: (state, playerInf) => {
     winGroup = [];
@@ -52,9 +59,21 @@ const mutations = () => ({
     }
     state.winGroup = winGroup;
     state.loseGroup = loseGroup;
+  },
+
+  [UPDATE_RANKINGS]: (state, payload) => {
+    state.winTimes = payload.winTimes;
+    state.winGroup = payload.winGroup;
+    state.loseGroup = payload.loseGroup;
   }
 })
 
+
+// actions
+// seperWinAndLose: system's auto judging to end the game
+// wolfWin: two situation to be infer: one from seperWinAndLose(auto judging), one from god's control 
+// kindWin: same as wolfWin
+// updateRankings: after find isStart is false, launch the action
 const actions = () => ({
   seperWinAndLose: ({commit, dispatch}, payload) => {  // 1 - wolves win, 2 - kind win
     if (payload.flag == 1){
@@ -64,12 +83,36 @@ const actions = () => ({
     }
   },
 
-  wolfWin: ({commit}, playerInf) => {
+  wolfWin: ({commit, state}, playerInf) => {
     commit('WOLF_WIN', playerInf);
+    axios.post('', {      // from gods to database
+      winTimes: state.winTimes,
+      winGroup: state.winGroup,
+      loseGroup: state.loseGroup
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   },
 
   kindWin: ({commit}, playerInf) => {
     commit('KIND_WIN', playerInf);
+  },
+
+  updateRankings: ({commit}) => {
+    axios.get('')   // from database to player
+      .then(function (response) {
+        console.log(response);
+        commit('UPDATE_RANKINGS', response);
+        return true;
+      })
+      .catch(function (error) {
+        console.log(error);
+        return false;
+      });
   }
 })
 
