@@ -5,11 +5,11 @@ import { WOLF_WIN, KIND_WIN, UPDATE_RANKINGS } from "../mutation_type";
 // rankings: [{ name, winTimes }]
 // winGroup: [{name, identity}]
 // loseGroup: [{name, identity}]
-const state = () => ({
+const state = {
   rankings: [],
   winGroup: [],
   loseGroup: [],
-});
+};
 
 // getters
 // sortedList: info to show on the leaderboard, shape: [{ name, winTimes }]
