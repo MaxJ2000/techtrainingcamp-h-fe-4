@@ -1,13 +1,24 @@
 <template>
   <div class="hello">
-    <h3>[首页]</h3>
+    <Title>[首页]</Title>
     <img alt="WolfKill logo" src="../assets/timg.jpg" />
     <div class="row">
       <div>
-        <v-btn depressed large color="primary" class="btn1" to="/home" v-on:click.native="creat">创建房间</v-btn>
+        <v-btn
+          depressed
+          large
+          rounded
+          color="primary"
+          class="btn1"
+          to="/home"
+          v-on:click.native="creat"
+          >创建房间</v-btn
+        >
       </div>
       <div>
-        <v-btn depressed large color="primary" class="btn1 right" to="/about">加入房间</v-btn>
+        <v-btn depressed large color="primary" class="btn1 right" to="/about"
+          >加入房间</v-btn
+        >
       </div>
     </div>
     <div id="rule">
@@ -42,10 +53,12 @@ h3 {
 
 <script>
 import Dialogs from "@/components/Dialogs.vue";
+import Title from "@/components/Title.vue";
 export default {
   name: "HelloWorld",
   components: {
-    Dialogs
+    Dialogs,
+    Title
   },
   methods: {
     creat() {

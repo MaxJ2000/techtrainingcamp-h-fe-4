@@ -13,11 +13,20 @@ export default {
   name: "wait",
   components: {
     Circular,
-    Title,
+    Title
   },
-  data: () => ({
-    rate:0
-  }),
+  // data: () => ({
+  //   rate: 0
+  // }),
+  computed: {
+    rate: function() {
+      return (
+        (this.$store.state.gameInit.currentPlayerNum /
+          this.$store.state.gameInit.playerNum) *
+        100
+      );
+    }
+  }
   // computed: {
   //   progress: {
   //     get(value) {
@@ -30,10 +39,13 @@ export default {
   //     this.$store.dispatch("gameInit/progress");
   //   }
   // }
-    mounted() {
-    setInterval(() => {
-      this.rate = ((this.$store.state.gameInit.currentPlayerNum / this.$store.state.gameInit.playerNum) * 100);
-    }, 1000);
-  }
+  // mounted() {
+  //   setInterval(() => {
+  //     this.rate =
+  //       (this.$store.state.gameInit.currentPlayerNum /
+  //         this.$store.state.gameInit.playerNum) *
+  //       100;
+  //   }, 1000);
+  // }
 };
 </script>

@@ -8,11 +8,24 @@
       </div>
       <div>
         <label for="room">房间号</label>
-        <input type="text" placeholder="请输入房间号" id="room" v-model="roomID" />
+        <input
+          type="text"
+          placeholder="请输入房间号"
+          id="room"
+          v-model="roomID"
+        />
       </div>
     </form>
     <div>
-      <v-btn depressed large color="primary" class="btn1" to="/wait" v-on:click.native="join">提交</v-btn>
+      <v-btn
+        depressed
+        large
+        color="primary"
+        class="btn1"
+        to="/wait"
+        v-on:click.native="join"
+        >提交</v-btn
+      >
     </div>
   </div>
 </template>
