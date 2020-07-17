@@ -26,7 +26,7 @@
           @change="getValueVillage($event)"
         />
       </div>
-      <combobox></combobox>
+      <!-- <combobox></combobox> -->
       <div>
         <label>可选神牌</label>
         <input type="checkbox" value="女巫" @click="change(0)" />女巫
@@ -78,7 +78,7 @@ label {
 <script>
 // @ is an alias to /src
 import Title from "@/components/Title.vue";
-import combobox from "@/components/combobox.vue";
+// import combobox from "@/components/combobox.vue";
 
 export default {
   name: "Home",
@@ -127,7 +127,7 @@ export default {
   },
   components: {
     Title,
-    combobox
+    // combobox
   },
   computed: {
     getRoomId() {

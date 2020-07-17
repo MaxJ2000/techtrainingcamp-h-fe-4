@@ -2,6 +2,7 @@ export const CREATE_ROOM = 'CREATE_ROOM'
 export const INIT_ROOM = 'INIT_ROOM'
 export const JOIN_ROOM = 'JOIN_ROOM'
 export const START_GAME = 'START_GAME'
+export const UPDATE_CURR_NUM = 'UPDATE_CURR_NUM'
 
 
 export const INIT_GAME = 'INIT_GAME'

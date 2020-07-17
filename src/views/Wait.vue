@@ -15,9 +15,16 @@ export default {
     Circular,
     Title
   },
-  // data: () => ({
-  //   rate: 0
-  // }),
+  // created() {
+  //   this.getCurrentNum();
+  //   this.timer = setInterval(this.getCurrentNum, 3000)
+  // },
+  
+  data() {
+    return {
+      timer: "",
+    };
+  },
   computed: {
     rate: function() {
       return (
@@ -26,7 +33,21 @@ export default {
         100
       );
     }
-  }
+  },
+  methods: {
+    update() {
+      this.$store.dispatch("gameInit/updateCurrNum", {
+        roomID: this.$store.state.gameInit.roomID
+      });
+      
+    },
+  },
+  mounted() {
+    this.timer = setInterval(this.update, 3000);
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);
+  },
   // computed: {
   //   progress: {
   //     get(value) {

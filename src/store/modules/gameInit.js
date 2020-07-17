@@ -2,7 +2,8 @@ import axios from "axios";
 import {
   CREATE_ROOM,
   INIT_ROOM,
-  JOIN_ROOM
+  JOIN_ROOM,
+  UPDATE_CURR_NUM
   // START_GAME,
 } from "../mutation_type";
 
@@ -60,7 +61,7 @@ const mutations = {
     state.villagerNum = villagerNum;
     state.deitiesList = deitiesList;
     state.playerNum =
-      state.wolfNum + state.villagerNum + state.deitiesList.length;
+    state.wolfNum + state.villagerNum + state.deitiesList.length;
     state.killSideOrAll = killSideOrAll;
   },
 
@@ -73,6 +74,11 @@ const mutations = {
   },
   getValueVillage: (state, value) => {
     state.villagerNum = value;
+  },
+
+  [UPDATE_CURR_NUM]: (state, { currentPlayerNum }) => {
+    state.currentPlayerNum = currentPlayerNum;
+    console.log("I am here!");
   }
 };
 
@@ -168,6 +174,23 @@ const actions = {
       console.log((state.currentPlayerNum / state.playerNum) * 100);
       return (state.currentPlayerNum / state.playerNum) * 100;
     }, 100);
+  },
+
+  updateCurrNum:({context}, payload) => {
+    console.log("roomID", payload),
+    axios
+      .post("https://afe5o5.fn.thelarkcloud.com/joinRoom", {
+        roomID: payload.roomID
+      })
+      .then(function(response) {
+        console.log(response.data.roomState.currentPlayerNum);
+        context.commit("UPDATE_CURR_NUM", {currentPlayerNum: response.data.roomState.currentPlayerNum});
+        return true;
+      })
+      .catch(function(error) {
+        console.log(error);
+        return false;
+      });
   }
 };
 
