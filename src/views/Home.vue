@@ -2,6 +2,7 @@
   <div class="home">
     <Title>[创建房间]</Title>
     <div>{{ getRoomId }}</div>
+    <div :title="godList"></div>
     <form>
       <div>
         <label for="name">昵称</label>
@@ -50,16 +51,35 @@ import Title from "@/components/Title.vue";
 
 export default {
   name: "Home",
+  data: function() {
+return {
+    godList:[0,0,0]
+  };
+},
   methods: {
     change(num) {
-      this.$store.state.gameInit.deitiesList[num] =
-        1 - this.$store.state.gameInit.deitiesList[num];
+      this.godList[num] = 1 - this.godList[num];
     },
     radiochange() {
       this.$store.state.gameInit.killSideOrAll = !this.$store.state.gameInit
         .killSideOrAll;
     },
     init() {
+      // eslint-disable-next-line no-undef
+      for (let i = 0; i < godList.length; i++) {
+        // eslint-disable-next-line no-undef
+        if (godList[0] === 1) {
+          this.$store.state.gameInit.deitiesList.push("女巫");
+        }
+        // eslint-disable-next-line no-undef
+        if (godList[1] === 1) {
+          this.$store.state.gameInit.deitiesList.push("猎人");
+        }
+        if (godList[2] === 1) {
+          this.$store.state.gameInit.deitiesList.push("预言家");
+        }
+      }
+      console.log(typeof godList);
       this.$store.dispatch("gameInit/initRoom", {
         roomID: this.$store.state.gameInit.roomID,
         wolfNum: this.$store.state.gameInit.wolfNum,
@@ -81,7 +101,7 @@ export default {
   },
   computed: {
     getRoomId() {
-      console.log(this.$store.state.gameInit.roomID)
+      console.log(this.$store.state.gameInit.roomID);
       return this.$store.state.gameInit.roomID;
     }
   }
