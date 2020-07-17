@@ -99,6 +99,7 @@ const actions = {
   initRoom: (
     context, payload
   ) => {
+    console.log(payload);
     axios
       .post("https://afe5o5.fn.thelarkcloud.com/iniRoom", {
         roomID: payload.roomID,
@@ -106,13 +107,13 @@ const actions = {
         villagerNum: payload.villagerNum,
         deitiesList: payload.deitiesList,
         killSideOrAll: payload.killSideOrAll,
-        playerNum: payload.wolfNum + payload.villagerNum + payload.deitiesList.length,
+        playerNum: parseInt(payload.wolfNum) + parseInt(payload.villagerNum) + parseInt(payload.deitiesList.length),
       })
       .then(function (response) {
         console.log(response);
-        context.commit("initRoom", {
-          wolfNum: payload.wolfNum,
-          villagerNum: payload.villagerNum,
+        context.commit("INIT_ROOM", {
+          wolfNum: parseInt(payload.wolfNum),
+          villagerNum: parseInt(payload.villagerNum),
           deitiesList: payload.deitiesList,
           killSideOrAll: payload.killSideOrAll,
         });
@@ -133,8 +134,8 @@ const actions = {
         })
         .then(function (response) {
           context.commit("JOIN_ROOM", {
-            roomID: response.roomState.roomID,
-            currentPlayerNum: response.roomState.currentPlayerNum,
+            roomID: response.data.roomState.roomID,
+            currentPlayerNum: response.data.roomState.currentPlayerNum,
           });
           console.log(response);
           return true;
@@ -160,6 +161,13 @@ const actions = {
         console.log(error);
       });
   },
+  progress() {
+    setInterval(() => {
+      console.log(state.playerNum);
+      console.log((state.currentPlayerNum / state.playerNum) * 100);
+      return (state.currentPlayerNum / state.playerNum) * 100;
+    }, 100);
+  }
 };
 
 export default {

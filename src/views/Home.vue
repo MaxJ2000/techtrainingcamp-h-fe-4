@@ -81,6 +81,7 @@ export default {
   },
   computed: {
     getRoomId() {
+      console.log(this.$store.state.gameInit.roomID)
       return this.$store.state.gameInit.roomID;
     }
   }
