@@ -43,8 +43,8 @@ const state = {
 // canHunterShoot: only if hunter is killed by wolf can he shoot
 // canHeDie: deal with the waitingState every night-day change
 // endGame: system's auto judging if the game ends
-const getters = () => ({
-  getNightNum: (rootState) => {
+const getters = {
+  getNightNum: (state, getters, rootState) => {
     // wolf, prophet, witch, guard, hunter
     var nightNum = 1;
     let x;
@@ -110,7 +110,7 @@ const getters = () => ({
 
     return 0;
   },
-});
+};
 
 // mutations
 // INIT_GAME: initialize the game (all the states)
@@ -134,8 +134,10 @@ const mutations = {
     state.hunterShoot = false;
   },
 
-  [MARK_KNIFE]: ({ state }, key) => {
-    if (!state.playerInf[key].isDead) {
+  [MARK_KNIFE]: (state, key) => {
+    console.log(state);
+    console.log(key);
+    if (state.playerInf[key].isAlive) {
       state.waitingState.killedByKnife = key;
       return true;
     } else {
@@ -144,7 +146,7 @@ const mutations = {
   },
 
   [MARK_POISON]: (state, key) => {
-    if (!state.playerInf[key].isDead) {
+    if (state.playerInf[key].isAlive) {
       state.waitingState.killedByPoison = key;
       return true;
     } else {
@@ -153,7 +155,7 @@ const mutations = {
   },
 
   [MARK_CURE]: (state, key) => {
-    if (!state.playerInf[key].isDead) {
+    if (state.playerInf[key].isAlive) {
       state.waitingState.savedByCured = key;
       return true;
     } else {
@@ -162,7 +164,7 @@ const mutations = {
   },
 
   [SHOOT_OUT]: (state, key) => {
-    if (!state.playerInf[key].isDead) {
+    if (state.playerInf[key].isAlive) {
       let deadPlayer = state.playerInf[key];
       deadPlayer.isDead = 4; // killed by vote
       if (deadPlayer.identity == "villager") {
@@ -183,7 +185,7 @@ const mutations = {
   // voted people died
   // must vote one every day
   [VOTE_OUT]: (state, key) => {
-    if (!state.playerInf[key].isDead) {
+    if (state.playerInf[key].isAlive) {
       let deadPlayer = state.playerInf[key];
       deadPlayer.isDead = 2; // killed by vote
       if (deadPlayer.identity == "villager") {
@@ -255,7 +257,7 @@ const mutations = {
     }
   },
 
-  [CHECK_EVENTS]: ({ state, getters }) => {
+  [CHECK_EVENTS]: (state, getters) => {
     var nightNum = getters.getNightNum;
     if (state.activeState[0] == 0 && state.activeState[1] + 1 == nightNum) {
       // from night to day
@@ -319,6 +321,7 @@ const mutations = {
 // abortGame: restart the game right away
 const actions = {
   initGame: (context, payload) => {
+    console.log(payload);
     context.commit("INIT_GAME", payload);
   },
 
@@ -342,16 +345,18 @@ const actions = {
     context.commit("VOTE_OUT", key);
   },
 
-  nextStep: ({ commit, state, getters, dispatch }) => {
-    commit("NEXT_STEP");
-    commit("CHECK_EVENTS");
+  nextStep: ({ commit, state, getters, dispatch, rootState }) => {
+    commit("NEXT_STEP", getters);
+    commit("CHECK_EVENTS", getters);
     axios
-      .post("", {
+      .post("https://afe5o5.fn.thelarkcloud.com/changeState", {
         playerInf: state.playerInf,
         isStart: state.isStart,
         dayCount: state.dayCount,
         activeState: state.activeState,
         waitingState: state.waitingState,
+        roomID: rootState.gameInit.roomID,
+        restNum: state.restNum,
       })
       .then(function(response) {
         console.log(response);

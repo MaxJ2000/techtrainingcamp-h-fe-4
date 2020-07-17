@@ -1,13 +1,19 @@
 <template>
   <v-container class="grey lighten-5">
     <v-row class="mb-0" no-gutters v-for="(oneStatus, i) in eachStatus" :key="i">
-      <v-col v-for="(inf, j) in oneStatus" :key="inf" :cols="j === 0 ? 6 : 2">
+      <v-col v-for="(inf, j) in oneStatus" :key="inf+isChecked[i]" :cols="j === 0 ? 6 : 2">
         <v-card
+          v-if="j===1"
           :class="['pa-2']"
-          :color="j > 0 && isChecked[i][j - 1] ? 'red' : ''"
+          :color=" isChecked[i] ? 'red' : ''"
           outlined
           tile
+          @click="
+          ()=>{
+            change(i);
+            reload();}"
         >{{ inf }}</v-card>
+        <v-card v-else :class="['pa-2']" outlined tile>{{ inf }}</v-card>
       </v-col>
     </v-row>
   </v-container>
@@ -18,8 +24,14 @@ export default {
   name: "List",
   props: {
     eachStatus: Array,
-    isChecked: Array
+    isChecked: Array,
+    change: Function
   },
-  data: () => ({})
+  data: () => ({}),
+  methods: {
+    reload() {
+      this.$forceUpdate();
+    }
+  }
 };
 </script>

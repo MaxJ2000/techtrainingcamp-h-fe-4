@@ -10,7 +10,6 @@
       color="primary"
       class="btn1"
       to="/status"
-      @click="gameStart()"
       v-if="(this.$store.state.gameInit.currentPlayerNum === this.$store.state.gameInit.playerNum) && this.$store.state.gameInit.name === '_God'"
     >开始游戏</v-btn>
   </div>
@@ -52,16 +51,20 @@ export default {
         roomID: this.$store.state.gameInit.roomID
       });
     }
+    // allJoin() {
+    //   this.$store.dispatch("gameStatus/updateStatus", {
+    //     roomID: this.$store.state.gameInit.roomID,
+    //     name: this.$store.state.gameInit.name
+    //   });
+    // }
   },
   mounted() {
     this.timer = setInterval(this.update, 3000);
   },
   beforeDestroy() {
     clearInterval(this.timer);
-  },
-  gameStart() {
-    this.$store.dispatch("gameInit/startGame");
   }
+
   // computed: {
   //   progress: {
   //     get(value) {

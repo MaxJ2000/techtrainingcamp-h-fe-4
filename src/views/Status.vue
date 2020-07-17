@@ -2,7 +2,7 @@
   <div class="d-flex flex-column align-center">
     <Title>[夜晚：狼人行动]</Title>
     <List :eachStatus="printStatus" :isChecked="isChecked" :change="change" />
-    <Button @click="nextStep" msg="下一步"></Button>
+    <Button v-on:click.native="nextStep" msg="下一步"></Button>
   </div>
 </template>
 
@@ -23,15 +23,15 @@ export default {
   }),
   computed: {
     activeState: function() {
-      // return this.$store.state.gameStatus.activeState;
-      return [0, 0];
+      return this.$store.state.gameStatus.activeState;
+      // return [0, 0];
     },
     personalInf: function() {
-      return [
-        { name: "asdf", identity: "dasf" },
-        { name: "fads ", identity: "asdflsa" }
-      ];
-      // return this.$store.state.gameStatus.playerInf;
+      // return [
+      //   { name: "asdf", identity: "dasf" },
+      //   { name: "fads ", identity: "asdflsa" }
+      // ];
+      return this.$store.state.gameStatus.playerInf;
     },
     printStatus: function() {
       let status = [];
@@ -58,6 +58,9 @@ export default {
     }
   },
   methods: {
+    reload() {
+      this.$forceUpdate();
+    },
     change(num) {
       this.isChecked[num] = 1 - this.isChecked[num];
     },
@@ -69,13 +72,27 @@ export default {
       }
     },
     nextStep() {
-      if (this.activeState[0] === 0) {
-        if (this.activeState[1] === 1) {
-          this.$store.dispatch("gameStatus/markKnife", this.checkedKey());
+      const key = this.checkedKey();
+      console.log(key);
+      if (key) {
+        if (this.activeState[0] === 0) {
+          if (this.activeState[1] === 0) {
+            this.$store.dispatch("gameStatus/markKnife", key);
+          } else if (this.activeState[1] === 1) {
+            1;
+          } else if (this.activeState[1] === 2) {
+            this.$store.dispatch("gameStatus/markPoison", key);
+          } else if (this.activeState[1] === 3) {
+            this.$store.dispatch("gameStatus/markCure", key);
+          }
         }
       }
       this.$store.dispatch("gameStatus/nextStep");
+      this.reload();
     }
+  },
+  mounted: function() {
+    this.$store.dispatch("gameInit/startGame");
   }
 };
 </script>

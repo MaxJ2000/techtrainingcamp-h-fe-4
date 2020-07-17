@@ -161,14 +161,15 @@ const actions = {
 
   startGame: ({ dispatch, state }) => {
     // player's key starts from 0
-
     axios
       .post("https://afe5o5.fn.thelarkcloud.com/startGame", {
         roomID: state.roomID,
       })
       .then(function(response) {
-        dispatch("gameStatus/initGame", response.gameStatus, { root: true }); // need to be completed after assign an action in gameStatus
         console.log(response);
+        dispatch("gameStatus/initGame", response.data.gameState, {
+          root: true,
+        }); // need to be completed after assign an action in gameStatus
       })
       .catch(function(error) {
         console.log(error);
