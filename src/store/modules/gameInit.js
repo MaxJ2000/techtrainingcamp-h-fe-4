@@ -21,7 +21,7 @@ const state = {
   isGod: false,
   wolfNum: 0,
   villagerNum: 0,
-  deitiesList: [0, 0, 0],
+  deitiesList: [],
   playerNum: 0,
   currentPlayerNum: 0,
   killSideOrAll: true,

@@ -65,21 +65,19 @@ return {
         .killSideOrAll;
     },
     init() {
-      // eslint-disable-next-line no-undef
-      for (let i = 0; i < godList.length; i++) {
-        // eslint-disable-next-line no-undef
-        if (godList[0] === 1) {
-          this.$store.state.gameInit.deitiesList.push("女巫");
-        }
-        // eslint-disable-next-line no-undef
-        if (godList[1] === 1) {
-          this.$store.state.gameInit.deitiesList.push("猎人");
-        }
-        if (godList[2] === 1) {
-          this.$store.state.gameInit.deitiesList.push("预言家");
+      for (let i = 0; i < this.godList.length; i++) {
+        if (this.godList[i] === 1) {
+          if(i === 0){
+            this.$store.state.gameInit.deitiesList.push("女巫");
+          }
+          if(i === 1){
+            this.$store.state.gameInit.deitiesList.push("猎人");
+          }
+          if(i === 2){
+            this.$store.state.gameInit.deitiesList.push("预言家");
+          }
         }
       }
-      console.log(typeof godList);
       this.$store.dispatch("gameInit/initRoom", {
         roomID: this.$store.state.gameInit.roomID,
         wolfNum: this.$store.state.gameInit.wolfNum,
