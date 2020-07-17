@@ -64,16 +64,17 @@ const mutations = {
     state.killSideOrAll = killSideOrAll;
   },
 
-  [JOIN_ROOM]: (state, { roomID, currentPlayerNum }) => {
+  [JOIN_ROOM]: (state, { roomID, currentPlayerNum, playerNum }) => {
     state.roomID = roomID;
     state.currentPlayerNum = currentPlayerNum;
+    state.playerNum = playerNum;
   },
   getValueWolf: (state, value) => {
     state.wolfNum = value;
   },
   getValueVillage: (state, value) => {
     state.villagerNum = value;
-  }
+  },
 };
 
 // actions
@@ -82,23 +83,21 @@ const mutations = {
 // joinRoom: player joining
 // startGame: after assign everything, and restart also from here
 const actions = {
-  createRoom: context => {
+  createRoom: (context) => {
     axios
       .get("https://afe5o5.fn.thelarkcloud.com/createRoom")
-      .then(function (response) {
+      .then(function(response) {
         console.log(response);
         context.commit("CREATE_ROOM", response.data.roomID);
         return true;
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log(error);
         return false;
       });
   },
 
-  initRoom: (
-    context, payload
-  ) => {
+  initRoom: (context, payload) => {
     console.log(payload);
     axios
       .post("https://afe5o5.fn.thelarkcloud.com/iniRoom", {
@@ -107,9 +106,12 @@ const actions = {
         villagerNum: payload.villagerNum,
         deitiesList: payload.deitiesList,
         killSideOrAll: payload.killSideOrAll,
-        playerNum: parseInt(payload.wolfNum) + parseInt(payload.villagerNum) + parseInt(payload.deitiesList.length),
+        playerNum:
+          parseInt(payload.wolfNum) +
+          parseInt(payload.villagerNum) +
+          parseInt(payload.deitiesList.length),
       })
-      .then(function (response) {
+      .then(function(response) {
         console.log(response);
         context.commit("INIT_ROOM", {
           wolfNum: parseInt(payload.wolfNum),
@@ -119,7 +121,7 @@ const actions = {
         });
         return true;
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log(error);
         return false;
       });
@@ -132,15 +134,16 @@ const actions = {
           roomID: payload.roomID,
           name: payload.name,
         })
-        .then(function (response) {
+        .then(function(response) {
           context.commit("JOIN_ROOM", {
             roomID: response.data.roomState.roomID,
             currentPlayerNum: response.data.roomState.currentPlayerNum,
+            playerNum: response.data.roomState.playerNum,
           });
-          console.log(response);
+          console.log(response.data.roomState.currentPlayerNum);
           return true;
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log(error);
           return false;
         });
@@ -153,21 +156,14 @@ const actions = {
       .post("https://afe5o5.fn.thelarkcloud.com/startGame", {
         roomID: state.roomID,
       })
-      .then(function (response) {
+      .then(function(response) {
         dispatch("gameStatus/initGame", response.gameStatus, { root: true }); // need to be completed after assign an action in gameStatus
         console.log(response);
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log(error);
       });
   },
-  progress() {
-    setInterval(() => {
-      console.log(state.playerNum);
-      console.log((state.currentPlayerNum / state.playerNum) * 100);
-      return (state.currentPlayerNum / state.playerNum) * 100;
-    }, 100);
-  }
 };
 
 export default {

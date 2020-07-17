@@ -16,23 +16,46 @@ export default {
   components: {
     Title,
     List,
-    Button,
+    Button
   },
   data: () => ({
-    eachStatus: [
-      ["aaa是女巫", "被刀", "猎杀"],
-      ["aaa是狼人", "被刀", "猎杀", "毒杀"],
-      ["aaa是狼人", "被刀", "猎杀", "毒杀"],
-      ["bbb是村民", "被刀", "猎杀", "毒杀"],
-      ["ccc是村民", "被刀", "猎杀", "毒杀"],
-    ],
     isChecked: [
       [0, 0, 1],
       [0, 0, 1],
       [0, 0, 0],
       [1, 1, 1],
-      [0, 1, 0],
-    ],
+      [0, 1, 0]
+    ]
   }),
+  computed: {
+    activeState: () => {
+      return this.$store.state.gameStatus.activeState;
+    },
+    personalInf: () => {
+      return this.$store.state.gameStatus.playerInf;
+    },
+    printStatus: () => {
+      let status = [];
+      if (this.activeState[0] === 0) {
+        for (let i in this.personalInf) {
+          let tmp = [];
+          tmp.push(i.name + "是" + i.identify);
+          if (this.activeState[0][0] === 0) {
+            tmp.push("狼刀");
+          } else if (this.activeState[0][0] === 1) {
+            continue;
+          } else if (this.activeState[0][0] === 2) {
+            tmp.push("解药");
+          } else if (this.activeState[0][0] === 3) {
+            tmp.push("毒药");
+          } else if (this.activeState[0][0] === 4) {
+            tmp.push("猎人");
+          }
+          status.push(tmp);
+        }
+      }
+      return status;
+    }
+  }
 };
 </script>
