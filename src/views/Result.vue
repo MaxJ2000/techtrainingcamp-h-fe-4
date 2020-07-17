@@ -1,24 +1,13 @@
 <template>
   <div class="result">
-    <Title>[游戏结果页]</Title>
+    <!-- <Title>[游戏结果页]</Title> -->
+    <Header>[游戏结果页]</Header>
     <h4>当前局赢家:</h4>
-    <div class="three" v-for="(item, index) in winner" v-bind:key="index">
-      {{ item }}
-    </div>
+    <div class="three" v-for="(item, index) in winner" v-bind:key="index">{{ item }}</div>
     <h4>其余玩家:</h4>
-    <div class="three" v-for="(item, index) in loser" v-bind:key="index">
-      {{ item }}
-    </div>
+    <div class="three" v-for="(item, index) in loser" v-bind:key="index">{{ item }}</div>
     <v-row justify="center">
-      <v-btn
-        color="primary"
-        dark
-        @click.stop="dialog = true"
-        absolute
-        bottom
-        right
-        >排行榜</v-btn
-      >
+      <v-btn color="primary" dark @click.stop="dialog = true" absolute right>排行榜</v-btn>
 
       <v-dialog v-model="dialog" max-width="290">
         <v-card>
@@ -27,17 +16,13 @@
           </v-card-title>
 
           <v-card-text>
-            <div v-for="(item, index) in rank" v-bind:key="index">
-              {{ item }}
-            </div>
+            <div v-for="(item, index) in rank" v-bind:key="index">{{ item }}</div>
           </v-card-text>
 
           <v-card-actions>
             <v-spacer></v-spacer>
 
-            <v-btn color="green darken-1" text @click="dialog = false"
-              >关闭</v-btn
-            >
+            <v-btn color="green darken-1" text @click="dialog = false">关闭</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -57,7 +42,8 @@ h4 {
 </style>
 
 <script>
-import Title from "@/components/Title.vue";
+// import Title from "@/components/Title.vue";
+import Header from "@/components/Header.vue";
 export default {
   data() {
     return {
@@ -75,7 +61,8 @@ export default {
     };
   },
   components: {
-    Title
+    // Title,
+    Header
   }
 };
 </script>

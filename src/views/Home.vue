@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <Title>[创建房间]</Title>
+    <!-- <Title>[创建房间]</Title> -->
+    <Header>[创建房间]</Header>
     <div>{{ getRoomId }}</div>
     <div :title="godList"></div>
     <form>
@@ -26,7 +27,6 @@
           @change="getValueVillage($event)"
         />
       </div>
-      <combobox></combobox>
       <div>
         <label>可选神牌</label>
         <input type="checkbox" value="女巫" @click="change(0)" />女巫
@@ -77,8 +77,9 @@ label {
 
 <script>
 // @ is an alias to /src
-import Title from "@/components/Title.vue";
-import combobox from "@/components/combobox.vue";
+// import Title from "@/components/Title.vue";
+// import combobox from "@/components/combobox.vue";
+import Header from "@/components/Header.vue";
 
 export default {
   name: "Home",
@@ -126,8 +127,9 @@ export default {
     }
   },
   components: {
-    Title,
-    combobox
+    // Title,
+    // combobox,
+    Header
   },
   computed: {
     getRoomId() {

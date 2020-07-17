@@ -1,6 +1,7 @@
 <template>
   <div class="player">
-    <Title>[角色展示页]</Title>
+    <!-- <Title>[角色展示页]</Title> -->
+    <Header>[角色展示页]</Header>
     <div class="two">
       <div>当前阶段：<span>发言阶段/投票阶段</span></div>
       <div>当前状态：<span>游戏中/已死</span></div>
@@ -58,7 +59,8 @@
 </style>
 
 <script>
-import Title from "@/components/Title.vue";
+// import Title from "@/components/Title.vue";
+import Header from "@/components/Header.vue";
 
 export default {
   data() {
@@ -66,6 +68,8 @@ export default {
       dialog: false,
     };
   },
-  components: { Title },
+  components: { 
+    // Title,
+    Header },
 };
 </script>

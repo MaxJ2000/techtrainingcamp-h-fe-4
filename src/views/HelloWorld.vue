@@ -1,9 +1,10 @@
 <template>
   <div class="hello">
-    <Title>[首页]</Title>
+    <!-- <Title>[首页]</Title> -->
+    <Header>[首页]</Header>
     <img alt="WolfKill logo" src="../assets/timg.jpg" />
     <div class="row">
-      <div>
+      <div class="mb">
         <v-btn
           depressed
           large
@@ -16,7 +17,7 @@
         >
       </div>
       <div>
-        <v-btn depressed large color="primary" class="btn1 right" to="/about"
+        <v-btn depressed large rounded color="primary" class="btn1 right" to="/about"
           >加入房间</v-btn
         >
       </div>
@@ -44,21 +45,26 @@ h3 {
 }
 #rule {
   position: absolute !important;
-  bottom: 20px !important;
-  right: 20px !important;
+  bottom: 120px !important;
+  right: 120px !important;
   width: 125px !important;
   height: 40px !important;
+}
+.mb {
+  margin-bottom: 200px;
 }
 </style>
 
 <script>
 import Dialogs from "@/components/Dialogs.vue";
-import Title from "@/components/Title.vue";
+// import Title from "@/components/Title.vue";
+import Header from "@/components/Header.vue";
 export default {
   name: "HelloWorld",
   components: {
     Dialogs,
-    Title
+    // Title,
+    Header
   },
   methods: {
     creat() {

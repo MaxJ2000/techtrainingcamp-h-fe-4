@@ -1,6 +1,7 @@
 <template>
   <div class="d-flex flex-column align-center">
-    <Title>[夜晚：狼人行动]</Title>
+    <!-- <Title>[夜晚：狼人行动]</Title> -->
+    <Header>[夜晚：狼人行动]</Header>
     <List :eachStatus="eachStatus" :isChecked="isChecked" />
     <Button msg="创建"></Button>
   </div>
@@ -8,15 +9,17 @@
 
 <script>
 // @ is an alias to /src
-import Title from "@/components/Title.vue";
+// import Title from "@/components/Title.vue";
 import List from "@/components/List.vue";
 import Button from "@/components/Button.vue";
+import Header from "@/components/Header.vue";
 export default {
   name: "Status",
   components: {
-    Title,
+    // Title,
     List,
     Button,
+    Header
   },
   data: () => ({
     eachStatus: [

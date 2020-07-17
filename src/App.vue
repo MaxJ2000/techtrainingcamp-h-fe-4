@@ -11,7 +11,7 @@
         <router-link to="/result">游戏结果</router-link>
       </div>
       <router-view />
-      <!-- <HelloWorld /> -->
+      <Footer />
     </div>
   </v-app>
 </template>
@@ -24,7 +24,7 @@
   color: #2c3e50;
 }
 #nav {
-  padding: 30px;
+  margin-top: 50px;
 }
 #nav a {
   font-weight: bold;
@@ -37,14 +37,15 @@
 
 <script>
 // import HelloWorld from "@/components/HelloWorld.vue";
+import Footer from "@/components/Footer.vue";
 export default {
   name: "App",
 
   data: () => ({
     //
-  })
-  // components: {
-  //   HelloWorld
-  // }
+  }),
+  components: {
+    Footer,
+  }
 };
 </script>

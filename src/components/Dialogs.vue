@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center">
-    <v-btn color="primary" dark @click.stop="dialog = true">游戏规则说明</v-btn>
+    <v-btn color="primary" dark @click.stop="dialog = true" class="btn1">游戏规则说明</v-btn>
 
     <v-dialog v-model="dialog" max-width="490">
       <v-card>
@@ -42,6 +42,9 @@ div.row.justify-center {
   margin: 0;
   width: 125px;
   height: 40px;
+}
+.btn1 {
+  margin-bottom: 100px;
 }
 </style>
 <script>

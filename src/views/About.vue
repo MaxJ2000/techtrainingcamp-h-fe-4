@@ -1,6 +1,7 @@
 <template>
   <div class="about">
-    <Title>[加入房间]</Title>
+    <!-- <Title>[加入房间]</Title> -->
+    <Header>[加入房间]</Header>
     <form>
       <div>
         <label for="name">昵称</label>
@@ -42,10 +43,13 @@ label {
 }
 </style>
 <script>
-import Title from "@/components/Title.vue";
+// import Title from "@/components/Title.vue";
+import Header from "@/components/Header.vue";
 
 export default {
-  components: { Title },
+  components: { 
+    // Title,
+    Header },
   data: function() {
     return {
       name,
