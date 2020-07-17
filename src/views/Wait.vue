@@ -10,10 +10,8 @@
       color="primary"
       class="btn1"
       to="/home"
-      v-on:click.native="creat"
-      v-if="this.$store.state.gameInit.currentPlayerNum === this.$store.state.gameInit.playerNum"
-      >开始游戏</v-btn
-    >
+      v-if="(this.$store.state.gameInit.currentPlayerNum === this.$store.state.gameInit.playerNum) && this.$store.state.gameInit.name === '_God'"
+    >开始游戏</v-btn>
   </div>
 </template>
 
@@ -29,6 +27,11 @@ export default {
     // Title,
     Header
   },
+  data() {
+    return {
+      timer: ""
+    };
+  },
   // data: () => ({
   //   rate: 0
   // }),
@@ -40,6 +43,19 @@ export default {
         100
       );
     }
+  },
+  methods: {
+    update() {
+      this.$store.dispatch("gameInit/updateCurrNum", {
+        roomID: this.$store.state.gameInit.roomID
+      });
+    },
+  },
+  mounted() {
+    this.timer = setInterval(this.update, 3000);
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);
   }
   // computed: {
   //   progress: {

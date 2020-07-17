@@ -2,7 +2,8 @@ import axios from "axios";
 import {
   CREATE_ROOM,
   INIT_ROOM,
-  JOIN_ROOM
+  JOIN_ROOM,
+  UPDATE_CURR_NUM
   // START_GAME,
 } from "../mutation_type";
 
@@ -24,7 +25,8 @@ const state = {
   deitiesList: [],
   playerNum: 0,
   currentPlayerNum: 0,
-  killSideOrAll: true
+  killSideOrAll: true,
+  name: ""
 };
 
 // getters
@@ -48,6 +50,7 @@ const mutations = {
   [CREATE_ROOM]: (state, roomID) => {
     state.roomID = roomID;
     state.isGod = true;
+    state.name = "_God";
     console.log(state.roomID);
   },
 
@@ -64,15 +67,22 @@ const mutations = {
     state.killSideOrAll = killSideOrAll;
   },
 
-  [JOIN_ROOM]: (state, { roomID, currentPlayerNum }) => {
+  [JOIN_ROOM]: (state, { roomID, currentPlayerNum, playerNum, name }) => {
     state.roomID = roomID;
     state.currentPlayerNum = currentPlayerNum;
+    state.playerNum = playerNum;
+    state.name = name;
   },
   getValueWolf: (state, value) => {
     state.wolfNum = value;
   },
   getValueVillage: (state, value) => {
     state.villagerNum = value;
+  },
+
+  [UPDATE_CURR_NUM]: (state, { currentPlayerNum }) => {
+    state.currentPlayerNum = currentPlayerNum;
+    console.log("I am here!");
   }
 };
 
@@ -85,12 +95,12 @@ const actions = {
   createRoom: context => {
     axios
       .get("https://afe5o5.fn.thelarkcloud.com/createRoom")
-      .then(function(response) {
+      .then(function (response) {
         console.log(response);
         context.commit("CREATE_ROOM", response.data.roomID);
         return true;
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
         return false;
       });
@@ -110,7 +120,7 @@ const actions = {
           parseInt(payload.villagerNum) +
           parseInt(payload.deitiesList.length)
       })
-      .then(function(response) {
+      .then(function (response) {
         console.log(response);
         context.commit("INIT_ROOM", {
           wolfNum: parseInt(payload.wolfNum),
@@ -120,7 +130,7 @@ const actions = {
         });
         return true;
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
         return false;
       });
@@ -133,15 +143,17 @@ const actions = {
           roomID: payload.roomID,
           name: payload.name
         })
-        .then(function(response) {
+        .then(function (response) {
           context.commit("JOIN_ROOM", {
             roomID: response.data.roomState.roomID,
-            currentPlayerNum: response.data.roomState.currentPlayerNum
+            currentPlayerNum: response.data.roomState.currentPlayerNum,
+            playerNum: response.data.roomState.playerNum,
+            name: payload.name
           });
           console.log(response);
           return true;
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.log(error);
           return false;
         });
@@ -154,20 +166,30 @@ const actions = {
       .post("https://afe5o5.fn.thelarkcloud.com/startGame", {
         roomID: state.roomID
       })
-      .then(function(response) {
+      .then(function (response) {
         dispatch("gameStatus/initGame", response.gameStatus, { root: true }); // need to be completed after assign an action in gameStatus
         console.log(response);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   },
-  progress() {
-    setInterval(() => {
-      console.log(state.playerNum);
-      console.log((state.currentPlayerNum / state.playerNum) * 100);
-      return (state.currentPlayerNum / state.playerNum) * 100;
-    }, 100);
+
+  updateCurrNum: (context, payload) => {
+    console.log("roomID", payload),
+      axios
+        .post("https://afe5o5.fn.thelarkcloud.com/joinRoom", {
+          roomID: payload.roomID
+        })
+        .then(function (response) {
+          console.log(response.data.roomState.currentPlayerNum);
+          context.commit("UPDATE_CURR_NUM", { currentPlayerNum: response.data.roomState.currentPlayerNum });
+          return true;
+        })
+        .catch(function (error) {
+          console.log(error);
+          return false;
+        });
   }
 };
 
