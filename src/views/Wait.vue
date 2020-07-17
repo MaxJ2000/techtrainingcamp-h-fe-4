@@ -10,7 +10,7 @@
       color="primary"
       class="btn1"
       to="/status"
-      @click="gameStart"
+      @click="gameStart()"
       v-if="(this.$store.state.gameInit.currentPlayerNum === this.$store.state.gameInit.playerNum) && this.$store.state.gameInit.name === '_God'"
     >开始游戏</v-btn>
   </div>

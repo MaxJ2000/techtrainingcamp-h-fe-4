@@ -5,15 +5,7 @@
     <img alt="WolfKill logo" src="../assets/timg.jpg" />
     <div class="row">
       <div class="mb">
-        <v-btn
-          depressed
-          large
-          rounded
-          color="primary"
-          class="btn1"
-          to="/home"
-          v-on:click.native="creat"
-        >创建房间</v-btn>
+        <v-btn depressed large rounded color="primary" class="btn1" to="/home">创建房间</v-btn>
       </div>
       <div>
         <v-btn depressed large rounded color="primary" class="btn1 right" to="/about">加入房间</v-btn>

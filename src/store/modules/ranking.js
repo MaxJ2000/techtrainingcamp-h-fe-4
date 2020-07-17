@@ -25,7 +25,7 @@ const getters = () => ({
 // WOLF_WIN: seperate two groups and update winTimes
 // KIND_WIN: seperate two groups and update winTimes
 // UPDATE_RANKINGS: update players' interface with data received from database
-const mutations = () => ({
+const mutations = {
   [WOLF_WIN]: (state, playerInf) => {
     let winGroup = [];
     let loseGroup = [];
@@ -61,14 +61,14 @@ const mutations = () => ({
     state.winGroup = payload.winGroup;
     state.loseGroup = payload.loseGroup;
   },
-});
+};
 
 // actions
 // seperWinAndLose: system's auto judging to end the game
 // wolfWin: two situation to be infer: one from seperWinAndLose(auto judging), one from god's control
 // kindWin: same as wolfWin
 // updateRankings: after find isStart is false, launch the action
-const actions = () => ({
+const actions = {
   seperWinAndLose: ({ dispatch }, payload) => {
     // 1 - wolves win, 2 - kind win
     if (payload.flag == 1) {
@@ -112,7 +112,7 @@ const actions = () => ({
         return false;
       });
   },
-});
+};
 
 export default {
   namespaced: true,

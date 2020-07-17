@@ -27,7 +27,7 @@ import {
 //                 if day, 0 - last night situation , 1 - first person speak , 2 - second person speak ......
 // waitingState: {killedByKnife: 0, killedByPoison: 0, savedByCured: 0}
 // hunterShoot: NOTE that players don't need this info
-const state = () => ({
+const state = {
   playerInf: [],
   // isMyTurn: false,
   restNum: { restWolves: 0, restVillagers: 0, restDeities: 0 },
@@ -36,7 +36,7 @@ const state = () => ({
   waitingState: { killedByKnife: -1, killedByPoison: -1, savedByCured: -1 },
   isStart: false,
   hunterShoot: false,
-});
+};
 
 // getters
 // getNightNum: can be adjusted by deities. now consider: wolf, prophet, witch, guard, hunter
@@ -123,7 +123,7 @@ const getters = () => ({
 // NEXT_STEP: adjust activeState
 // CHECK_EVENTS: deal with situations during steps: people die, hunter shoot and daycount
 // GAME_OVER: only turn isStart to false
-const mutations = () => ({
+const mutations = {
   [INIT_GAME]: (state, payload) => {
     state.playerInf = payload.playerInf;
     state.restNum = payload.restNum;
@@ -203,7 +203,7 @@ const mutations = () => ({
     }
   },
 
-  [UPDATE_STATUS]: (state, {isStart, playerInf, dayCount, activeState}) => {
+  [UPDATE_STATUS]: (state, { isStart, playerInf, dayCount, activeState }) => {
     state.playerInf = playerInf;
     state.isStart = isStart;
     state.dayCount = dayCount;
@@ -305,7 +305,7 @@ const mutations = () => ({
   [GAME_OVER]: (state) => {
     state.isStart = false;
   },
-});
+};
 
 // actions
 // initGame: only infered from gameInit/startGame
@@ -317,7 +317,7 @@ const mutations = () => ({
 // nextStep: adjust activeState, god's control
 // updateStatus: deal with situations during steps: people die, hunter shoot and daycount
 // abortGame: restart the game right away
-const actions = () => ({
+const actions = {
   initGame: (context, payload) => {
     context.commit("INIT_GAME", payload);
   },
@@ -373,14 +373,14 @@ const actions = () => ({
       axios
         .post("https://afe5o5.fn.thelarkcloud.com/getState", {
           roomID: payload.roomID,
-          name: payload.name
+          name: payload.name,
         })
         .then(function(response) {
           context.commit("UPDATE_STATUS", {
             isStart: response.data.gameState.isStart,
             playerInf: response.data.gameState.playerInf,
             dayCount: response.data.gameState.dayCount,
-            activeState: response.data.gameState.activeState
+            activeState: response.data.gameState.activeState,
           });
           console.log(response);
           return true;
@@ -396,7 +396,7 @@ const actions = () => ({
     commit("GAME_OVER");
     dispatch("gameInit/startGame", { root: true });
   },
-});
+};
 
 export default {
   namespaced: true,

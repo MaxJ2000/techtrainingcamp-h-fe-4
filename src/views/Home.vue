@@ -110,6 +110,9 @@ export default {
       console.log(this.$store.state.gameInit.roomID);
       return this.$store.state.gameInit.roomID;
     }
+  },
+  mounted: function() {
+    this.$store.dispatch("gameInit/createRoom");
   }
 };
 </script>
