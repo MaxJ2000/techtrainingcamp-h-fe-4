@@ -11,21 +11,11 @@
       </div>
       <div>
         <label for="wolf">狼人人数</label>
-        <input
-          type="number"
-          placeholder="请输入人数"
-          id="wolf"
-          @change="getValueWolf($event)"
-        />
+        <input type="number" placeholder="请输入人数" id="wolf" @change="getValueWolf($event)" />
       </div>
       <div>
         <label for="village">村民人数</label>
-        <input
-          type="number"
-          placeholder="请输入人数"
-          id="village"
-          @change="getValueVillage($event)"
-        />
+        <input type="number" placeholder="请输入人数" id="village" @change="getValueVillage($event)" />
       </div>
       <div>
         <label>可选神牌</label>
@@ -35,31 +25,12 @@
       </div>
       <div>
         <label>可选模式</label>
-        <input
-          type="radio"
-          value="屠边"
-          name="model"
-          @click="radiochange"
-        />屠边
-        <input
-          type="radio"
-          value="屠城"
-          name="model"
-          checked
-          @click="radiochange"
-        />屠城
+        <input type="radio" value="屠边" name="model" @click="radiochange" />屠边
+        <input type="radio" value="屠城" name="model" checked @click="radiochange" />屠城
       </div>
     </form>
     <div>
-      <v-btn
-        depressed
-        large
-        color="primary"
-        class="btn1"
-        to="/wait"
-        v-on:click.native="init"
-        >提交</v-btn
-      >
+      <v-btn depressed large color="primary" class="btn1" to="/wait" v-on:click.native="init">提交</v-btn>
     </div>
   </div>
 </template>

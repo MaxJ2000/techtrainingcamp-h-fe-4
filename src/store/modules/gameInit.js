@@ -3,7 +3,7 @@ import {
   CREATE_ROOM,
   INIT_ROOM,
   JOIN_ROOM,
-  UPDATE_CURR_NUM
+  UPDATE_CURR_NUM,
   // START_GAME,
 } from "../mutation_type";
 
@@ -26,20 +26,20 @@ const state = {
   playerNum: 0,
   currentPlayerNum: 0,
   killSideOrAll: true,
-  name: ""
+  name: "",
 };
 
 // getters
 // ableToCreate: only when players number larger than 6 can we launch the game
 // ableToStart: check if can start, (this work can also be done in front-end)
 const getters = () => ({
-  ableToCreate: state => {
+  ableToCreate: (state) => {
     return state.wolfNum + state.villagerNum + state.deitiesList.length > 6;
   },
-  ableToStart: state => {
+  ableToStart: (state) => {
     // more to judge
     return state.currentPlayerNum == state.playerNum;
-  }
+  },
 });
 
 // mutations
@@ -83,7 +83,7 @@ const mutations = {
   [UPDATE_CURR_NUM]: (state, { currentPlayerNum }) => {
     state.currentPlayerNum = currentPlayerNum;
     console.log("I am here!");
-  }
+  },
 };
 
 // actions
@@ -92,15 +92,15 @@ const mutations = {
 // joinRoom: player joining
 // startGame: after assign everything, and restart also from here
 const actions = {
-  createRoom: context => {
+  createRoom: (context) => {
     axios
       .get("https://afe5o5.fn.thelarkcloud.com/createRoom")
-      .then(function (response) {
+      .then(function(response) {
         console.log(response);
         context.commit("CREATE_ROOM", response.data.roomID);
         return true;
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log(error);
         return false;
       });
@@ -118,19 +118,19 @@ const actions = {
         playerNum:
           parseInt(payload.wolfNum) +
           parseInt(payload.villagerNum) +
-          parseInt(payload.deitiesList.length)
+          parseInt(payload.deitiesList.length),
       })
-      .then(function (response) {
+      .then(function(response) {
         console.log(response);
         context.commit("INIT_ROOM", {
           wolfNum: parseInt(payload.wolfNum),
           villagerNum: parseInt(payload.villagerNum),
           deitiesList: payload.deitiesList,
-          killSideOrAll: payload.killSideOrAll
+          killSideOrAll: payload.killSideOrAll,
         });
         return true;
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log(error);
         return false;
       });
@@ -141,19 +141,19 @@ const actions = {
       axios
         .post("https://afe5o5.fn.thelarkcloud.com/joinRoom", {
           roomID: payload.roomID,
-          name: payload.name
+          name: payload.name,
         })
-        .then(function (response) {
+        .then(function(response) {
           context.commit("JOIN_ROOM", {
             roomID: response.data.roomState.roomID,
             currentPlayerNum: response.data.roomState.currentPlayerNum,
             playerNum: response.data.roomState.playerNum,
-            name: payload.name
+            name: payload.name,
           });
           console.log(response);
           return true;
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log(error);
           return false;
         });
@@ -164,13 +164,13 @@ const actions = {
 
     axios
       .post("https://afe5o5.fn.thelarkcloud.com/startGame", {
-        roomID: state.roomID
+        roomID: state.roomID,
       })
-      .then(function (response) {
+      .then(function(response) {
         dispatch("gameStatus/initGame", response.gameStatus, { root: true }); // need to be completed after assign an action in gameStatus
         console.log(response);
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log(error);
       });
   },
@@ -179,18 +179,20 @@ const actions = {
     console.log("roomID", payload),
       axios
         .post("https://afe5o5.fn.thelarkcloud.com/joinRoom", {
-          roomID: payload.roomID
+          roomID: payload.roomID,
         })
-        .then(function (response) {
+        .then(function(response) {
           console.log(response.data.roomState.currentPlayerNum);
-          context.commit("UPDATE_CURR_NUM", { currentPlayerNum: response.data.roomState.currentPlayerNum });
+          context.commit("UPDATE_CURR_NUM", {
+            currentPlayerNum: response.data.roomState.currentPlayerNum,
+          });
           return true;
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log(error);
           return false;
         });
-  }
+  },
 };
 
 export default {
@@ -198,5 +200,5 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 };

@@ -36,6 +36,21 @@ export default {
       [1, 1, 1],
       [0, 1, 0],
     ],
+    timer: "",
   }),
+  methods: {
+    update() {
+      this.$store.dispatch("gameStatus/updateStatus", {
+        roomID: this.$store.state.gameInit.roomID,
+        name: this.$store.state.gameInit.name
+      });
+    },
+  },
+  mounted() {
+    this.timer = setInterval(this.update, 3000);
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);
+  },
 };
 </script>

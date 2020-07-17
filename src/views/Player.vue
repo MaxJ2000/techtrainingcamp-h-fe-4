@@ -3,8 +3,14 @@
     <!-- <Title>[角色展示页]</Title> -->
     <Header>[角色展示页]</Header>
     <div class="two">
-      <div>当前阶段：<span>发言阶段/投票阶段</span></div>
-      <div>当前状态：<span>游戏中/已死</span></div>
+      <div>
+        当前阶段：
+        <span>发言阶段/投票阶段</span>
+      </div>
+      <div>
+        当前状态：
+        <span>游戏中/已死</span>
+      </div>
     </div>
     <div class="one">
       <div class="text-center">
@@ -15,31 +21,18 @@
       </div>
     </div>
     <v-row justify="center">
-      <v-btn
-        color="primary"
-        dark
-        @click.stop="dialog = true"
-        absolute
-        bottom
-        right
-      >
-        查看角色
-      </v-btn>
+      <v-btn color="primary" dark @click.stop="dialog = true" absolute bottom right>查看角色</v-btn>
 
       <v-dialog v-model="dialog" max-width="290">
         <v-card>
           <v-card-title class="headline">您当前的角色是</v-card-title>
 
-          <v-card-text>
-            预言家
-          </v-card-text>
+          <v-card-text>预言家</v-card-text>
 
           <v-card-actions>
             <v-spacer></v-spacer>
 
-            <v-btn color="green darken-1" text @click="dialog = false">
-              关闭
-            </v-btn>
+            <v-btn color="green darken-1" text @click="dialog = false">关闭</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -66,10 +59,26 @@ export default {
   data() {
     return {
       dialog: false,
+      timer: ""
     };
   },
-  components: { 
+  components: {
     // Title,
-    Header },
+    Header
+  },
+  methods: {
+    update() {
+      this.$store.dispatch("gameStatus/updateStatus", {
+        roomID: this.$store.state.gameInit.roomID,
+        name: this.$store.state.gameInit.name
+      });
+    }
+  },
+  mounted() {
+    this.timer = setInterval(this.update, 3000);
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);
+  }
 };
 </script>
