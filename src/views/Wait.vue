@@ -39,7 +39,6 @@ export default {
       this.$store.dispatch("gameInit/updateCurrNum", {
         roomID: this.$store.state.gameInit.roomID
       });
-      
     },
   },
   mounted() {

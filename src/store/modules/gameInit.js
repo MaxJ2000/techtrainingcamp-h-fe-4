@@ -25,7 +25,8 @@ const state = {
   deitiesList: [],
   playerNum: 0,
   currentPlayerNum: 0,
-  killSideOrAll: true
+  killSideOrAll: true,
+  name: ""
 };
 
 // getters
@@ -49,6 +50,7 @@ const mutations = {
   [CREATE_ROOM]: (state, roomID) => {
     state.roomID = roomID;
     state.isGod = true;
+    state.name = "_God";
     console.log(state.roomID);
   },
 
@@ -65,9 +67,11 @@ const mutations = {
     state.killSideOrAll = killSideOrAll;
   },
 
-  [JOIN_ROOM]: (state, { roomID, currentPlayerNum }) => {
+  [JOIN_ROOM]: (state, { roomID, currentPlayerNum, playerNum, name }) => {
     state.roomID = roomID;
     state.currentPlayerNum = currentPlayerNum;
+    state.playerNum = playerNum;
+    state.name = name;
   },
   getValueWolf: (state, value) => {
     state.wolfNum = value;
@@ -142,7 +146,9 @@ const actions = {
         .then(function(response) {
           context.commit("JOIN_ROOM", {
             roomID: response.data.roomState.roomID,
-            currentPlayerNum: response.data.roomState.currentPlayerNum
+            currentPlayerNum: response.data.roomState.currentPlayerNum,
+            playerNum: response.data.roomState.playerNum,
+            name: payload.name
           });
           console.log(response);
           return true;
@@ -168,15 +174,8 @@ const actions = {
         console.log(error);
       });
   },
-  progress() {
-    setInterval(() => {
-      console.log(state.playerNum);
-      console.log((state.currentPlayerNum / state.playerNum) * 100);
-      return (state.currentPlayerNum / state.playerNum) * 100;
-    }, 100);
-  },
 
-  updateCurrNum:({context}, payload) => {
+  updateCurrNum:(context, payload) => {
     console.log("roomID", payload),
     axios
       .post("https://afe5o5.fn.thelarkcloud.com/joinRoom", {
@@ -184,7 +183,7 @@ const actions = {
       })
       .then(function(response) {
         console.log(response.data.roomState.currentPlayerNum);
-        context.commit("UPDATE_CURR_NUM", {currentPlayerNum: response.data.roomState.currentPlayerNum});
+        context.commit("UPDATE_CURR_NUM", { currentPlayerNum: response.data.roomState.currentPlayerNum });
         return true;
       })
       .catch(function(error) {

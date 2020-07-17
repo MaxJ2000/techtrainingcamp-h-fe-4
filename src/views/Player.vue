@@ -64,8 +64,25 @@ export default {
   data() {
     return {
       dialog: false,
+      timer: "",
     };
   },
   components: { Title },
+  methods: {
+    update() {
+      this.$store.dispatch("gameStatus/updateStatus", {
+        // roomID: this.$store.state.gameInit.roomID,
+        // name: this.$store.state.gameInit.name
+        roomID: 78987,
+        name: "c"
+      });
+    },
+  },
+  mounted() {
+    this.timer = setInterval(this.update, 3000);
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);
+  },
 };
 </script>

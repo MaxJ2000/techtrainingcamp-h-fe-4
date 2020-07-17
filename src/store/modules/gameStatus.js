@@ -203,12 +203,11 @@ const mutations = () => ({
     }
   },
 
-  [UPDATE_STATUS]: (state, payload) => {
-    state.playerInf = payload.playerInf;
-    state.isStart = payload.isStart;
-    state.dayCount = payload.dayCount;
-    state.activeState = payload.activeState;
-    state.waitingState = payload.waitingState;
+  [UPDATE_STATUS]: (state, {isStart, playerInf, dayCount, activeState}) => {
+    state.playerInf = playerInf;
+    state.isStart = isStart;
+    state.dayCount = dayCount;
+    state.activeState = activeState;
   },
 
   [NEXT_STEP]: (state, getters) => {
@@ -319,28 +318,28 @@ const mutations = () => ({
 // updateStatus: deal with situations during steps: people die, hunter shoot and daycount
 // abortGame: restart the game right away
 const actions = () => ({
-  initGame: ({ commit }, payload) => {
-    commit("INIT_GAME", payload);
+  initGame: (context, payload) => {
+    context.commit("INIT_GAME", payload);
   },
 
-  markPoison: (commit, key) => {
-    commit("MARK_POISON", key);
+  markPoison: (context, key) => {
+    context.commit("MARK_POISON", key);
   },
 
-  markKnife: (commit, key) => {
-    commit("MARK_KNIFE", key);
+  markKnife: (context, key) => {
+    context.commit("MARK_KNIFE", key);
   },
 
-  markCure: (commit, key) => {
-    commit("MARK_CURE", key);
+  markCure: (context, key) => {
+    context.commit("MARK_CURE", key);
   },
 
-  shootOut: (commit, key) => {
-    commit("SHOOT_OUT", key);
+  shootOut: (context, key) => {
+    context.commit("SHOOT_OUT", key);
   },
 
-  voteOut: (commit, key) => {
-    commit("VOTE_OUT", key);
+  voteOut: (context, key) => {
+    context.commit("VOTE_OUT", key);
   },
 
   nextStep: ({ commit, state, getters, dispatch }) => {
@@ -369,18 +368,27 @@ const actions = () => ({
   },
 
   // players fetch status from database
-  updateStatus: (commit, payload) => {
-    axios
-      .get("")
-      .then(function(response) {
-        console.log(response);
-        commit("UPDATE_STATUS", payload);
-        return true;
-      })
-      .catch(function(error) {
-        console.log(error);
-        return false;
-      });
+  updateStatus: (context, payload) => {
+    console.log("im here"),
+      axios
+        .post("https://afe5o5.fn.thelarkcloud.com/getState", {
+          roomID: payload.roomID,
+          name: payload.name
+        })
+        .then(function(response) {
+          context.commit("UPDATE_STATUS", {
+            isStart: response.data.gameState.isStart,
+            playerInf: response.data.gameState.playerInf,
+            dayCount: response.data.gameState.dayCount,
+            activeState: response.data.gameState.activeState
+          });
+          console.log(response);
+          return true;
+        })
+        .catch(function(error) {
+          console.log(error);
+          return false;
+        });
   },
 
   // 强行结束: 1 - 民神胜利， 2 - 狼胜利， 3 - 重开一局 (1, 2 都是调用ranking中的action，此处是3)
