@@ -60,6 +60,9 @@ export default {
     };
   },
   methods: {
+    create() {
+      this.$store.dispatch("gameInit/createRoom");
+    },
     change(num) {
       this.godList[num] = 1 - this.godList[num];
     },

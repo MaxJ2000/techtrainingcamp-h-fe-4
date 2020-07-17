@@ -9,7 +9,8 @@
       rounded
       color="primary"
       class="btn1"
-      to="/home"
+      to="/status"
+      @click="gameStart"
       v-if="(this.$store.state.gameInit.currentPlayerNum === this.$store.state.gameInit.playerNum) && this.$store.state.gameInit.name === '_God'"
     >开始游戏</v-btn>
   </div>
@@ -36,12 +37,6 @@ export default {
   //   this.getCurrentNum();
   //   this.timer = setInterval(this.getCurrentNum, 3000)
   // },
-
-  data() {
-    return {
-      timer: ""
-    };
-  },
   computed: {
     rate: function() {
       return (
@@ -63,6 +58,9 @@ export default {
   },
   beforeDestroy() {
     clearInterval(this.timer);
+  },
+  gameStart() {
+    this.$store.dispatch("gameInit/startGame");
   }
   // computed: {
   //   progress: {

@@ -13,13 +13,10 @@
           class="btn1"
           to="/home"
           v-on:click.native="creat"
-          >创建房间</v-btn
-        >
+        >创建房间</v-btn>
       </div>
       <div>
-        <v-btn depressed large rounded color="primary" class="btn1 right" to="/about"
-          >加入房间</v-btn
-        >
+        <v-btn depressed large rounded color="primary" class="btn1 right" to="/about">加入房间</v-btn>
       </div>
     </div>
     <div id="rule">
@@ -66,10 +63,6 @@ export default {
     // Title,
     Header
   },
-  methods: {
-    creat() {
-      this.$store.dispatch("gameInit/createRoom");
-    }
-  }
+  methods: {}
 };
 </script>
