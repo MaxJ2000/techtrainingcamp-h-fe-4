@@ -1,56 +1,81 @@
 <template>
   <div class="d-flex flex-column align-center">
-    <!-- <Title>[夜晚：狼人行动]</Title> -->
-    <Header>[夜晚：狼人行动]</Header>
-    <List :eachStatus="eachStatus" :isChecked="isChecked" />
-    <Button msg="创建"></Button>
+    <Title>[夜晚：狼人行动]</Title>
+    <List :eachStatus="printStatus" :isChecked="isChecked" :change="change" />
+    <Button @click="nextStep" msg="下一步"></Button>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-// import Title from "@/components/Title.vue";
+import Title from "@/components/Title.vue";
 import List from "@/components/List.vue";
 import Button from "@/components/Button.vue";
-import Header from "@/components/Header.vue";
 export default {
   name: "Status",
   components: {
-    // Title,
+    Title,
     List,
-    Button,
-    Header
+    Button
   },
   data: () => ({
-    eachStatus: [
-      ["aaa是女巫", "被刀", "猎杀"],
-      ["aaa是狼人", "被刀", "猎杀", "毒杀"],
-      ["aaa是狼人", "被刀", "猎杀", "毒杀"],
-      ["bbb是村民", "被刀", "猎杀", "毒杀"],
-      ["ccc是村民", "被刀", "猎杀", "毒杀"],
-    ],
-    isChecked: [
-      [0, 0, 1],
-      [0, 0, 1],
-      [0, 0, 0],
-      [1, 1, 1],
-      [0, 1, 0],
-    ],
-    timer: "",
+    isChecked: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   }),
-  methods: {
-    update() {
-      this.$store.dispatch("gameStatus/updateStatus", {
-        roomID: this.$store.state.gameInit.roomID,
-        name: this.$store.state.gameInit.name
-      });
+  computed: {
+    activeState: function() {
+      // return this.$store.state.gameStatus.activeState;
+      return [0, 0];
     },
+    personalInf: function() {
+      return [
+        { name: "asdf", identity: "dasf" },
+        { name: "fads ", identity: "asdflsa" }
+      ];
+      // return this.$store.state.gameStatus.playerInf;
+    },
+    printStatus: function() {
+      let status = [];
+      if (this.activeState[0] === 0) {
+        for (let i of this.personalInf) {
+          console.log(i);
+          let tmp = [];
+          tmp.push(i.name + "是" + i.identity);
+          if (this.activeState[0] === 0) {
+            tmp.push("狼刀");
+          } else if (this.activeState[1] === 1) {
+            continue;
+          } else if (this.activeState[1] === 2) {
+            tmp.push("解药");
+          } else if (this.activeState[1] === 3) {
+            tmp.push("毒药");
+          } else if (this.activeState[1] === 4) {
+            tmp.push("猎人");
+          }
+          status.push(tmp);
+        }
+      }
+      return status;
+    }
   },
-  mounted() {
-    this.timer = setInterval(this.update, 3000);
-  },
-  beforeDestroy() {
-    clearInterval(this.timer);
-  },
+  methods: {
+    change(num) {
+      this.isChecked[num] = 1 - this.isChecked[num];
+    },
+    checkedKey() {
+      for (let index in this.isChecked) {
+        if (this.isChecked[index]) {
+          return index;
+        }
+      }
+    },
+    nextStep() {
+      if (this.activeState[0] === 0) {
+        if (this.activeState[1] === 1) {
+          this.$store.dispatch("gameStatus/markKnife", this.checkedKey());
+        }
+      }
+      this.$store.dispatch("gameStatus/nextStep");
+    }
+  }
 };
 </script>
