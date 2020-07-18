@@ -4,14 +4,14 @@
     <Header>游戏中</Header>
     <v-container fluid>
       <div class="two">
-        <div>{{"第几天"}}</div>
+        <div>{{ this.$store.state.gameStatus.dayCount + 1 }}</div>
         <div>
-        当前阶段：
-        <span>{{stages()}}</span>
-      </div>
-      <div>
-        当前状态：
-        <span>{{status()}}</span>
+          当前阶段：
+          <span>{{stages()}}</span>
+        </div>
+        <div>
+          当前状态：
+          <span>{{status()}}</span>
         </div>
         <!-- <div>
           当前阶段：
@@ -20,7 +20,7 @@
         <div>
           当前状态：
           <span>{{11}}</span>
-        </div> -->
+        </div>-->
       </div>
       <div class="one">
         <div class="text-center">
@@ -102,7 +102,7 @@ export default {
       dialog: false,
       timer: "",
       statu: ["游戏中", "被狼人刀", "被投票出局", "被毒杀", "被猎杀"],
-      stage: ["夜晚", "竞选警长", "发言阶段", "投票阶段"]
+      stage: ["夜晚", "宣告昨夜情况", "发言阶段", "投票阶段"]
     };
   },
   components: {
@@ -145,30 +145,16 @@ export default {
       }
     },
     stages: function() {
-      if (this.$store.state.gameStatus.dayCount === 0) {
-        if (this.$store.state.gameStatus.activeState[0] === 1) {
-          if (this.$store.state.gameStatus.activeState[1] === 0) {
-            return this.stage[1];
-          } else if (this.$store.state.gameStatus.activeState[1] === 1) {
-            return this.stage[2];
-          } else if (this.$store.state.gameStatus.activeState[1] === 2) {
-            return this.stage[3];
-          }
-        } else if (this.$store.state.gameStatus.activeState[0] === 0) {
-          return this.stage[0];
+      if (this.$store.state.gameStatus.activeState[0] === 1) {
+        if (this.$store.state.gameStatus.activeState[1] === 0) {
+          return this.stage[1];
+        } else if (this.$store.state.gameStatus.activeState[1] === 1) {
+          return this.stage[2];
+        } else if (this.$store.state.gameStatus.activeState[1] === 2) {
+          return this.stage[3];
         }
-      } else {
-        if (this.$store.state.gameStatus.activeState[0] === 1) {
-          if (this.$store.state.gameStatus.activeState[1] === 0) {
-            return this.stage[1];
-          } else if (this.$store.state.gameStatus.activeState[1] === 1) {
-            return this.stage[2];
-          } else if (this.$store.state.gameStatus.activeState[1] === 2) {
-            return this.stage[3];
-          }
-        } else if (this.$store.state.gameStatus.activeState[1] === 0) {
-          return this.stage[0];
-        }
+      } else if (this.$store.state.gameStatus.activeState[0] === 0) {
+        return this.stage[0];
       }
     }
   },
