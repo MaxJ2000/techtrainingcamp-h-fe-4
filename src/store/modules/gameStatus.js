@@ -44,23 +44,23 @@ const state = {
 // canHeDie: deal with the waitingState every night-day change
 // endGame: system's auto judging if the game ends
 const getters = {
-  getNightNum: (state, getters, rootState) => {
-    // wolf, prophet, witch, guard, hunter
-    var nightNum = 1;
-    let x;
-    for (x in rootState.gameInit.deitiesList) {
-      if (x == "prophet") {
-        nightNum++;
-      } else if (x == "witch") {
-        nightNum++;
-      } else if (x == "guard") {
-        nightNum++;
-      } else if (x == "hunter") {
-        nightNum++;
-      }
-    }
-    return nightNum;
-  },
+  // getNightNum: (state, getters, rootState) => {
+  //   // wolf, prophet, witch, guard, hunter
+    // var nightNum = 1;
+    // let x;
+    // for (x in rootState.gameInit.deitiesList) {
+    //   if (x == "prophet") {
+    //     nightNum++;
+    //   } else if (x == "witch") {
+    //     nightNum++;
+    //   } else if (x == "guard") {
+    //     nightNum++;
+    //   } else if (x == "hunter") {
+    //     nightNum++;
+    //   }
+    // }
+    // return nightNum;
+  // },
 
   canHunterShoot: (state) => {
     let key =
@@ -212,12 +212,30 @@ const mutations = {
     state.activeState = activeState;
   },
 
-  [NEXT_STEP]: (state, getters) => {
+  [NEXT_STEP]: (state, payload) => {
+    console.log("I am here!");
     var curState = state.activeState;
     var dayNum = 2;
     var firstdayNum = 3;
-    var nightNum = getters.getNightNum;
+
+
+    var nightNum = 1;
+    let x;
+    for (x in payload) {
+      if (x == "prophet") {
+        nightNum++;
+      } else if (x == "witch") {
+        nightNum++;
+      } else if (x == "guard") {
+        nightNum++;
+      } else if (x == "hunter") {
+        nightNum++;
+      }
+    }
+    // var nightNum = getNightNum;
+
     console.log(nightNum);
+    console.log(state.activeState);
     if (state.dayCount === 0) {
       if (curState[0] === 0) {
         // night
@@ -345,25 +363,26 @@ const actions = {
     context.commit("VOTE_OUT", key);
   },
 
-  nextStep: ({ commit, state, getters, dispatch, rootState }) => {
-    commit("NEXT_STEP", getters);
-    commit("CHECK_EVENTS", getters);
+  nextStep: (context) => {
+    console.log("sss");
+    context.commit("NEXT_STEP", context.rootState.gameInit.deitiesList);
+    context.commit("CHECK_EVENTS", getters);
     axios
       .post("https://afe5o5.fn.thelarkcloud.com/changeState", {
-        playerInf: state.playerInf,
-        isStart: state.isStart,
-        dayCount: state.dayCount,
-        activeState: state.activeState,
-        waitingState: state.waitingState,
-        roomID: rootState.gameInit.roomID,
-        restNum: state.restNum,
+        playerInf: context.state.playerInf,
+        isStart: context.state.isStart,
+        dayCount: context.state.dayCount,
+        activeState: context.state.activeState,
+        waitingState: context.state.waitingState,
+        roomID: context.rootState.gameInit.roomID,
+        restNum: context.state.restNum,
       })
       .then(function(response) {
         console.log(response);
-        let flag = getters.endGame;
+        let flag = context.getters.endGame;
         if (flag) {
-          commit("GAME_OVER");
-          dispatch("ranking/seperWinAndLose", flag, { root: true });
+          // commit("GAME_OVER");
+          // dispatch("ranking/seperWinAndLose", flag, { root: true });
           return flag; // 1 represents wolves win, 2 represent good fellows win， 3 represent abort
         }
       })
