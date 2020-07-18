@@ -30,11 +30,12 @@ import gameStatus from "./modules/gameStatus";
 import ranking from "./modules/ranking";
 import createPersistedState from "vuex-persistedstate";
 // import createLogger from '../../../src/plugins/logger'
-import * as Cookies from "js-cookie";
+// import * as Cookies from "js-cookie";
 
 Vue.use(Vuex);
 
 // const debug = process.env.NODE_ENV !== 'production'
+
 
 export default new Vuex.Store({
   modules: {
@@ -44,11 +45,10 @@ export default new Vuex.Store({
   },
   plugins: [
     createPersistedState({
-      getState: (key) => Cookies.getJSON(key),
-      setState: (key, state) =>
-        Cookies.set(key, state, { expires: 3, secure: true }),
+      storage: window.sessionStorage
     }),
   ],
+  // plugins: [dataState]
   // strict: debug,
   // plugins: debug ? [createLogger()] : []
 });
