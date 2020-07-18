@@ -94,15 +94,15 @@ export default {
       });
     },
     status: function() {
-      if (this.$store.state.gameStatus.playerInf[0].isDead === 0) {
+      if (this.$store.state.gameStatus.playerInf[0].isAlive === 1) {
         return this.statu[0];
-      } else if (this.$store.state.gameStatus.playerInf[0].isDead === 1) {
+      } else if (this.$store.state.gameStatus.playerInf[0].isAlive === -1) {
         return this.statu[1];
-      } else if (this.$store.state.gameStatus.playerInf[0].isDead === 2) {
+      } else if (this.$store.state.gameStatus.playerInf[0].isAlive === -2) {
         return this.statu[2];
-      } else if (this.$store.state.gameStatus.playerInf[0].isDead === 3) {
+      } else if (this.$store.state.gameStatus.playerInf[0].isAlive === -3) {
         return this.statu[3];
-      } else if (this.$store.state.gameStatus.playerInf[0].isDead === 4) {
+      } else if (this.$store.state.gameStatus.playerInf[0].isAlive === -4) {
         return this.statu[4];
       }
     },
