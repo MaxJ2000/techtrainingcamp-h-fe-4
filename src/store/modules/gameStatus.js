@@ -397,6 +397,14 @@ const actions = {
     });
     let flag = context.getters.endGame;
     if (flag) {
+      // if (context.rootState.ranking.rankings == []) {
+      for (let item of context.state.playerInf) {
+        context.rootState.ranking.rankings.push({
+          name: item.name,
+          winTimes: 0,
+        });
+      }
+      // }
       context.dispatch(
         "ranking/seperWinAndLose",
         {

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { WOLF_WIN, KIND_WIN, UPDATE_RANKINGS } from "../mutation_type";
 
-
 // initial state
 // rankings: [{ name, winTimes }]
 // winGroup: [{name, identity}]
@@ -30,7 +29,7 @@ const mutations = {
   [WOLF_WIN]: (state, playerInf) => {
     let winGroup = [];
     let loseGroup = [];
-    for (let x in playerInf) {
+    for (let x of playerInf) {
       if (x.identity == "wolf") {
         winGroup.push({ name: x.name, identity: x.identity });
         state.rankings.find((element) => element.name == x.name).winTimes++;
@@ -38,6 +37,7 @@ const mutations = {
         loseGroup.push({ name: x.name, identity: x.identity });
       }
     }
+    console.log("winGroup", winGroup);
     state.winGroup = winGroup;
     state.loseGroup = loseGroup;
   },
@@ -45,7 +45,7 @@ const mutations = {
   [KIND_WIN]: (state, playerInf) => {
     let winGroup = [];
     let loseGroup = [];
-    for (let x in playerInf) {
+    for (let x of playerInf) {
       if (x.identity == "wolf") {
         loseGroup.push({ name: x.name, identity: x.identity });
       } else {
@@ -86,7 +86,7 @@ const actions = {
       .post("https://afe5o5.fn.thelarkcloud.com/setRank", {
         // from gods to database
         roomID: context.rootState.gameInit.roomID,
-        winTimes: context.state.winTimes,
+        rankings: context.state.rankings,
         winGroup: context.state.winGroup,
         loseGroup: context.state.loseGroup,
       })
@@ -117,9 +117,11 @@ const actions = {
   },
 
   updateRankings: (context) => {
-    console.log("roomID", context.rootState.gameInit.roomID)
+    console.log("roomID", context.rootState.gameInit.roomID);
     axios
-      .post("https://afe5o5.fn.thelarkcloud.com/getRank", {roomID: context.rootState.gameInit.roomID}) // from database to player
+      .post("https://afe5o5.fn.thelarkcloud.com/getRank", {
+        roomID: context.rootState.gameInit.roomID,
+      }) // from database to player
       .then(function(response) {
         console.log(response);
         context.commit("UPDATE_RANKINGS", response);
