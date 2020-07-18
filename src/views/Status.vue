@@ -36,25 +36,31 @@ export default {
     printStatus: function() {
       let status = [];
       if (this.activeState[0] === 0) {
-        for (let i of this.personalInf) {
+        for (let index in this.personalInf) {
+          let i = this.personalInf[index];
           console.log(i);
           let tmp = [];
           tmp.push(i.name + "是" + i.identity);
-          if (this.activeState[1] === 0) {
-            tmp.push("狼刀");
-          } else if (this.activeState[1] === 1) {
-            continue;
-          } else if (this.activeState[1] === 2) {
-            tmp.push("解药");
-          } else if (this.activeState[1] === 3) {
-            tmp.push("毒药");
-          } else if (this.activeState[1] === 4) {
-            tmp.push("猎人");
+          if (i.isAlive > 0) {
+            if (this.activeState[1] === 0) {
+              tmp.push("狼刀");
+            } else if (this.activeState[1] === 1) {
+              continue;
+            } else if (this.activeState[1] === 2) {
+              tmp.push("解药");
+            } else if (this.activeState[1] === 3) {
+              tmp.push("毒药");
+            } else if (this.activeState[1] === 4) {
+              tmp.push("猎人");
+            }
+          } else {
+            tmp.push("死亡");
           }
           status.push(tmp);
         }
       } else {
-        for (let i of this.personalInf) {
+        for (let index in this.personalInf) {
+          let i = this.personalInf[index];
           console.log(i);
           let tmp = [];
           tmp.push(i.name + "是" + i.identity);
@@ -107,7 +113,7 @@ export default {
       }
       console.log(this.$store.state.gameStatus.isStart);
       this.$store.dispatch("gameStatus/nextStep");
-      this.reload();
+      this.isChecked = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     }
   },
   mounted: function() {
