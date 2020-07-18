@@ -146,6 +146,7 @@ export default {
   },
   mounted: function() {
     this.$store.dispatch("gameInit/createRoom");
+    this.$store.state.gameInit.deitiesList = [];
   }
 };
 </script>
