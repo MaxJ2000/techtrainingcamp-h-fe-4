@@ -28,7 +28,7 @@ import {
 // waitingState: {killedByKnife: 0, killedByPoison: 0, savedByCured: 0}
 // hunterShoot: NOTE that players don't need this info
 const state = {
-  playerInf: [],
+  playerInf: [{name:0, identity:0, isDead:1}],
   // isMyTurn: false,
   restNum: { restWolves: 0, restVillagers: 0, restDeities: 0 },
   dayCount: 0,

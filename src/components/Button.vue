@@ -1,5 +1,5 @@
 <template>
-  <v-btn rounded left color="primary" dark>{{ msg }}</v-btn>
+  <v-btn rounded left color="#00eed4" dark>{{ msg }}</v-btn>
 </template>
 <script>
 export default {
