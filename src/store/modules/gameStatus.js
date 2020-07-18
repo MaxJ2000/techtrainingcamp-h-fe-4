@@ -46,20 +46,20 @@ const state = {
 const getters = {
   // getNightNum: (state, getters, rootState) => {
   //   // wolf, prophet, witch, guard, hunter
-    // var nightNum = 1;
-    // let x;
-    // for (x in rootState.gameInit.deitiesList) {
-    //   if (x == "prophet") {
-    //     nightNum++;
-    //   } else if (x == "witch") {
-    //     nightNum++;
-    //   } else if (x == "guard") {
-    //     nightNum++;
-    //   } else if (x == "hunter") {
-    //     nightNum++;
-    //   }
-    // }
-    // return nightNum;
+  // var nightNum = 1;
+  // let x;
+  // for (x in rootState.gameInit.deitiesList) {
+  //   if (x == "prophet") {
+  //     nightNum++;
+  //   } else if (x == "witch") {
+  //     nightNum++;
+  //   } else if (x == "guard") {
+  //     nightNum++;
+  //   } else if (x == "hunter") {
+  //     nightNum++;
+  //   }
+  // }
+  // return nightNum;
   // },
 
   canHunterShoot: (state) => {
@@ -218,7 +218,6 @@ const mutations = {
     var dayNum = 2;
     var firstdayNum = 3;
 
-
     var nightNum = 1;
     let x;
     for (x in payload) {
@@ -240,36 +239,43 @@ const mutations = {
       if (curState[0] === 0) {
         // night
         if (curState[1] + 1 < nightNum) {
-          state.activeState[1]++;
+          // state.activeState[1]++;
+          state.activeState.splice(1, 1, state.activeState[1] + 1);
         } else {
-          state.activeState[0] = 1;
-          state.activeState[1] = 0;
+          state.activeState.splice(1, 1, 0);
+          state.activeState.splice(0, 1, 1);
+          // state.activeState[0] = 1;
+          // state.activeState[1] = 0;
         }
       } else {
         // day
         if (curState[1] + 1 < firstdayNum) {
-          state.activeState[1]++;
+          // state.activeState[1]++;
+          state.activeState.splice(1, 1, state.activeState[1] + 1);
         } else {
-          state.activeState[0] = 0;
-          state.activeState[1] = 0;
+          // state.activeState[0] = 0;
+          // state.activeState[1] = 0;
+          state.activeState.splice(1, 1, 0);
+          state.activeState.splice(0, 1, 0);
         }
       }
     } else {
       if (curState[0] === 0) {
         // night
         if (curState[1] + 1 < nightNum) {
-          state.activeState[1]++;
+          // state.activeState[1]++;
+          state.activeState.splice(1, 1, state.activeState[1] + 1);
         } else {
-          state.activeState[0] = 1;
-          state.activeState[1] = 0;
+          state.activeState.splice(1, 1, 0);
+          state.activeState.splice(0, 1, 1);
         }
       } else {
         // day
         if (curState[1] + 1 < dayNum) {
-          state.activeState[1]++;
+          state.activeState.splice(1, 1, state.activeState[1] + 1);
         } else {
-          state.activeState[0] = 0;
-          state.activeState[1] = 0;
+          state.activeState.splice(1, 1, 0);
+          state.activeState.splice(0, 1, 0);
         }
       }
     }
