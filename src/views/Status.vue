@@ -5,7 +5,7 @@
     <div>第{{ dayCount }}天</div>
     <List :eachStatus="printStatus" :isChecked="isChecked" :change="change" />
     <Button v-on:click.native="nextStep" msg="下一步"></Button>
-    <Button v-on:click.native="nextStep" msg="强行结束"></Button>
+    <Button v-on:click.native="abort" msg="强行结束"></Button>
   </div>
 </template>
 <style scoped>
@@ -59,6 +59,25 @@ export default {
   }),
 
   computed: {
+    isShooting: function() {
+      const gameStatus = this.$store.state.gameStatus;
+      if (!gameStatus.hunterShoot) {
+        const hunter = gameStatus.playerInf.find(
+          (item) => item.identity === "hunter"
+        );
+        console.log(hunter);
+        if (!hunter) {
+          return false;
+        }
+        if (
+          hunter.isAlive < 0 &&
+          this.$store.getters["gameStatus/canHunterShoot"]
+        ) {
+          return true;
+        }
+      }
+      return false;
+    },
     isStart: function() {
       return this.$store.state.gameStatus.isStart;
     },
@@ -113,6 +132,9 @@ export default {
       return tmp;
     },
     statusContent: function() {
+      if (this.isShooting) {
+        return "猎人射杀";
+      }
       if (this.activeState[0] === 0) {
         return this.statusDataBase[0][this.activeState[1]];
       } else {
@@ -120,6 +142,9 @@ export default {
       }
     },
     titleContent: function() {
+      if (this.isShooting) {
+        return "白日：猎人开枪";
+      }
       if (this.activeState[0] === 0) {
         return this.titleDataBase[0][this.activeState[1]];
       } else {
@@ -129,6 +154,17 @@ export default {
     printStatus: function() {
       let status = [];
       // console.log(this.$store);
+      if (this.isShooting) {
+        for (let i of this.personalInf) {
+          let tmp = [];
+          tmp.push(i.name + "是" + i.identity);
+          if (i.isAlive > 0) {
+            tmp.push(this.statusContent);
+          } else {
+            tmp.push("死亡");
+          }
+        }
+      }
       if (this.activeState[0] === 0) {
         for (let i of this.personalInf) {
           let tmp = [];
@@ -143,7 +179,10 @@ export default {
           } else {
             if (i.identity === "hunter") {
               tmp.push(i.name + "是" + i.identity);
-              if (this.$store.getters["gameStatus/canHunterShoot"]) {
+              if (
+                this.$store.getters["gameStatus/canHunterShoot"] &&
+                !this.$store.state.gameStatus.hunterShoot
+              ) {
                 tmp.push("可以射击");
               } else {
                 tmp.push("不可射击");
@@ -199,6 +238,9 @@ export default {
       //   }
       // }
       // console.log(this.$store.state.gameStatus.isStart);
+      if (this.isShooting) {
+        this.$store.dispatch("gameStatus/shootOut", key);
+      }
       let action = this.status2Action[this.statusContent];
       console.log(action);
       if (action && key !== undefined) {
@@ -206,6 +248,10 @@ export default {
       }
       this.isChecked = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       this.$store.dispatch("gameStatus/nextStep");
+    },
+    abort() {
+      this.$store.dispatch("gameStatus/abort");
+      this.$router.push("result");
     },
   },
   mounted: function() {

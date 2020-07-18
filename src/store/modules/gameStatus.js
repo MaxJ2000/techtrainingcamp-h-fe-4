@@ -36,6 +36,7 @@ const state = {
   waitingState: { killedByKnife: -1, killedByPoison: -1, savedByCured: -1 },
   isStart: false,
   hunterShoot: false,
+  isAbort: false,
 };
 
 // getters
@@ -175,7 +176,7 @@ const mutations = {
         state.restNum.restDeities--;
       }
 
-      state.hunterShoot = false;
+      state.hunterShoot = true;
       return true;
     } else {
       return false;
@@ -197,7 +198,7 @@ const mutations = {
       }
 
       if (deadPlayer.identity == "hunter") {
-        state.hunterShoot = true;
+        // state.hunterShoot = true;
       }
       return true;
     } else {
@@ -330,10 +331,10 @@ const mutations = {
           state.restNum.restDeities--;
         }
       }
-      if (payload.canHunterShoot) {
-        // about hunter
-        state.hunterShoot = true;
-      }
+      // if (payload.canHunterShoot) {
+      //   // about hunter
+      //   state.hunterShoot = true;
+      // }
 
       state.waitingState = {
         killedByKnife: -1,
@@ -365,6 +366,7 @@ const actions = {
   initGame: (context, payload) => {
     console.log(payload);
     context.commit("INIT_GAME", payload);
+    context.rootState.ranking.rankings = payload.rankings;
   },
 
   markPoison: (context, key) => {
@@ -396,15 +398,16 @@ const actions = {
       deitiesList: context.rootState.gameInit.deitiesList,
     });
     let flag = context.getters.endGame;
+    // let flag = 0;
     if (flag) {
-      // if (context.rootState.ranking.rankings == []) {
-      for (let item of context.state.playerInf) {
-        context.rootState.ranking.rankings.push({
-          name: item.name,
-          winTimes: 0,
-        });
+      if (context.rootState.ranking.rankings.length === 0) {
+        for (let item of context.state.playerInf) {
+          context.rootState.ranking.rankings.push({
+            name: item.name,
+            winTimes: 0,
+          });
+        }
       }
-      // }
       context.dispatch(
         "ranking/seperWinAndLose",
         {
@@ -424,6 +427,7 @@ const actions = {
         waitingState: context.state.waitingState,
         roomID: context.rootState.gameInit.roomID,
         restNum: context.state.restNum,
+        isAbort: context.state.isAbort,
       })
       .then(function(response) {
         console.log(response);
@@ -432,7 +436,26 @@ const actions = {
         console.log(error);
       });
   },
-
+  abort: (context) => {
+    context.state.isAbort = true;
+    axios
+      .post("https://afe5o5.fn.thelarkcloud.com/changeState", {
+        playerInf: context.state.playerInf,
+        isStart: context.state.isStart,
+        dayCount: context.state.dayCount,
+        activeState: context.state.activeState,
+        waitingState: context.state.waitingState,
+        roomID: context.rootState.gameInit.roomID,
+        restNum: context.state.restNum,
+        isAbort: context.state.isAbort,
+      })
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  },
   // players fetch status from database
   updateStatus: (context, payload) => {
     axios

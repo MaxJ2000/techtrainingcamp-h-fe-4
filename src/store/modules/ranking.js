@@ -58,7 +58,7 @@ const mutations = {
   },
 
   [UPDATE_RANKINGS]: (state, payload) => {
-    state.winTimes = payload.winTimes;
+    state.rankings = payload.rankings;
     state.winGroup = payload.winGroup;
     state.loseGroup = payload.loseGroup;
   },
@@ -72,7 +72,7 @@ const mutations = {
 const actions = {
   seperWinAndLose: (context, payload) => {
     // 1 - wolves win, 2 - kind win
-    console.log("payload:", payload);
+    // console.log("payload:", payload);
     if (payload.flag == 1) {
       context.dispatch("wolfWin", payload.playerInf);
     } else if (payload.flag == 2) {
@@ -82,6 +82,8 @@ const actions = {
 
   wolfWin: (context, playerInf) => {
     context.commit("WOLF_WIN", playerInf);
+    console.log(context.state);
+
     axios
       .post("https://afe5o5.fn.thelarkcloud.com/setRank", {
         // from gods to database
@@ -100,11 +102,12 @@ const actions = {
 
   kindWin: (context, playerInf) => {
     context.commit("KIND_WIN", playerInf);
+    console.log(context.state);
     axios
       .post("https://afe5o5.fn.thelarkcloud.com/setRank", {
         // from gods to database
         roomID: context.rootState.gameInit.roomID,
-        winTimes: context.state.winTimes,
+        rankings: context.state.rankings,
         winGroup: context.state.winGroup,
         loseGroup: context.state.loseGroup,
       })
@@ -124,7 +127,7 @@ const actions = {
       }) // from database to player
       .then(function(response) {
         console.log(response);
-        context.commit("UPDATE_RANKINGS", response);
+        context.commit("UPDATE_RANKINGS", response.data);
         return true;
       })
       .catch(function(error) {

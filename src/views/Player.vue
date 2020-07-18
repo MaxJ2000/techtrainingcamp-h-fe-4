@@ -213,7 +213,7 @@ export default {
     //   }
     // },
     status: function() {
-      if (this.$store.state.gameStatus.playerInf[0].isAlive === 1) {
+      if (this.$store.state.gameStatus.playerInf[0].isAlive > 0) {
         return this.statu[0];
       } else if (this.$store.state.gameStatus.playerInf[0].isAlive === -1) {
         return this.statu[1];
@@ -243,6 +243,9 @@ export default {
     isStart: function() {
       return this.$store.state.gameStatus.isStart;
     },
+    isAbort: function() {
+      return this.$store.state.gameStatus.isAbort;
+    },
   },
   mounted() {
     this.timer = setInterval(this.update, 1000);
@@ -253,6 +256,12 @@ export default {
   watch: {
     isStart(val) {
       if (!val) {
+        this.$store.dispatch("ranking/updateRankings");
+        this.$router.push("result");
+      }
+    },
+    isAbort(val) {
+      if (val) {
         this.$router.push("result");
       }
     },
