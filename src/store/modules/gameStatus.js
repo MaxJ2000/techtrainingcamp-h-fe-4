@@ -13,8 +13,8 @@ import {
 } from "../mutation_type";
 
 // initial state
-// personalInf: [{name, identity, isDead}]
-//    isDead: 0 - alive, 1 - wolf, 2 - voted, 3 - poison, 4- hunter
+// personalInf: [{name, identity, isAlive}]
+//    isAlive: 1 - alive, -1 - wolf, -2 - voted, -3 - poison, -4- hunter
 // isMyTurn: bool
 // restNum: [number, number, number]
 //    first array: wolves left,
@@ -24,7 +24,7 @@ import {
 // activeState: [0, 0],
 //    first array: 0 - night 1 - day
 //    second array: if night , 0 - wolf , 1 - prophet , 2 - witch , 3 - guard
-//                 if day, 0 - last night situation , 1 - first person speak , 2 - second person speak ......
+//                 if day, 0 - last night situation , 1 - speaking time , 2 - second person speak ......
 // waitingState: {killedByKnife: 0, killedByPoison: 0, savedByCured: 0}
 // hunterShoot: NOTE that players don't need this info
 const state = {
@@ -61,7 +61,6 @@ const getters = {
   // }
   // return nightNum;
   // },
-
   canHunterShoot: (state) => {
     let key = state.playerInf.findIndex(
       (element) => element.identity === "hunter"
@@ -83,7 +82,7 @@ const getters = {
     return true;
   },
 
-  endGame: (state, getters, rootState) => {
+  endGame: (state, rootState) => {
     if (state.restNum.restWolves == 0) {
       return 1;
     }
@@ -167,7 +166,7 @@ const mutations = {
   [SHOOT_OUT]: (state, key) => {
     if (state.playerInf[key].isAlive > 0) {
       let deadPlayer = state.playerInf[key];
-      deadPlayer.isAlive = -4; // killed by vote
+      deadPlayer.isAlive = -4; // killed by shoot
       if (deadPlayer.identity == "villager") {
         state.restNum.restVillagers--;
       } else if (deadPlayer.identity == "wolf") {
@@ -310,7 +309,7 @@ const mutations = {
         // about wolf
         let diedPlayer = state.playerInf[state.waitingState.killedByKnife];
         console.log("diedPlayer", diedPlayer);
-        diedPlayer.isAlive = -1;
+        diedPlayer.isAlive = -1;    // killed by knife
         if (diedPlayer.identity == "villager") {
           state.restNum.restVillagers--;
         } else if (diedPlayer.identity == "wolf") {
@@ -322,7 +321,7 @@ const mutations = {
       if (state.waitingState.killedByPoison !== -1) {
         // about poison
         let diedPlayer = state.playerInf[state.waitingState.killedByPoison];
-        diedPlayer.isAlive = -3;
+        diedPlayer.isAlive = -3;    // killed by poison
         if (diedPlayer.identity == "villager") {
           state.restNum.restVillagers--;
         } else if (diedPlayer.identity == "wolf") {
