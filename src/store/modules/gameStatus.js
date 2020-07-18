@@ -82,7 +82,7 @@ const getters = {
     return true;
   },
 
-  endGame: (state, rootState) => () => {
+  endGame: (state, rootState) => {
     if (state.restNum.restWolves == 0) {
       return 1;
     }
@@ -205,11 +205,11 @@ const mutations = {
     }
   },
 
-  [UPDATE_STATUS]: (state, { isStart, playerInf, dayCount, activeState }) => {
-    state.playerInf = playerInf;
-    state.isStart = isStart;
-    state.dayCount = dayCount;
-    state.activeState = activeState;
+  [UPDATE_STATUS]: (state, payload) => {
+    state.playerInf = payload.playerInf;
+    state.isStart = payload.isStart;
+    state.dayCount = payload.dayCount;
+    state.activeState = payload.activeState;
   },
 
   [NEXT_STEP]: (state, payload) => {
@@ -281,14 +281,28 @@ const mutations = {
     }
   },
 
-  [CHECK_EVENTS]: (state, getters) => {
-    var nightNum = getters.getNightNum;
+  [CHECK_EVENTS]: (state, payload) => {
+    // var nightNum = payload.deitiesList;
+    var nightNum = 1;
+    let x;
+    for (x in payload.deitiesList) {
+      if (x == "prophet") {
+        nightNum++;
+      } else if (x == "witch") {
+        nightNum++;
+      } else if (x == "guard") {
+        nightNum++;
+      } else if (x == "hunter") {
+        nightNum++;
+      }
+    }
+
     if (state.activeState[0] == 0 && state.activeState[1] + 1 == nightNum) {
       // from night to day
       // only two people can make one die: wolf and witch (even if milk through)
       // witch has absolute fatal poison
       // while wolf can be defended by cure and guard
-      if (getters.canHeDie) {
+      if (payload.canHeDie) {
         // about wolf
         let diedPlayer = state.playerInf[state.waitingState.killedByKnife];
         console.log("diedPlayer", diedPlayer);
@@ -313,7 +327,7 @@ const mutations = {
           state.restNum.restDeities--;
         }
       }
-      if (getters.canHunterShoot) {
+      if (payload.canHunterShoot) {
         // about hunter
         state.hunterShoot = true;
       }
@@ -373,7 +387,11 @@ const actions = {
   nextStep: (context) => {
     console.log("sss");
     context.commit("NEXT_STEP", context.rootState.gameInit.deitiesList);
-    context.commit("CHECK_EVENTS", getters);
+    context.commit("CHECK_EVENTS", {
+      canHeDie: context.getters.canHeDie,
+      canHunterShoot: context.getters.canHunterShoot,
+      deitiesList: context.rootState.gameInit.deitiesList
+    });
     axios
       .post("https://afe5o5.fn.thelarkcloud.com/changeState", {
         playerInf: context.state.playerInf,
@@ -400,7 +418,6 @@ const actions = {
 
   // players fetch status from database
   updateStatus: (context, payload) => {
-    console.log("im here"),
       axios
         .post("https://afe5o5.fn.thelarkcloud.com/getState", {
           roomID: payload.roomID,
@@ -423,9 +440,9 @@ const actions = {
   },
 
   // 强行结束: 1 - 民神胜利， 2 - 狼胜利， 3 - 重开一局 (1, 2 都是调用ranking中的action，此处是3)
-  abortGame: ({ commit, dispatch }) => {
-    commit("GAME_OVER");
-    dispatch("gameInit/startGame", { root: true });
+  abortGame: (context) => {
+    context.commit("GAME_OVER");
+    context.dispatch("gameInit/startGame", { root: true });
   },
 };
 
