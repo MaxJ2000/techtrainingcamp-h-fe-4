@@ -82,7 +82,6 @@ const mutations = {
 
   [UPDATE_CURR_NUM]: (state, { currentPlayerNum }) => {
     state.currentPlayerNum = currentPlayerNum;
-    console.log("I am here!");
   },
 };
 
