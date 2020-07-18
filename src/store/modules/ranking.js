@@ -71,8 +71,8 @@ const mutations = {
 // updateRankings: after find isStart is false, launch the action
 const actions = {
   seperWinAndLose: (context, payload) => {
-    console.log("I am right here");
     // 1 - wolves win, 2 - kind win
+    console.log("payload:", payload);
     if (payload.flag == 1) {
       context.dispatch("wolfWin", payload.playerInf);
     } else if (payload.flag == 2) {
@@ -83,7 +83,7 @@ const actions = {
   wolfWin: (context, playerInf) => {
     context.commit("WOLF_WIN", playerInf);
     axios
-      .post("", {
+      .post("https://afe5o5.fn.thelarkcloud.com/setRank", {
         // from gods to database
         winTimes: context.state.winTimes,
         winGroup: context.state.winGroup,
@@ -100,7 +100,7 @@ const actions = {
   kindWin: (context, playerInf) => {
     context.commit("KIND_WIN", playerInf);
     axios
-      .post("", {
+      .post("https://afe5o5.fn.thelarkcloud.com/setRank", {
         // from gods to database
         winTimes: context.state.winTimes,
         winGroup: context.state.winGroup,

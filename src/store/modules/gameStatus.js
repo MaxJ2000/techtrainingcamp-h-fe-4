@@ -397,6 +397,14 @@ const actions = {
     });
     let flag = context.getters.endGame;
     if (flag) {
+      context.dispatch(
+        "ranking/seperWinAndLose",
+        {
+          flag: flag,
+          playerInf: context.state.playerInf,
+        },
+        { root: true }
+      );
       context.commit("GAME_OVER"); // 1 represents wolves win, 2 represent good fellows win， 3 represent abort
     }
     axios
@@ -415,10 +423,6 @@ const actions = {
       .catch(function(error) {
         console.log(error);
       });
-    if (flag) {
-      context.dispatch("ranking/seperWinAndLose", flag, { root: true });
-      return flag;
-    }
   },
 
   // players fetch status from database
