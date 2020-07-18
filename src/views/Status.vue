@@ -59,6 +59,9 @@ export default {
   }),
 
   computed: {
+    isStart: function() {
+      return this.$store.state.gameStatus.isStart;
+    },
     dayCount: function() {
       return this.$store.state.gameStatus.dayCount;
     },
@@ -207,6 +210,13 @@ export default {
   },
   mounted: function() {
     this.$store.dispatch("gameInit/startGame");
+  },
+  watch: {
+    isStart(val) {
+      if (!val) {
+        this.$router.push("result");
+      }
+    },
   },
 };
 </script>

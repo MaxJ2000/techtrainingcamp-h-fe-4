@@ -411,16 +411,15 @@ const actions = {
       })
       .then(function(response) {
         console.log(response);
-        
       })
       .catch(function(error) {
         console.log(error);
       });
-
-      if (flag) {
-        context.dispatch("ranking/seperWinAndLose", flag, { root: true });
-        return flag;
-      }
+    if (flag) {
+      context.dispatch("ranking/seperWinAndLose", flag, { root: true });
+      return flag;
+    }
+    this.$router.push("result");
   },
 
   // players fetch status from database
