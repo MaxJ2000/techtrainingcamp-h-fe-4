@@ -109,10 +109,10 @@ export default {
       let status = [];
       if (this.activeState[0] === 0) {
         for (let index in this.personalInf) {
-          if (titleContent !== "夜晚：猎人状态") {
-            let i = this.personalInf[index];
+          let i = this.personalInf[index];
+          let tmp = [];
+          if (this.titleContent !== "夜晚：猎人状态") {
             console.log(i);
-            let tmp = [];
             tmp.push(i.name + "是" + i.identity);
             if (i.isAlive > 0) {
               tmp.push(this.statusContent);

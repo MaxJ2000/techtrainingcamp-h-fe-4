@@ -63,8 +63,9 @@ const getters = {
   // },
 
   canHunterShoot: (state) => {
-    let key =
-      state.playerInf.findIndex((element) => element.identity == "hunter") + 1;
+    let key = state.playerInf.findIndex(
+      (element) => element.identity == "hunter"
+    );
     if (state.waitingState.killedByKnife == key) {
       return true;
     } else {
