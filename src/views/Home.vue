@@ -1,37 +1,46 @@
 <template>
   <div class="home">
     <!-- <Title>[创建房间]</Title> -->
-    <Header>[创建房间]</Header>
-    <div>{{ getRoomId }}</div>
-    <div :title="godList"></div>
-    <form>
-      <div>
-        <label for="name">昵称</label>
-        <input type="text" placeholder="请输入昵称" id="name" />
+    <Header>我是上帝</Header>
+    <v-container fluid>
+      <div class="rm">
+        房间号：
+        <span>{{ getRoomId }}</span>
       </div>
+      <div :title="godList"></div>
+      <form>
+        <!-- <div>
+          <label for="name">昵称</label>
+          <input type="text" placeholder="请输入昵称" id="name" />
+        </div>-->
+        <div>
+          <label for="wolf">狼人人数</label>
+          <input type="number" placeholder="请输入人数" id="wolf" @change="getValueWolf($event)" />
+        </div>
+        <div>
+          <label for="village">村民人数</label>
+          <input type="number" placeholder="请输入人数" id="village" @change="getValueVillage($event)" />
+        </div>
+        <div>
+          <label>可选神牌</label>
+          <input type="checkbox" value="女巫" @click="change(0)" />女巫
+          <br />
+          <input type="checkbox" value="猎人" @click="change(1)" />猎人
+          <br />
+          <input type="checkbox" value="预言家" @click="change(2)" />预言家
+        </div>
+        <div>
+          <label>可选模式</label>
+          <input type="radio" value="屠边" name="model" @click="radiochange" />屠边
+          <br />
+          <input type="radio" value="屠城" name="model" checked @click="radiochange" />屠城
+        </div>
+      </form>
       <div>
-        <label for="wolf">狼人人数</label>
-        <input type="number" placeholder="请输入人数" id="wolf" @change="getValueWolf($event)" />
+        <v-btn depressed large color="primary" class="btn1" to="/wait" v-on:click.native="init">创建房间</v-btn>
       </div>
-      <div>
-        <label for="village">村民人数</label>
-        <input type="number" placeholder="请输入人数" id="village" @change="getValueVillage($event)" />
-      </div>
-      <div>
-        <label>可选神牌</label>
-        <input type="checkbox" value="witch" @click="change(0)" />女巫
-        <input type="checkbox" value="hunter" @click="change(1)" />猎人
-        <input type="checkbox" value="prophet" @click="change(2)" />预言家
-      </div>
-      <div>
-        <label>可选模式</label>
-        <input type="radio" value="TB" id="TB" v-model="picked" />屠边
-        <input type="radio" value="TC" id="TC" v-model="picked" />屠城
-      </div>
-    </form>
-    <div>
-      <v-btn depressed large color="primary" class="btn1" to="/wait" v-on:click.native="init">提交</v-btn>
-    </div>
+      <img alt="WolfKill logo" src="../assets/wolf1.jpg" />
+    </v-container>
   </div>
 </template>
 <style scoped>
@@ -40,9 +49,29 @@ form div {
 }
 label {
   position: absolute;
-  left: 400px;
+  left: 0px;
   width: 150px;
   text-align: right;
+  color: #00eed4;
+}
+input {
+  position: relative;
+  left: 100px;
+}
+.container {
+  overflow: hidden;
+}
+.rm {
+  color: #007fff;
+  font-weight: 700;
+}
+.rm span {
+  color: white;
+  background-color: #007fff;
+}
+img {
+  width: 150px;
+  height: 150px;
 }
 </style>
 

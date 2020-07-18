@@ -1,8 +1,10 @@
 <template>
   <div class="d-flex flex-column align-center">
     <!-- <Title>[等待]</Title> -->
-    <Header>[等待]</Header>
+    <Header>等待开始</Header>
+    <img alt="WolfKill logo" src="../assets/nv.jpg" />
     <Circular :progress="rate"></Circular>
+    <div class="circular">已进入玩家:{{this.$store.state.gameInit.currentPlayerNum}} / {{this.$store.state.gameInit.playerNum}}</div>
     <v-btn
       depressed
       large
@@ -14,6 +16,17 @@
     >开始游戏</v-btn>
   </div>
 </template>
+<style scoped>
+img{
+  width: 200px;
+  height: 200px;
+  margin: 50px auto;
+}
+.circular {
+  color: #00eed4;
+  margin-top: 50px;
+}
+</style>
 
 <script>
 // @ is an alias to /src
