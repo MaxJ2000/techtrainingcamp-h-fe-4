@@ -419,7 +419,6 @@ const actions = {
       context.dispatch("ranking/seperWinAndLose", flag, { root: true });
       return flag;
     }
-    this.$router.push("result");
   },
 
   // players fetch status from database
