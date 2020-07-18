@@ -2,7 +2,7 @@
   <div class="hello">
     <!-- <Title>[首页]</Title> -->
     <Header>[首页]</Header>
-    <img alt="WolfKill logo" src="../assets/timg.jpg" />
+    <img alt="WolfKill logo" src="../assets/Werewolf.png" />
     <div class="row">
       <div class="mb">
         <v-btn

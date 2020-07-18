@@ -29,6 +29,7 @@
       >
     </div>
   </div>
+ 
 </template>
 
 <style scoped>
@@ -41,6 +42,7 @@ label {
   width: 150px;
   text-align: right;
 }
+
 </style>
 <script>
 // import Title from "@/components/Title.vue";
