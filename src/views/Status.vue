@@ -107,29 +107,33 @@ export default {
     },
     printStatus: function() {
       let status = [];
+      // console.log(this.$store);
       if (this.activeState[0] === 0) {
-        for (let index in this.personalInf) {
-          let i = this.personalInf[index];
+        for (let i of this.personalInf) {
           let tmp = [];
           if (this.titleContent !== "夜晚：猎人状态") {
-            console.log(i);
+            // console.log(i);
             tmp.push(i.name + "是" + i.identity);
             if (i.isAlive > 0) {
               tmp.push(this.statusContent);
             } else {
               tmp.push("死亡");
             }
-            status.push(tmp);
           } else {
             if (i.identity === "hunter") {
               tmp.push(i.name + "是" + i.identity);
+              if (this.$store.getters["gameStatus/canHunterShoot"]) {
+                tmp.push("可以射击");
+              } else {
+                tmp.push("不可射击");
+              }
             }
           }
+          status.push(tmp);
         }
       } else {
-        for (let index in this.personalInf) {
-          let i = this.personalInf[index];
-          console.log(i);
+        for (let i of this.personalInf) {
+          // console.log(i);
           let tmp = [];
           tmp.push(i.name + "是" + i.identity);
           if (i.isAlive > 0) {
@@ -151,15 +155,15 @@ export default {
       this.isChecked[num] = 1 - this.isChecked[num];
     },
     checkedKey() {
-      for (let index in this.isChecked) {
-        if (this.isChecked[index]) {
+      for (let [index, item] of this.isChecked.entries()) {
+        if (item) {
           return index;
         }
       }
     },
     nextStep() {
       const key = this.checkedKey();
-      console.log(key);
+      console.log("key" + key);
       // if (key) {
       //   if (this.activeState[0] === 0) {
       //     if (this.activeState[1] === 0) {
@@ -176,7 +180,7 @@ export default {
       // console.log(this.$store.state.gameStatus.isStart);
       let action = this.status2Action[this.statusContent];
       console.log(action);
-      if (action && key) {
+      if (action && key !== undefined) {
         this.$store.dispatch("gameStatus/" + action, key);
       }
       this.isChecked = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];

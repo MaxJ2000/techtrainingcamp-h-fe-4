@@ -64,12 +64,12 @@ const getters = {
 
   canHunterShoot: (state) => {
     let key = state.playerInf.findIndex(
-      (element) => element.identity == "hunter"
+      (element) => element.identity === "hunter"
     );
-    if (state.waitingState.killedByKnife == key) {
-      return true;
-    } else {
+    if (state.waitingState.killedByPoison === key) {
       return false;
+    } else {
+      return true;
     }
   },
 
@@ -221,9 +221,8 @@ const mutations = {
     var firstdayNum = 3;
 
     var nightNum = 1;
-    let x;
-    for (x of payload) {
-      if (x == "prophet") {
+    for (let x of payload) {
+      if (x === "prophet") {
         nightNum++;
       } else if (x == "witch") {
         nightNum++;
@@ -234,6 +233,7 @@ const mutations = {
         nightNum++;
       }
     }
+    console.log("nightNum" + nightNum);
     // var nightNum = getNightNum;
 
     console.log(nightNum);
@@ -287,11 +287,11 @@ const mutations = {
   [CHECK_EVENTS]: (state, payload) => {
     // var nightNum = payload.deitiesList;
     var nightNum = 1;
-    let x;
-    for (x in payload.deitiesList) {
+    for (let x of payload.deitiesList) {
       if (x == "prophet") {
         nightNum++;
       } else if (x == "witch") {
+        nightNum++;
         nightNum++;
       } else if (x == "guard") {
         nightNum++;
@@ -299,8 +299,9 @@ const mutations = {
         nightNum++;
       }
     }
+    console.log("nightNum" + nightNum);
 
-    if (state.activeState[0] == 0 && state.activeState[1] + 1 == nightNum) {
+    if (state.activeState[0] === 1 && state.activeState[1] == 0) {
       // from night to day
       // only two people can make one die: wolf and witch (even if milk through)
       // witch has absolute fatal poison
@@ -318,7 +319,7 @@ const mutations = {
           state.restNum.restDeities--;
         }
       }
-      if (state.waitingState.killedByPoison) {
+      if (state.waitingState.killedByPoison !== -1) {
         // about poison
         let diedPlayer = state.playerInf[state.waitingState.killedByPoison];
         diedPlayer.isAlive = -3;
@@ -336,9 +337,9 @@ const mutations = {
       }
 
       state.waitingState = {
-        killedByKnife: 0,
-        killedByPoison: 0,
-        savedByCured: 0,
+        killedByKnife: -1,
+        killedByPoison: -1,
+        savedByCured: -1,
       };
     } else if (state.activeState[0] == 0 && state.activeState[1] == 0) {
       // from day to night
