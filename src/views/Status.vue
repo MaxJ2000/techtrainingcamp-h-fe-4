@@ -53,6 +53,24 @@ export default {
           }
           status.push(tmp);
         }
+      } else {
+        for (let i of this.personalInf) {
+          console.log(i);
+          let tmp = [];
+          tmp.push(i.name + "是" + i.identity);
+          // if (this.activeState[0] === 0) {
+          //   tmp.push("狼刀");
+          // } else if (this.activeState[1] === 1) {
+          //   continue;
+          // } else if (this.activeState[1] === 2) {
+          //   tmp.push("解药");
+          // } else if (this.activeState[1] === 3) {
+          //   tmp.push("毒药");
+          // } else if (this.activeState[1] === 4) {
+          //   tmp.push("猎人");
+          // }
+          status.push(tmp);
+        }
       }
       return status;
     }

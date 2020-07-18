@@ -217,7 +217,7 @@ const mutations = {
     var dayNum = 2;
     var firstdayNum = 3;
     var nightNum = getters.getNightNum;
-
+    console.log(nightNum);
     if (state.dayCount === 0) {
       if (curState[0] === 0) {
         // night

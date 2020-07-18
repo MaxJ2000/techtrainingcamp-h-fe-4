@@ -25,8 +25,8 @@
       </div>
       <div>
         <label>可选模式</label>
-        <input type="radio" value="屠边" name="model" @click="radiochange" />屠边
-        <input type="radio" value="屠城" name="model" checked @click="radiochange" />屠城
+        <input type="radio" value="TB" id="TB" v-model="picked" />屠边
+        <input type="radio" value="TC" id="TC" v-model="picked" />屠城
       </div>
     </form>
     <div>
@@ -56,7 +56,8 @@ export default {
   name: "Home",
   data: function() {
     return {
-      godList: [0, 0, 0]
+      godList: [0, 0, 0],
+      picked: "TC"
     };
   },
   methods: {
@@ -67,8 +68,10 @@ export default {
       this.godList[num] = 1 - this.godList[num];
     },
     radiochange() {
-      this.$store.state.gameInit.killSideOrAll = !this.$store.state.gameInit
-        .killSideOrAll;
+      if (this.picked === "TB") {
+        this.$store.state.gameInit.killSideOrAll = !this.$store.state.gameInit
+          .killSideOrAll;
+      }
     },
     init() {
       for (let i = 0; i < this.godList.length; i++) {
@@ -84,6 +87,7 @@ export default {
           }
         }
       }
+      this.radiochange();
       this.$store.dispatch("gameInit/initRoom", {
         roomID: this.$store.state.gameInit.roomID,
         wolfNum: this.$store.state.gameInit.wolfNum,
