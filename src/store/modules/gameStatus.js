@@ -28,7 +28,7 @@ import {
 // waitingState: {killedByKnife: 0, killedByPoison: 0, savedByCured: 0}
 // hunterShoot: NOTE that players don't need this info
 const state = () => ({
-  playerInf: [],
+  playerInf: [{name:1,identity:1,isDead:3}],
   // isMyTurn: false,
   restNum: { restWolves: 0, restVillagers: 0, restDeities: 0 },
   dayCount: 0,
@@ -123,7 +123,7 @@ const getters = () => ({
 // NEXT_STEP: adjust activeState
 // CHECK_EVENTS: deal with situations during steps: people die, hunter shoot and daycount
 // GAME_OVER: only turn isStart to false
-const mutations = () => ({
+const mutations = {
   [INIT_GAME]: (state, payload) => {
     state.playerInf = payload.playerInf;
     state.restNum = payload.restNum;
@@ -305,7 +305,7 @@ const mutations = () => ({
   [GAME_OVER]: (state) => {
     state.isStart = false;
   },
-});
+};
 
 // actions
 // initGame: only infered from gameInit/startGame
@@ -317,7 +317,7 @@ const mutations = () => ({
 // nextStep: adjust activeState, god's control
 // updateStatus: deal with situations during steps: people die, hunter shoot and daycount
 // abortGame: restart the game right away
-const actions = () => ({
+const actions = {
   initGame: (context, payload) => {
     context.commit("INIT_GAME", payload);
   },
@@ -396,7 +396,7 @@ const actions = () => ({
     commit("GAME_OVER");
     dispatch("gameInit/startGame", { root: true });
   },
-});
+};
 
 export default {
   namespaced: true,

@@ -1,5 +1,6 @@
 <template>
-  <v-footer absolute class="font-weight-medium" color="#29B6F6">
+  <!-- <v-footer absolute class="font-weight-medium" color="#757575"> -->
+    <v-footer absolute class="font-weight-medium" color="#007fff">
     <v-col class="text-center" cols="12">
       {{ new Date().getFullYear() }} —
       <strong>

@@ -1,27 +1,34 @@
 <template>
   <div class="hello">
-    <!-- <Title>[首页]</Title> -->
-    <Header>[首页]</Header>
-    <img alt="WolfKill logo" src="../assets/timg.jpg" />
-    <div class="row">
-      <div class="mb">
-        <v-btn
-          depressed
-          large
-          rounded
-          color="primary"
-          class="btn1"
-          to="/home"
-          v-on:click.native="creat"
-        >创建房间</v-btn>
+    <Header>字节跳动狼人杀</Header>
+    <v-container fluid>
+      <!-- <Title>[首页]</Title> -->
+      <v-row no-gutters class="mb-0">
+        <v-col cols="12">
+      <img alt="WolfKill logo" src="../assets/wolf1.jpg" /></v-col></v-row>
+      <div class="row">
+        <div class="mb">
+          <v-btn
+            depressed
+            x-large
+            fab
+            height="150px"
+            width="150px"
+            color="primary"
+            class="btn1"
+            to="/home"
+            v-on:click.native="creat"
+          >我是上帝</v-btn>
+        </div>
+        <div>
+          <v-btn depressed x-large height="150px"
+            width="150px" fab color="success" class="btn1 right" to="/about">我是玩家</v-btn>
+        </div>
       </div>
-      <div>
-        <v-btn depressed large rounded color="primary" class="btn1 right" to="/about">加入房间</v-btn>
+      <div id="rule">
+        <Dialogs />
       </div>
-    </div>
-    <div id="rule">
-      <Dialogs />
-    </div>
+    </v-container>
   </div>
 </template>
 <style scoped>
@@ -31,14 +38,14 @@ h3 {
 .row {
   position: relative;
   width: 400px;
-  margin: 80px auto 0;
+  margin: 20px auto 0;
 }
-.btn1 {
-  background-color: #3f51b5 !important;
-}
+/* .btn1 {
+  background-color: #AA5F2C !important;
+} */
 .right {
   position: absolute;
-  right: 0;
+  right: 45px;
 }
 #rule {
   position: absolute !important;
@@ -49,6 +56,29 @@ h3 {
 }
 .mb {
   margin-bottom: 200px;
+}
+img {
+  width: 300px;
+  background-color: grey;
+  /* margin: 0 auto; */
+}
+.container {
+  overflow: hidden;
+}
+.col-12 {
+  /* text-align: center!important; */
+  flex: 0 0 90%;
+}
+.v-application .primary {
+    background-color: #007fff !important;
+    border-color: #007fff !important;
+}
+.v-application .success {
+    background-color: #00eed4 !important;
+    border-color: #00eed4 !important;
+}
+.v-btn.v-size--x-large {
+    font-size: 2rem;
 }
 </style>
 

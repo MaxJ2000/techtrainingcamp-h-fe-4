@@ -10,7 +10,7 @@
         <router-link to="/status">游戏状态</router-link>|
         <router-link to="/result">游戏结果</router-link>
       </div>
-      <router-view />
+      <router-view class="font"/>
       <Footer />
     </div>
   </v-app>
@@ -28,10 +28,20 @@
 }
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: black;
 }
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+/* .backimage {
+  background-image: url(assets/timg1.jpg);
+} */
+.v-application--wrap {
+  background-color: white!important;
+  /* background-image: url("assets/timg2.jpg");*/
+}
+.font {
+  color:black;
 }
 </style>
 

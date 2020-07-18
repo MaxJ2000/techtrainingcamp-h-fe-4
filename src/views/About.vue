@@ -1,33 +1,27 @@
 <template>
   <div class="about">
     <!-- <Title>[加入房间]</Title> -->
-    <Header>[加入房间]</Header>
-    <form>
+    <Header>我是玩家</Header>
+    <v-container fluid>
+      <form>
+        <div>
+          <label for="name">玩家名</label>
+          <input type="text" placeholder="请输入昵称" id="name" v-model="name" />
+        </div>
+        <div>
+          <label for="room">房间号</label>
+          <input type="text" placeholder="请输入房间号" id="room" v-model="roomID" />
+        </div>
+      </form>
+      <!-- <div>
+        <v-text-field label="Main input" :rules="rules" hide-details="auto"></v-text-field>
+        <v-text-field label="Another input"></v-text-field>
+      </div> -->
       <div>
-        <label for="name">昵称</label>
-        <input type="text" placeholder="请输入昵称" id="name" v-model="name" />
+        <v-btn depressed x-large color="primary" class="btn1" to="/wait" v-on:click.native="join">加入房间</v-btn>
       </div>
-      <div>
-        <label for="room">房间号</label>
-        <input
-          type="text"
-          placeholder="请输入房间号"
-          id="room"
-          v-model="roomID"
-        />
-      </div>
-    </form>
-    <div>
-      <v-btn
-        depressed
-        large
-        color="primary"
-        class="btn1"
-        to="/wait"
-        v-on:click.native="join"
-        >提交</v-btn
-      >
-    </div>
+       <img alt="WolfKill logo" src="../assets/wolf1.jpg" />
+    </v-container>
   </div>
 </template>
 
@@ -37,9 +31,21 @@ form div {
 }
 label {
   position: absolute;
-  left: 400px;
+  left: 0px;
   width: 150px;
   text-align: right;
+    color: #00eed4;
+}
+.container {
+  overflow: hidden;
+}
+input {
+  position: relative;
+  left: 100px;
+}
+img{
+  width: 150px;
+  height: 150px;
 }
 </style>
 <script>
@@ -47,13 +53,18 @@ label {
 import Header from "@/components/Header.vue";
 
 export default {
-  components: { 
+  components: {
     // Title,
-    Header },
+    Header
+  },
   data: function() {
     return {
       name,
-      roomID: 0
+      roomID: 0,
+      rules: [
+        value => !!value || 'Required.',
+        value => (value && value.length >= 3) || 'Min 3 characters',
+      ],
     };
   },
   methods: {

@@ -46,6 +46,10 @@ div.row.justify-center {
 .btn1 {
   margin-bottom: 100px;
 }
+.v-application .primary {
+    background-color: #BDBDBD !important;
+    border-color: #BDBDBD !important;
+}
 </style>
 <script>
 export default {
