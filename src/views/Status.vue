@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column align-center">
-    <Title>[夜晚：狼人行动]</Title>
+    <Title>[{{titleContent}}]</Title>
     <List :eachStatus="printStatus" :isChecked="isChecked" :change="change" />
     <Button v-on:click.native="nextStep" msg="下一步"></Button>
   </div>
@@ -19,8 +19,30 @@ export default {
     Button
   },
   data: () => ({
-    isChecked: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    isChecked: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    titleFullDataBase: [
+      [
+        "夜晚：狼人行动",
+        "夜晚：女巫解药",
+        "夜晚：女巫毒药",
+        "夜晚：预言家查验",
+        "夜晚：猎人状态"
+      ],
+      ["白天：昨日情况", "白天：玩家发言", "白天：投票放逐"]
+    ],
+    statusFullDataBase: [
+      ["狼人击杀", "女巫复活", "女巫毒杀", "预言家查验", "猎人状态"],
+      ["存活", "存活", "投票放逐"]
+    ],
+    status2Action: {
+      狼人击杀: "markKnife",
+      女巫复活: "markCure",
+      女巫毒杀: "markPoison",
+      // 猎人状态: "",
+      投票放逐: "voteOut"
+    }
   }),
+
   computed: {
     activeState: function() {
       return this.$store.state.gameStatus.activeState;
@@ -33,6 +55,56 @@ export default {
       // ];
       return this.$store.state.gameStatus.playerInf;
     },
+
+    deitiesList: function() {
+      return this.$store.state.gameInit.deitiesList;
+    },
+    titleDataBase: function() {
+      let tmp = [[], []];
+      tmp[0].push(this.titleFullDataBase[0][0]);
+      if (this.deitiesList.find(item => item === "witch")) {
+        tmp[0].push(this.titleFullDataBase[0][1]);
+        tmp[0].push(this.titleFullDataBase[0][2]);
+      }
+      if (this.deitiesList.find(item => item === "prophet")) {
+        tmp[0].push(this.titleFullDataBase[0][3]);
+      }
+      if (this.deitiesList.find(item => item === "hunter")) {
+        tmp[0].push(this.titleFullDataBase[0][4]);
+      }
+      tmp[1] = this.titleFullDataBase[1];
+      return tmp;
+    },
+    statusDataBase: function() {
+      let tmp = [[], []];
+      tmp[0].push(this.statusFullDataBase[0][0]);
+      if (this.deitiesList.find(item => item === "witch")) {
+        tmp[0].push(this.statusFullDataBase[0][1]);
+        tmp[0].push(this.statusFullDataBase[0][2]);
+      }
+      if (this.deitiesList.find(item => item === "prophet")) {
+        tmp[0].push(this.statusFullDataBase[0][3]);
+      }
+      if (this.deitiesList.find(item => item === "hunter")) {
+        tmp[0].push(this.statusFullDataBase[0][4]);
+      }
+      tmp[1] = this.statusFullDataBase[1];
+      return tmp;
+    },
+    statusContent: function() {
+      if (this.activeState[0] === 0) {
+        return this.statusDataBase[0][this.activeState[1]];
+      } else {
+        return this.statusDataBase[1][this.activeState[1]];
+      }
+    },
+    titleContent: function() {
+      if (this.activeState[0] === 0) {
+        return this.titleDataBase[0][this.activeState[1]];
+      } else {
+        return this.titleDataBase[1][this.activeState[1]];
+      }
+    },
     printStatus: function() {
       let status = [];
       if (this.activeState[0] === 0) {
@@ -42,17 +114,7 @@ export default {
           let tmp = [];
           tmp.push(i.name + "是" + i.identity);
           if (i.isAlive > 0) {
-            if (this.activeState[1] === 0) {
-              tmp.push("狼刀");
-            } else if (this.activeState[1] === 1) {
-              continue;
-            } else if (this.activeState[1] === 2) {
-              tmp.push("解药");
-            } else if (this.activeState[1] === 3) {
-              tmp.push("毒药");
-            } else if (this.activeState[1] === 4) {
-              tmp.push("猎人");
-            }
+            tmp.push(this.statusContent);
           } else {
             tmp.push("死亡");
           }
@@ -64,17 +126,11 @@ export default {
           console.log(i);
           let tmp = [];
           tmp.push(i.name + "是" + i.identity);
-          // if (this.$store.state.gameStatus.activeState[0] === 0) {
-          //   tmp.push("狼刀");
-          // } else if (this.$store.state.gameStatus.activeState[1] === 1) {
-          //   continue;
-          // } else if (this.$store.state.gameStatus.activeState[1] === 2) {
-          //   tmp.push("解药");
-          // } else if (this.$store.state.gameStatus.activeState[1] === 3) {
-          //   tmp.push("毒药");
-          // } else if (this.$store.state.gameStatus.activeState[1] === 4) {
-          //   tmp.push("猎人");
-          // }
+          if (i.isAlive > 0) {
+            tmp.push(this.statusContent);
+          } else {
+            tmp.push("死亡");
+          }
           status.push(tmp);
         }
       }
@@ -98,22 +154,27 @@ export default {
     nextStep() {
       const key = this.checkedKey();
       console.log(key);
-      if (key) {
-        if (this.activeState[0] === 0) {
-          if (this.activeState[1] === 0) {
-            this.$store.dispatch("gameStatus/markKnife", key);
-          } else if (this.activeState[1] === 1) {
-            1;
-          } else if (this.activeState[1] === 2) {
-            this.$store.dispatch("gameStatus/markPoison", key);
-          } else if (this.activeState[1] === 3) {
-            this.$store.dispatch("gameStatus/markCure", key);
-          }
-        }
+      // if (key) {
+      //   if (this.activeState[0] === 0) {
+      //     if (this.activeState[1] === 0) {
+      //       this.$store.dispatch("gameStatus/markKnife", key);
+      //     } else if (this.activeState[1] === 1) {
+      //       1;
+      //     } else if (this.activeState[1] === 2) {
+      //       this.$store.dispatch("gameStatus/markPoison", key);
+      //     } else if (this.activeState[1] === 3) {
+      //       this.$store.dispatch("gameStatus/markCure", key);
+      //     }
+      //   }
+      // }
+      // console.log(this.$store.state.gameStatus.isStart);
+      let action = this.status2Action[this.statusContent];
+      console.log(action);
+      if (action && key) {
+        this.$store.dispatch("gameStatus/" + action, key);
       }
-      console.log(this.$store.state.gameStatus.isStart);
-      this.$store.dispatch("gameStatus/nextStep");
       this.isChecked = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      this.$store.dispatch("gameStatus/nextStep");
     }
   },
   mounted: function() {

@@ -19,9 +19,9 @@
       </div>
       <div>
         <label>可选神牌</label>
-        <input type="checkbox" value="女巫" @click="change(0)" />女巫
-        <input type="checkbox" value="猎人" @click="change(1)" />猎人
-        <input type="checkbox" value="预言家" @click="change(2)" />预言家
+        <input type="checkbox" value="witch" @click="change(0)" />女巫
+        <input type="checkbox" value="hunter" @click="change(1)" />猎人
+        <input type="checkbox" value="prophet" @click="change(2)" />预言家
       </div>
       <div>
         <label>可选模式</label>
@@ -77,13 +77,13 @@ export default {
       for (let i = 0; i < this.godList.length; i++) {
         if (this.godList[i] === 1) {
           if (i === 0) {
-            this.$store.state.gameInit.deitiesList.push("女巫");
+            this.$store.state.gameInit.deitiesList.push("witch");
           }
           if (i === 1) {
-            this.$store.state.gameInit.deitiesList.push("猎人");
+            this.$store.state.gameInit.deitiesList.push("hunter");
           }
           if (i === 2) {
-            this.$store.state.gameInit.deitiesList.push("预言家");
+            this.$store.state.gameInit.deitiesList.push("prophet");
           }
         }
       }

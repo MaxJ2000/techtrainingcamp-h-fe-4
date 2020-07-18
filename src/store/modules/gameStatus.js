@@ -82,7 +82,7 @@ const getters = {
     return true;
   },
 
-  endGame: (state, rootState) => {
+  endGame: (state, getters, rootState) => {
     if (state.restNum.restWolves == 0) {
       return 1;
     }
@@ -146,7 +146,7 @@ const mutations = {
   },
 
   [MARK_POISON]: (state, key) => {
-    if (state.playerInf[key].isAlive) {
+    if (state.playerInf[key].isAlive > 0) {
       state.waitingState.killedByPoison = key;
       return true;
     } else {
@@ -215,15 +215,17 @@ const mutations = {
   [NEXT_STEP]: (state, payload) => {
     console.log("I am here!");
     var curState = state.activeState;
-    var dayNum = 2;
+    // var dayNum = 2
+    var dayNum = 3;
     var firstdayNum = 3;
 
     var nightNum = 1;
     let x;
-    for (x in payload) {
+    for (x of payload) {
       if (x == "prophet") {
         nightNum++;
       } else if (x == "witch") {
+        nightNum++;
         nightNum++;
       } else if (x == "guard") {
         nightNum++;
@@ -390,7 +392,7 @@ const actions = {
     context.commit("CHECK_EVENTS", {
       canHeDie: context.getters.canHeDie,
       canHunterShoot: context.getters.canHunterShoot,
-      deitiesList: context.rootState.gameInit.deitiesList
+      deitiesList: context.rootState.gameInit.deitiesList,
     });
     axios
       .post("https://afe5o5.fn.thelarkcloud.com/changeState", {
@@ -418,25 +420,25 @@ const actions = {
 
   // players fetch status from database
   updateStatus: (context, payload) => {
-      axios
-        .post("https://afe5o5.fn.thelarkcloud.com/getState", {
-          roomID: payload.roomID,
-          name: payload.name,
-        })
-        .then(function(response) {
-          context.commit("UPDATE_STATUS", {
-            isStart: response.data.gameState.isStart,
-            playerInf: response.data.gameState.playerInf,
-            dayCount: response.data.gameState.dayCount,
-            activeState: response.data.gameState.activeState,
-          });
-          console.log(response);
-          return true;
-        })
-        .catch(function(error) {
-          console.log(error);
-          return false;
+    axios
+      .post("https://afe5o5.fn.thelarkcloud.com/getState", {
+        roomID: payload.roomID,
+        name: payload.name,
+      })
+      .then(function(response) {
+        context.commit("UPDATE_STATUS", {
+          isStart: response.data.gameState.isStart,
+          playerInf: response.data.gameState.playerInf,
+          dayCount: response.data.gameState.dayCount,
+          activeState: response.data.gameState.activeState,
         });
+        console.log(response);
+        return true;
+      })
+      .catch(function(error) {
+        console.log(error);
+        return false;
+      });
   },
 
   // 强行结束: 1 - 民神胜利， 2 - 狼胜利， 3 - 重开一局 (1, 2 都是调用ranking中的action，此处是3)
