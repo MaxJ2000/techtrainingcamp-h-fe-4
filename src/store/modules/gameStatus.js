@@ -28,7 +28,7 @@ import {
 // waitingState: {killedByKnife: 0, killedByPoison: 0, savedByCured: 0}
 // hunterShoot: NOTE that players don't need this info
 const state = {
-  playerInf: [{name:0, identity:0, isDead:1}],
+  playerInf: [],
   // isMyTurn: false,
   restNum: { restWolves: 0, restVillagers: 0, restDeities: 0 },
   dayCount: 0,
@@ -82,7 +82,7 @@ const getters = {
     return true;
   },
 
-  endGame: (state, rootState) => {
+  endGame: (state, getters, rootState) => {
     if (state.restNum.restWolves == 0) {
       return 1;
     }
@@ -309,7 +309,7 @@ const mutations = {
         // about wolf
         let diedPlayer = state.playerInf[state.waitingState.killedByKnife];
         console.log("diedPlayer", diedPlayer);
-        diedPlayer.isAlive = -1;    // killed by knife
+        diedPlayer.isAlive = -1; // killed by knife
         if (diedPlayer.identity == "villager") {
           state.restNum.restVillagers--;
         } else if (diedPlayer.identity == "wolf") {
@@ -321,7 +321,7 @@ const mutations = {
       if (state.waitingState.killedByPoison !== -1) {
         // about poison
         let diedPlayer = state.playerInf[state.waitingState.killedByPoison];
-        diedPlayer.isAlive = -3;    // killed by poison
+        diedPlayer.isAlive = -3; // killed by poison
         if (diedPlayer.identity == "villager") {
           state.restNum.restVillagers--;
         } else if (diedPlayer.identity == "wolf") {

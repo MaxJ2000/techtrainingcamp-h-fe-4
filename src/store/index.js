@@ -2,7 +2,7 @@
 // import Vuex from 'vuex';
 // // import gameStatus from './modules/gameStatus'
 
-// Vue.use(Vuex); 
+// Vue.use(Vuex);
 
 // export default new Vuex.Store({
 //     state: {
@@ -23,15 +23,16 @@
 //     //   getters
 // })
 
- 
-import Vue from 'vue'
-import Vuex from 'vuex'
-import gameInit from './modules/gameInit'
-import gameStatus from './modules/gameStatus'
-import ranking from './modules/ranking'
+import Vue from "vue";
+import Vuex from "vuex";
+import gameInit from "./modules/gameInit";
+import gameStatus from "./modules/gameStatus";
+import ranking from "./modules/ranking";
+import createPersistedState from "vuex-persistedstate";
 // import createLogger from '../../../src/plugins/logger'
+import * as Cookies from "js-cookie";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 // const debug = process.env.NODE_ENV !== 'production'
 
@@ -39,8 +40,15 @@ export default new Vuex.Store({
   modules: {
     gameInit,
     gameStatus,
-    ranking
-  }
+    ranking,
+  },
+  plugins: [
+    createPersistedState({
+      getState: (key) => Cookies.getJSON(key),
+      setState: (key, state) =>
+        Cookies.set(key, state, { expires: 3, secure: true }),
+    }),
+  ],
   // strict: debug,
   // plugins: debug ? [createLogger()] : []
-})
+});

@@ -1,8 +1,8 @@
 <template>
   <div class="d-flex flex-column align-center">
     <!-- <Title>[{{titleContent}}]</Title> -->
-    <Header>{{titleContent}}</Header>
-    <div>{{"第几天"}}</div>
+    <Header>{{ titleContent }}</Header>
+    <div>第{{ dayCount }}天</div>
     <List :eachStatus="printStatus" :isChecked="isChecked" :change="change" />
     <Button v-on:click.native="nextStep" msg="下一步"></Button>
     <Button v-on:click.native="nextStep" msg="强行结束"></Button>
@@ -31,7 +31,7 @@ export default {
     // Title,
     List,
     Button,
-    Header
+    Header,
   },
   data: () => ({
     isChecked: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -41,24 +41,27 @@ export default {
         "夜晚：女巫解药",
         "夜晚：女巫毒药",
         "夜晚：预言家查验",
-        "夜晚：猎人状态"
+        "夜晚：猎人状态",
       ],
-      ["白天：昨日情况", "白天：玩家发言", "白天：投票放逐"]
+      ["白天：昨日情况", "白天：玩家发言", "白天：投票放逐"],
     ],
     statusFullDataBase: [
       ["狼人击杀", "女巫复活", "女巫毒杀", "预言家查验", "猎人状态"],
-      ["存活", "存活", "投票放逐"]
+      ["存活", "存活", "投票放逐"],
     ],
     status2Action: {
       狼人击杀: "markKnife",
       女巫复活: "markCure",
       女巫毒杀: "markPoison",
       // 猎人状态: "",
-      投票放逐: "voteOut"
-    }
+      投票放逐: "voteOut",
+    },
   }),
 
   computed: {
+    dayCount: function() {
+      return this.$store.state.gameStatus.dayCount;
+    },
     activeState: function() {
       return this.$store.state.gameStatus.activeState;
       // return [0, 0];
@@ -77,14 +80,14 @@ export default {
     titleDataBase: function() {
       let tmp = [[], []];
       tmp[0].push(this.titleFullDataBase[0][0]);
-      if (this.deitiesList.find(item => item === "witch")) {
+      if (this.deitiesList.find((item) => item === "witch")) {
         tmp[0].push(this.titleFullDataBase[0][1]);
         tmp[0].push(this.titleFullDataBase[0][2]);
       }
-      if (this.deitiesList.find(item => item === "prophet")) {
+      if (this.deitiesList.find((item) => item === "prophet")) {
         tmp[0].push(this.titleFullDataBase[0][3]);
       }
-      if (this.deitiesList.find(item => item === "hunter")) {
+      if (this.deitiesList.find((item) => item === "hunter")) {
         tmp[0].push(this.titleFullDataBase[0][4]);
       }
       tmp[1] = this.titleFullDataBase[1];
@@ -93,14 +96,14 @@ export default {
     statusDataBase: function() {
       let tmp = [[], []];
       tmp[0].push(this.statusFullDataBase[0][0]);
-      if (this.deitiesList.find(item => item === "witch")) {
+      if (this.deitiesList.find((item) => item === "witch")) {
         tmp[0].push(this.statusFullDataBase[0][1]);
         tmp[0].push(this.statusFullDataBase[0][2]);
       }
-      if (this.deitiesList.find(item => item === "prophet")) {
+      if (this.deitiesList.find((item) => item === "prophet")) {
         tmp[0].push(this.statusFullDataBase[0][3]);
       }
-      if (this.deitiesList.find(item => item === "hunter")) {
+      if (this.deitiesList.find((item) => item === "hunter")) {
         tmp[0].push(this.statusFullDataBase[0][4]);
       }
       tmp[1] = this.statusFullDataBase[1];
@@ -160,7 +163,7 @@ export default {
         }
       }
       return status;
-    }
+    },
   },
   methods: {
     reload() {
@@ -200,10 +203,10 @@ export default {
       }
       this.isChecked = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       this.$store.dispatch("gameStatus/nextStep");
-    }
+    },
   },
   mounted: function() {
     this.$store.dispatch("gameInit/startGame");
-  }
+  },
 };
 </script>
