@@ -415,11 +415,17 @@ const actions = {
       })
       .then(function(response) {
         console.log(response);
-        
       })
       .catch(function(error) {
         console.log(error);
       });
+<<<<<<< HEAD
+=======
+    if (flag) {
+      context.dispatch("ranking/seperWinAndLose", flag, { root: true });
+      return flag;
+    }
+>>>>>>> f6f20b5e4851cb9de19c848f3b4f9e689a87879a
   },
 
   // players fetch status from database
