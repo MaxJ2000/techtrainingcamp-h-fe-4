@@ -13,13 +13,13 @@ const state = {
 
 // getters
 // sortedList: info to show on the leaderboard, shape: [{ name, winTimes }]
-const getters = () => ({
+const getters = {
   sortedList: (state) => {
     return state.rankings.sort(function(a, b) {
       return a.winTimes - b.winTimes;
     });
   },
-});
+};
 
 // mutations
 // WOLF_WIN: seperate two groups and update winTimes
@@ -69,23 +69,23 @@ const mutations = {
 // kindWin: same as wolfWin
 // updateRankings: after find isStart is false, launch the action
 const actions = {
-  seperWinAndLose: ({ dispatch }, payload) => {
+  seperWinAndLose: (context, payload) => {
     // 1 - wolves win, 2 - kind win
     if (payload.flag == 1) {
-      dispatch("wolfWin", payload.playerInf);
+      context.dispatch("wolfWin", payload.playerInf);
     } else if (payload.flag == 2) {
-      dispatch("kindWin", payload.playerInf);
+      context.dispatch("kindWin", payload.playerInf);
     }
   },
 
-  wolfWin: ({ commit, state }, playerInf) => {
-    commit("WOLF_WIN", playerInf);
+  wolfWin: (context, playerInf) => {
+    context.commit("WOLF_WIN", playerInf);
     axios
       .post("", {
         // from gods to database
-        winTimes: state.winTimes,
-        winGroup: state.winGroup,
-        loseGroup: state.loseGroup,
+        winTimes: context.state.winTimes,
+        winGroup: context.state.winGroup,
+        loseGroup: context.state.loseGroup,
       })
       .then(function(response) {
         console.log(response);
@@ -95,16 +95,29 @@ const actions = {
       });
   },
 
-  kindWin: ({ commit }, playerInf) => {
-    commit("KIND_WIN", playerInf);
+  kindWin: (context, playerInf) => {
+    context.commit("KIND_WIN", playerInf);
+    axios
+      .post("", {
+        // from gods to database
+        winTimes: context.state.winTimes,
+        winGroup: context.state.winGroup,
+        loseGroup: context.state.loseGroup,
+      })
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   },
 
-  updateRankings: ({ commit }) => {
+  updateRankings: (context) => {
     axios
       .get("") // from database to player
       .then(function(response) {
         console.log(response);
-        commit("UPDATE_RANKINGS", response);
+        context.commit("UPDATE_RANKINGS", response);
         return true;
       })
       .catch(function(error) {
