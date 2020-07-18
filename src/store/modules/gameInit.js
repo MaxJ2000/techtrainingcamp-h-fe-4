@@ -183,6 +183,7 @@ const actions = {
         })
         .then(function(response) {
           console.log(response.data.roomState.currentPlayerNum);
+          context.rootState.gameStatus.isStart = response.data.isStart;
           context.commit("UPDATE_CURR_NUM", {
             currentPlayerNum: response.data.roomState.currentPlayerNum,
           });

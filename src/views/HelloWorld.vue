@@ -19,7 +19,6 @@
             color="primary"
             class="btn1"
             to="/home"
-            v-on:click.native="creat"
           >我是上帝</v-btn>
         </div>
         <div>

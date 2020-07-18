@@ -109,16 +109,22 @@ export default {
       let status = [];
       if (this.activeState[0] === 0) {
         for (let index in this.personalInf) {
-          let i = this.personalInf[index];
-          console.log(i);
-          let tmp = [];
-          tmp.push(i.name + "是" + i.identity);
-          if (i.isAlive > 0) {
-            tmp.push(this.statusContent);
+          if (titleContent !== "夜晚：猎人状态") {
+            let i = this.personalInf[index];
+            console.log(i);
+            let tmp = [];
+            tmp.push(i.name + "是" + i.identity);
+            if (i.isAlive > 0) {
+              tmp.push(this.statusContent);
+            } else {
+              tmp.push("死亡");
+            }
+            status.push(tmp);
           } else {
-            tmp.push("死亡");
+            if (i.identity === "hunter") {
+              tmp.push(i.name + "是" + i.identity);
+            }
           }
-          status.push(tmp);
         }
       } else {
         for (let index in this.personalInf) {

@@ -4,7 +4,9 @@
     <Header>等待开始</Header>
     <img alt="WolfKill logo" src="../assets/nv.jpg" />
     <Circular :progress="rate"></Circular>
-    <div class="circular">已进入玩家:{{this.$store.state.gameInit.currentPlayerNum}} / {{this.$store.state.gameInit.playerNum}}</div>
+    <div
+      class="circular"
+    >已进入玩家:{{this.$store.state.gameInit.currentPlayerNum}} / {{this.$store.state.gameInit.playerNum}}</div>
     <v-btn
       depressed
       large
@@ -17,7 +19,7 @@
   </div>
 </template>
 <style scoped>
-img{
+img {
   width: 200px;
   height: 200px;
   margin: 50px auto;
@@ -63,6 +65,11 @@ export default {
       this.$store.dispatch("gameInit/updateCurrNum", {
         roomID: this.$store.state.gameInit.roomID
       });
+      if (this.$store.state.gameStatus.isStart) {
+        if (this.$store.state.gameInit.name !== "_God") {
+          this.$router.push("player");
+        }
+      }
     }
     // allJoin() {
     //   this.$store.dispatch("gameStatus/updateStatus", {
