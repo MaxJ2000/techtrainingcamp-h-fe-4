@@ -114,7 +114,7 @@ const actions = {
 
   updateRankings: (context) => {
     axios
-      .get("") // from database to player
+      .get("https://afe5o5.fn.thelarkcloud.com/getRank") // from database to player
       .then(function(response) {
         console.log(response);
         context.commit("UPDATE_RANKINGS", response);

@@ -30,7 +30,7 @@
           </v-card-title>
 
           <v-card-text>
-            <div v-for="(item, index) in rank" v-bind:key="index">
+            <div v-for="(item, index) in ranking" :key="'ranking' + index">
               {{ item }}
             </div>
           </v-card-text>

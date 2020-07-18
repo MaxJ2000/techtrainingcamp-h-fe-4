@@ -4,14 +4,14 @@
     <Header>游戏中</Header>
     <v-container fluid>
       <div class="two">
-        <div>{{"第几天"}}</div>
+        <div>{{ "第几天" }}</div>
         <div>
-        当前阶段：
-        <span>{{stages()}}</span>
-      </div>
-      <div>
-        当前状态：
-        <span>{{status()}}</span>
+          当前阶段：
+          <span>{{ stages() }}</span>
+        </div>
+        <div>
+          当前状态：
+          <span>{{ status() }}</span>
         </div>
         <!-- <div>
           当前阶段：
@@ -39,7 +39,8 @@
           bottom
           right
           v-on:click.native="update"
-        >查看角色</v-btn>
+          >查看角色</v-btn
+        >
 
         <v-dialog v-model="dialog" max-width="290">
           <v-card>
@@ -50,7 +51,9 @@
             <v-card-actions>
               <v-spacer></v-spacer>
 
-              <v-btn color="green darken-1" text @click="dialog = false">关闭</v-btn>
+              <v-btn color="green darken-1" text @click="dialog = false"
+                >关闭</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -102,12 +105,12 @@ export default {
       dialog: false,
       timer: "",
       statu: ["游戏中", "被狼人刀", "被投票出局", "被毒杀", "被猎杀"],
-      stage: ["夜晚", "竞选警长", "发言阶段", "投票阶段"]
+      stage: ["夜晚", "竞选警长", "发言阶段", "投票阶段"],
     };
   },
   components: {
     // Title,
-    Header
+    Header,
   },
   // computed: {
   //   status: function() {
@@ -128,8 +131,12 @@ export default {
     update() {
       this.$store.dispatch("gameStatus/updateStatus", {
         roomID: this.$store.state.gameInit.roomID,
-        name: this.$store.state.gameInit.name
+        name: this.$store.state.gameInit.name,
       });
+      if (!this.$store.state.gameStatus.isStart) {
+        this.$store.dispatch("ranking/updateRankings");
+        this.$router.push("result");
+      }
     },
     status: function() {
       if (this.$store.state.gameStatus.playerInf[0].isAlive === 1) {
@@ -170,13 +177,13 @@ export default {
           return this.stage[0];
         }
       }
-    }
+    },
   },
   mounted() {
     this.timer = setInterval(this.update, 3000);
   },
   beforeDestroy() {
     clearInterval(this.timer);
-  }
+  },
 };
 </script>
