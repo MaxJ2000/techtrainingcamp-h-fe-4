@@ -4,9 +4,10 @@
     <Header>等待开始</Header>
     <img alt="WolfKill logo" src="../assets/nv.jpg" />
     <Circular :progress="rate"></Circular>
-    <div
-      class="circular"
-    >已进入玩家:{{this.$store.state.gameInit.currentPlayerNum}} / {{this.$store.state.gameInit.playerNum}}</div>
+    <div class="circular">
+      已进入玩家:{{ this.$store.state.gameInit.currentPlayerNum }} /
+      {{ this.$store.state.gameInit.playerNum }}
+    </div>
     <v-btn
       depressed
       large
@@ -14,8 +15,13 @@
       color="primary"
       class="btn1"
       to="/status"
-      v-if="(this.$store.state.gameInit.currentPlayerNum === this.$store.state.gameInit.playerNum) && this.$store.state.gameInit.name === '_God'"
-    >开始游戏</v-btn>
+      v-if="
+        this.$store.state.gameInit.currentPlayerNum ===
+          this.$store.state.gameInit.playerNum &&
+          this.$store.state.gameInit.name === '_God'
+      "
+      >开始游戏</v-btn
+    >
   </div>
 </template>
 <style scoped>
@@ -40,11 +46,11 @@ export default {
   components: {
     Circular,
     // Title,
-    Header
+    Header,
   },
   data() {
     return {
-      timer: ""
+      timer: "",
     };
   },
   // created() {
@@ -58,19 +64,19 @@ export default {
           this.$store.state.gameInit.playerNum) *
         100
       );
-    }
+    },
   },
   methods: {
     update() {
       this.$store.dispatch("gameInit/updateCurrNum", {
-        roomID: this.$store.state.gameInit.roomID
+        roomID: this.$store.state.gameInit.roomID,
       });
       if (this.$store.state.gameStatus.isStart) {
         if (this.$store.state.gameInit.name !== "_God") {
           this.$router.push("player");
         }
       }
-    }
+    },
     // allJoin() {
     //   this.$store.dispatch("gameStatus/updateStatus", {
     //     roomID: this.$store.state.gameInit.roomID,
@@ -79,11 +85,11 @@ export default {
     // }
   },
   mounted() {
-    this.timer = setInterval(this.update, 3000);
+    this.timer = setInterval(this.update, 1000);
   },
   beforeDestroy() {
     clearInterval(this.timer);
-  }
+  },
 
   // computed: {
   //   progress: {

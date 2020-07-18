@@ -133,10 +133,6 @@ export default {
         roomID: this.$store.state.gameInit.roomID,
         name: this.$store.state.gameInit.name,
       });
-      if (!this.$store.state.gameStatus.isStart) {
-        this.$store.dispatch("ranking/updateRankings");
-        this.$router.push("result");
-      }
     },
     status: function() {
       if (this.$store.state.gameStatus.playerInf[0].isAlive === 1) {
@@ -165,11 +161,23 @@ export default {
       }
     },
   },
+  computed: {
+    isStart: function() {
+      return this.$store.state.gameStatus.isStart;
+    },
+  },
   mounted() {
     this.timer = setInterval(this.update, 3000);
   },
   beforeDestroy() {
     clearInterval(this.timer);
+  },
+  watch: {
+    isStart(val) {
+      if (!val) {
+        this.$router.push("result");
+      }
+    },
   },
 };
 </script>
