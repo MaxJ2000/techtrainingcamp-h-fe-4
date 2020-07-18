@@ -85,6 +85,7 @@ const actions = {
     axios
       .post("https://afe5o5.fn.thelarkcloud.com/setRank", {
         // from gods to database
+        roomID: context.rootState.gameInit.roomID,
         winTimes: context.state.winTimes,
         winGroup: context.state.winGroup,
         loseGroup: context.state.loseGroup,
@@ -102,6 +103,7 @@ const actions = {
     axios
       .post("https://afe5o5.fn.thelarkcloud.com/setRank", {
         // from gods to database
+        roomID: context.rootState.gameInit.roomID,
         winTimes: context.state.winTimes,
         winGroup: context.state.winGroup,
         loseGroup: context.state.loseGroup,
@@ -115,8 +117,9 @@ const actions = {
   },
 
   updateRankings: (context) => {
+    console.log("roomID", context.rootState.gameInit.roomID)
     axios
-      .get("https://afe5o5.fn.thelarkcloud.com/getRank") // from database to player
+      .post("https://afe5o5.fn.thelarkcloud.com/getRank", {roomID: context.rootState.gameInit.roomID}) // from database to player
       .then(function(response) {
         console.log(response);
         context.commit("UPDATE_RANKINGS", response);
