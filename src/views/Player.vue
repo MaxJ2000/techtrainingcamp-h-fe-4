@@ -245,7 +245,7 @@ export default {
     },
   },
   mounted() {
-    this.timer = setInterval(this.update, 3000);
+    this.timer = setInterval(this.update, 1000);
   },
   beforeDestroy() {
     clearInterval(this.timer);
