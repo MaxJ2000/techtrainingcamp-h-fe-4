@@ -42,13 +42,8 @@ export default new Vuex.Store({
     gameStatus,
     ranking,
   },
-  plugins: [
-    createPersistedState({
-      getState: (key) => Cookies.getJSON(key),
-      setState: (key, state) =>
-        Cookies.set(key, state, { expires: 3, secure: true }),
-    }),
-  ],
+  plugins: [createPersistedState()],
+
   // strict: debug,
   // plugins: debug ? [createLogger()] : []
 });
