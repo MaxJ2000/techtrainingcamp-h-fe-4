@@ -1,56 +1,94 @@
 <template>
   <div class="player">
     <!-- <Title>[角色展示页]</Title> -->
-    <Header>[角色展示页]</Header>
-    <div class="two">
-      <div>
+    <Header>游戏中</Header>
+    <v-container fluid>
+      <div class="two">
+        <div>{{"第几天"}}</div>
+        <div>
         当前阶段：
         <span>{{stages()}}</span>
       </div>
       <div>
         当前状态：
         <span>{{status()}}</span>
+        </div>
+        <!-- <div>
+          当前阶段：
+          <span>{{11}}</span>
+        </div>
+        <div>
+          当前状态：
+          <span>{{11}}</span>
+        </div> -->
       </div>
-    </div>
-    <div class="one">
-      <div class="text-center">
-        <v-btn rounded absolute left color="primary" dark>状态刷新</v-btn>
+      <div class="one">
+        <div class="text-center">
+          <v-btn rounded absolute left color="#00eed4" dark>状态刷新</v-btn>
+        </div>
+        <div class="text-center">
+          <v-btn rounded absolute right color="#00eed4" dark>查看结果</v-btn>
+        </div>
       </div>
-      <div class="text-center">
-        <v-btn rounded absolute right color="primary" dark>查看结果</v-btn>
-      </div>
-    </div>
-    <v-row justify="center">
-      <v-btn color="primary" dark @click.stop="dialog = true" absolute bottom right v-on:click.native="update">查看角色</v-btn>
+      <v-row justify="center">
+        <v-btn
+          color="primary"
+          dark
+          @click.stop="dialog = true"
+          absolute
+          bottom
+          right
+          v-on:click.native="update"
+        >查看角色</v-btn>
 
-      <v-dialog v-model="dialog" max-width="290">
-        <v-card>
-          <v-card-title class="headline">您当前的角色是</v-card-title>
+        <v-dialog v-model="dialog" max-width="290">
+          <v-card>
+            <v-card-title class="headline">您当前的角色是</v-card-title>
 
-          <v-card-text>预言家</v-card-text>
+            <v-card-text>预言家</v-card-text>
 
-          <v-card-actions>
-            <v-spacer></v-spacer>
+            <v-card-actions>
+              <v-spacer></v-spacer>
 
-            <v-btn color="green darken-1" text @click="dialog = false">关闭</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-row>
+              <v-btn color="green darken-1" text @click="dialog = false">关闭</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
 <style scoped>
 .one {
-  position: relative;
+  /* position: relative; */
   width: 450px;
   margin: 100px auto;
 }
 .two div {
-  margin: 100px;
+  margin: 50px;
+  color: #007fff;
+  font-weight: 700;
 }
-.v-btn--absolute.v-btn--right, .v-btn--fixed.v-btn--right {
-    right: 90px;
+.v-btn--absolute.v-btn--right,
+.v-btn--fixed.v-btn--right {
+  right: 90px;
+}
+.container {
+  overflow: hidden;
+  height: 100%;
+}
+.v-btn--absolute.v-btn--right[data-v-cb9355ca],
+.v-btn--fixed.v-btn--right[data-v-cb9355ca] {
+  right: 40px;
+}
+.v-btn--absolute.v-btn--left,
+.v-btn--fixed.v-btn--left {
+  left: 40px;
+}
+.v-btn--absolute.v-btn--bottom,
+.v-btn--fixed.v-btn--bottom {
+  bottom: 70px;
 }
 </style>
 

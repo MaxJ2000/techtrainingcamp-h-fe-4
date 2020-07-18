@@ -1,22 +1,37 @@
 <template>
   <div class="d-flex flex-column align-center">
-    <Title>[{{titleContent}}]</Title>
+    <!-- <Title>[{{titleContent}}]</Title> -->
+    <Header>{{titleContent}}</Header>
+    <div>{{"第几天"}}</div>
     <List :eachStatus="printStatus" :isChecked="isChecked" :change="change" />
     <Button v-on:click.native="nextStep" msg="下一步"></Button>
+    <Button v-on:click.native="nextStep" msg="强行结束"></Button>
   </div>
 </template>
+<style scoped>
+.v-btn {
+  margin: 20px auto;
+}
+div {
+  margin: 20px auto;
+  color: #007fff;
+  font-weight: 700;
+}
+</style>
 
 <script>
 // @ is an alias to /src
-import Title from "@/components/Title.vue";
+// import Title from "@/components/Title.vue";
 import List from "@/components/List.vue";
 import Button from "@/components/Button.vue";
+import Header from "@/components/Header.vue";
 export default {
   name: "Status",
   components: {
-    Title,
+    // Title,
     List,
-    Button
+    Button,
+    Header
   },
   data: () => ({
     isChecked: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
