@@ -71,6 +71,7 @@ const mutations = {
 // updateRankings: after find isStart is false, launch the action
 const actions = {
   seperWinAndLose: (context, payload) => {
+    console.log("I am right here");
     // 1 - wolves win, 2 - kind win
     if (payload.flag == 1) {
       context.dispatch("wolfWin", payload.playerInf);
