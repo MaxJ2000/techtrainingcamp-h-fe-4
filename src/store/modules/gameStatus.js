@@ -395,6 +395,10 @@ const actions = {
       canHunterShoot: context.getters.canHunterShoot,
       deitiesList: context.rootState.gameInit.deitiesList,
     });
+    let flag = context.getters.endGame;
+    if (flag) {
+      context.commit("GAME_OVER"); // 1 represents wolves win, 2 represent good fellows win， 3 represent abort
+    }
     axios
       .post("https://afe5o5.fn.thelarkcloud.com/changeState", {
         playerInf: context.state.playerInf,
@@ -407,16 +411,16 @@ const actions = {
       })
       .then(function(response) {
         console.log(response);
-        let flag = context.getters.endGame;
-        if (flag) {
-          // commit("GAME_OVER");
-          // dispatch("ranking/seperWinAndLose", flag, { root: true });
-          return flag; // 1 represents wolves win, 2 represent good fellows win， 3 represent abort
-        }
+        
       })
       .catch(function(error) {
         console.log(error);
       });
+
+      if (flag) {
+        context.dispatch("ranking/seperWinAndLose", flag, { root: true });
+        return flag;
+      }
   },
 
   // players fetch status from database
