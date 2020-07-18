@@ -1,5 +1,5 @@
 <template>
-  <v-progress-linear :value="progress" height="10px" color="#00eed4"></v-progress-linear>
+  <v-progress-linear :buffer-value="progress" striped stream height="10px" color="#00eed4"></v-progress-linear>
 </template>
 
 <script>
