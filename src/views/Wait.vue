@@ -2,6 +2,10 @@
   <div class="d-flex flex-column align-center">
     <!-- <Title>[等待]</Title> -->
     <Header>等待开始</Header>
+    <div class="rm">
+      房间号：
+      <span>{{ this.$store.state.gameInit.roomID }}</span>
+    </div>
     <img alt="WolfKill logo" src="../assets/nv.jpg" />
     <Circular :progress="rate"></Circular>
     <div class="circular">
@@ -33,6 +37,15 @@ img {
 .circular {
   color: #00eed4;
   margin-top: 50px;
+}
+.rm {
+  color: #007fff;
+  font-weight: 700;
+  margin-top: 10px;
+}
+.rm span {
+  color: white;
+  background-color: #007fff;
 }
 </style>
 

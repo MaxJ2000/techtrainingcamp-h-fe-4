@@ -27,7 +27,7 @@
           <v-btn rounded absolute left color="#00eed4" dark>状态刷新</v-btn>
         </div>
         <div class="text-center">
-          <v-btn rounded absolute right color="#00eed4" dark>查看结果</v-btn>
+          <v-btn rounded absolute right color="#00eed4" dark>查看技能</v-btn>
         </div>
       </div>
       <v-row justify="center">
@@ -38,15 +38,41 @@
           absolute
           bottom
           right
-          v-on:click.native="update"
-          >查看角色</v-btn
+          v-on:click.native="watch"
+          >查看身份</v-btn
         >
 
         <v-dialog v-model="dialog" max-width="290">
           <v-card>
-            <v-card-title class="headline">您当前的角色是</v-card-title>
+            <v-card-title class="headline">您当前的身份是</v-card-title>
 
-            <v-card-text>预言家</v-card-text>
+            <v-card-text>
+              <img
+                alt="Identity"
+                src="../assets/wolfes.jpg"
+                v-if="this.srcimg[0]"
+              />
+              <img
+                alt="Identity"
+                src="../assets/prophet.jpg"
+                v-if="this.srcimg[1]"
+              />
+              <img
+                alt="Identity"
+                src="../assets/village.jpg"
+                v-if="this.srcimg[2]"
+              />
+              <img
+                alt="Identity"
+                src="../assets/witch.jpg"
+                v-if="this.srcimg[3]"
+              />
+              <img
+                alt="Identity"
+                src="../assets/hunter.jpg"
+                v-if="this.srcimg[4]"
+              />
+            </v-card-text>
 
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -106,6 +132,7 @@ export default {
       timer: "",
       statu: ["游戏中", "被狼人刀", "被投票出局", "被毒杀", "被猎杀"],
       stage: ["夜晚", "宣告昨夜情况", "发言阶段", "投票阶段"],
+      srcimg: [false, false, false, false, false],
     };
   },
   components: {
@@ -113,19 +140,27 @@ export default {
     Header,
   },
   // computed: {
-  //   status: function() {
-  //     if(this.$store.state.gameStatus.playerInf[0].isDead === 0) {
-  //       return this.statu[0];
-  //     }else if(this.$store.state.gameStatus.playerInf[0].isDead === 0){
-  //       return this.statu[1];
-  //     }else if(this.$store.state.gameStatus.playerInf[0].isDead === 0){
-  //       return this.statu[1];
-  //     }else if(this.$store.state.gameStatus.playerInf[0].isDead === 0){
-  //       return this.statu[1];
-  //     }else if(this.$store.state.gameStatus.playerInf[0].isDead === 0){
-  //       return this.statu[1];
+  //   watch: function() {
+  //     if (this.$store.state.gameStatus.playerInf[0].identity === "wolf") {
+  //       return require("../assets/" + this.srcimg[0] + ".jpg")
+  //     } else if (
+  //       this.$store.state.gameStatus.playerInf[0].identity === "prophet"
+  //     ) {
+  //       return require("../assets/" + this.srcimg[1] + ".jpg")
+  //     } else if (
+  //       this.$store.state.gameStatus.playerInf[0].identity === "villager"
+  //     ) {
+  //       return require("../assets/" + this.srcimg[2] + ".jpg")
+  //     } else if (
+  //       this.$store.state.gameStatus.playerInf[0].identity === "witch"
+  //     ) {
+  //       return require("../assets/" + this.srcimg[3] + ".jpg")
+  //     } else if (
+  //       this.$store.state.gameStatus.playerInf[4].identity === "hunter"
+  //     ) {
+  //       return require("../assets/" + this.srcimg[0] + ".jpg")
   //     }
-  //   },
+  //   };
   // },
   methods: {
     update() {
@@ -134,6 +169,49 @@ export default {
         name: this.$store.state.gameInit.name,
       });
     },
+    watch: function() {
+      if (this.$store.state.gameStatus.playerInf[0].identity === "wolf") {
+        this.srcimg[0] = true;
+      } else if (
+        this.$store.state.gameStatus.playerInf[0].identity === "prophet"
+      ) {
+        this.srcimg[1] = true;
+      } else if (
+        this.$store.state.gameStatus.playerInf[0].identity === "villager"
+      ) {
+        this.srcimg[2] = true;
+      } else if (
+        this.$store.state.gameStatus.playerInf[0].identity === "witch"
+      ) {
+        this.srcimg[3] = true;
+      } else if (
+        this.$store.state.gameStatus.playerInf[0].identity === "hunter"
+      ) {
+        this.srcimg[4] = true;
+      }
+    },
+    // watch() {
+    //   switch(this.$store.state.gameStatus.playerInf[0].identity){
+    //     // wolf, prophet, witch, village, hunter
+    //     case "wolf":
+    //       this.srcimg = require("../assets/wolfes.jpg");
+    //       break;
+    //     case "prophet":
+    //       this.srcimg = require("../assets/prophet.jpg");
+    //       break;
+    //     case "witch":
+    //       this.srcimg = require("../assets/witch.jpg");
+    //       break;
+    //     case "villager":
+    //       this.srcimg = require("../assets/village.jpg");
+    //       break;
+    //     case "hunter":
+    //       this.srcimg = require("../assets/hunter.jpg");
+    //       break;
+    //     default:
+    //       this.srcimg = "../assets/hunter.jpg";
+    //   }
+    // },
     status: function() {
       if (this.$store.state.gameStatus.playerInf[0].isAlive === 1) {
         return this.statu[0];
