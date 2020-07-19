@@ -427,7 +427,7 @@ const actions = {
         activeState: context.state.activeState,
         waitingState: context.state.waitingState,
         roomID: context.rootState.gameInit.roomID,
-        restNum: context.state.restNum,
+        // restNum: context.state.restNum,
         isAbort: context.state.isAbort,
       })
       .then(function(response) {
@@ -447,7 +447,7 @@ const actions = {
         activeState: context.state.activeState,
         waitingState: context.state.waitingState,
         roomID: context.rootState.gameInit.roomID,
-        restNum: context.state.restNum,
+        // restNum: context.state.restNum,
         isAbort: context.state.isAbort,
       })
       .then(function(response) {
