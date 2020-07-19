@@ -4,7 +4,9 @@
     <Header>游戏中</Header>
     <v-container fluid>
       <div class="two">
-        <div>{{ this.$store.state.gameStatus.dayCount + 1 }}</div>
+        <div class="day">
+          <span>第{{ this.$store.state.gameStatus.dayCount + 1 }}天</span>
+        </div>
         <div>
           当前阶段：
           <span>{{ stages() }}</span>
@@ -35,11 +37,16 @@
           color="primary"
           dark
           @click.stop="dialog = true"
+          fab
+          x-large
           absolute
-          bottom
-          right
+          top
+          left
           v-on:click.native="watch"
-        >查看身份</v-btn>
+        >
+          查看
+          <br />身份
+        </v-btn>
 
         <v-dialog v-model="dialog" max-width="290">
           <v-card>
@@ -71,6 +78,9 @@
   width: 450px;
   margin: 100px auto;
 }
+.two {
+  margin-top: 150px;
+}
 .two div {
   margin: 50px;
   color: #007fff;
@@ -95,6 +105,17 @@
 .v-btn--absolute.v-btn--bottom,
 .v-btn--fixed.v-btn--bottom {
   bottom: 70px;
+}
+.v-btn--fab.v-size--x-large.v-btn--absolute.v-btn--top {
+  top: 130px;
+}
+.day span {
+  position: absolute;
+  width: 100px;
+  height: 35px;
+  right: 20px;
+  top: 140px;
+  font-size: 25px;
 }
 </style>
 
@@ -190,7 +211,7 @@ export default {
     //   }
     // },
     status: function() {
-      if (this.$store.state.gameStatus.playerInf[0].isAlive > 0) {
+      if (this.$store.state.gameStatus.playerInf[0].isAlive === 1) {
         return this.statu[0];
       } else if (this.$store.state.gameStatus.playerInf[0].isAlive === -1) {
         return this.statu[1];

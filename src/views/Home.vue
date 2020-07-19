@@ -15,21 +15,11 @@
         </div>-->
         <div>
           <label for="wolf">狼人人数</label>
-          <input
-            type="number"
-            placeholder="请输入人数"
-            id="wolf"
-            @change="getValueWolf($event)"
-          />
+          <input type="number" placeholder="请输入人数" id="wolf" @change="getValueWolf($event)" />
         </div>
         <div>
           <label for="village">村民人数</label>
-          <input
-            type="number"
-            placeholder="请输入人数"
-            id="village"
-            @change="getValueVillage($event)"
-          />
+          <input type="number" placeholder="请输入人数" id="village" @change="getValueVillage($event)" />
         </div>
         <div>
           <label>可选神牌</label>
@@ -41,32 +31,13 @@
         </div>
         <div>
           <label>可选模式</label>
-          <input
-            type="radio"
-            value="屠边"
-            name="model"
-            @click="radiochange"
-          />屠边
+          <input type="radio" value="屠边" name="model" @click="radiochange" />屠边
           <br />
-          <input
-            type="radio"
-            value="屠城"
-            name="model"
-            checked
-            @click="radiochange"
-          />屠城
+          <input type="radio" value="屠城" name="model" checked @click="radiochange" />屠城
         </div>
       </form>
       <div>
-        <v-btn
-          depressed
-          large
-          color="primary"
-          class="btn1"
-          to="/wait"
-          v-on:click.native="init"
-          >创建房间</v-btn
-        >
+        <v-btn depressed large color="primary" class="btn1" to="/wait" v-on:click.native="init">创建房间</v-btn>
       </div>
       <img alt="WolfKill logo" src="../assets/wolf1.jpg" />
     </v-container>
@@ -74,14 +45,14 @@
 </template>
 <style scoped>
 form div {
-  margin: 50px;
+  margin: 20px;
 }
 label {
   position: absolute;
   left: 0px;
   width: 150px;
   text-align: right;
-  color: #00eed4;
+  color: #00d3b4;
 }
 input {
   position: relative;
@@ -89,6 +60,7 @@ input {
 }
 .container {
   overflow: hidden;
+  margin-top: 115px;
 }
 .rm {
   color: #007fff;
@@ -115,7 +87,7 @@ export default {
   data: function() {
     return {
       godList: [0, 0, 0],
-      picked: "TC",
+      picked: "TC"
     };
   },
   methods: {
@@ -152,7 +124,7 @@ export default {
         wolfNum: this.$store.state.gameInit.wolfNum,
         villagerNum: this.$store.state.gameInit.villagerNum,
         deitiesList: this.$store.state.gameInit.deitiesList,
-        killSideOrAll: this.$store.state.gameInit.killSideOrAll,
+        killSideOrAll: this.$store.state.gameInit.killSideOrAll
       });
     },
     getValueWolf(e) {
@@ -161,22 +133,22 @@ export default {
     },
     getValueVillage(e) {
       this.$store.commit("gameInit/getValueVillage", e.target.value);
-    },
+    }
   },
   components: {
     // Title,
     // combobox,
-    Header,
+    Header
   },
   computed: {
     getRoomId() {
       console.log(this.$store.state.gameInit.roomID);
       return this.$store.state.gameInit.roomID;
-    },
+    }
   },
   mounted: function() {
     this.$store.dispatch("gameInit/createRoom");
     this.$store.state.gameInit.deitiesList = [];
-  },
+  }
 };
 </script>

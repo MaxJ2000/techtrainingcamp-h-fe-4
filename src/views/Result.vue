@@ -1,61 +1,32 @@
 <template>
   <div class="result">
-    <div v-if="!isAbort">
-      <!-- <Title>[游戏结果页]</Title> -->
-      <Header>[游戏结果页]</Header>
-      <h4>当前局赢家:</h4>
-      <div
-        class="three"
-        v-for="(item, index) in winner"
-        v-bind:key="'winner' + index"
-      >
-        {{ item }}
-      </div>
-      <h4>其余玩家:</h4>
-      <div
-        class="three"
-        v-for="(item, index) in loser"
-        v-bind:key="'loser' + index"
-      >
-        {{ item }}
-      </div>
-      <v-row justify="center">
-        <v-btn color="primary" dark @click.stop="dialog = true" absolute right
-          >排行榜</v-btn
-        >
+    <!-- <Title>[游戏结果页]</Title> -->
+    <Header>[游戏结果页]</Header>
+    <h4>当前局赢家:</h4>
+    <div class="three" v-for="(item, index) in winner" v-bind:key="'winner' + index">{{ item }}</div>
+    <h4>其余玩家:</h4>
+    <div class="three" v-for="(item, index) in loser" v-bind:key="'loser' + index">{{ item }}</div>
+    <v-row justify="center">
+      <v-btn color="primary" dark @click.stop="dialog = true" absolute right>排行榜</v-btn>
 
-        <v-dialog v-model="dialog" max-width="290">
-          <v-card>
-            <v-card-title class="headline">
-              <p class="ma-auto">[排行榜]</p>
-            </v-card-title>
+      <v-dialog v-model="dialog" max-width="290">
+        <v-card>
+          <v-card-title class="headline">
+            <p class="ma-auto">[排行榜]</p>
+          </v-card-title>
 
-            <v-card-text>
-              <div v-for="(item, index) in ranking" :key="'ranking' + index">
-                {{ item }}
-              </div>
-            </v-card-text>
+          <v-card-text>
+            <div v-for="(item, index) in ranking" :key="'ranking' + index">{{ item }}</div>
+          </v-card-text>
 
-            <v-card-actions>
-              <v-spacer></v-spacer>
+          <v-card-actions>
+            <v-spacer></v-spacer>
 
-              <v-btn color="green darken-1" text @click="dialog = false"
-                >关闭</v-btn
-              >
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-row>
-    </div>
-    <v-btn
-      depressed
-      large
-      color="primary"
-      class="btn1"
-      to="/wait"
-      v-on:click.native="restartGame"
-      >重新开始</v-btn
-    >
+            <v-btn color="green darken-1" text @click="dialog = false">关闭</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
   </div>
 </template>
 
@@ -76,7 +47,7 @@ import Header from "@/components/Header.vue";
 export default {
   data() {
     return {
-      dialog: false,
+      dialog: false
       // winner: ["aaa - 女巫", "bbb - 预言家", "ccc - 猎人", "ddd - 平民"],
       // loser: ["eee - 狼人", "fff - 狼人"],
       // rank: [
@@ -125,7 +96,7 @@ export default {
         tmp.push(item.name + "  赢" + +item.winTimes + "局");
       }
       return tmp;
-    },
+    }
   },
   mounted() {
     if (this.$store.state.gameInit.name !== "_God") {
@@ -143,14 +114,14 @@ export default {
       } else {
         this.$store.dispatch("gameInit/joinRoom", {
           roomID: this.$store.state.gameInit.roomID,
-          name: this.$store.state.gameInit.name,
+          name: this.$store.state.gameInit.name
         });
       }
-    },
+    }
   },
   components: {
     // Title,
-    Header,
-  },
+    Header
+  }
 };
 </script>

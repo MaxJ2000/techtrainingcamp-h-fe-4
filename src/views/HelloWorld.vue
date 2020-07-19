@@ -19,7 +19,10 @@
             color="primary"
             class="btn1"
             to="/home"
-          >我是上帝</v-btn>
+          >
+            我是
+            <br />上帝
+          </v-btn>
         </div>
         <div>
           <v-btn
@@ -31,7 +34,10 @@
             color="success"
             class="btn1 right"
             to="/about"
-          >我是玩家</v-btn>
+          >
+            我是
+            <br />玩家
+          </v-btn>
         </div>
       </div>
       <div id="rule">
@@ -47,7 +53,8 @@ h3 {
 .row {
   position: relative;
   width: 400px;
-  margin: 20px auto 0;
+  margin: 0px auto 0;
+  height: 290px;
 }
 /* .btn1 {
   background-color: #AA5F2C !important;
@@ -58,7 +65,7 @@ h3 {
 }
 #rule {
   position: absolute !important;
-  bottom: 120px !important;
+  bottom: 70px !important;
   right: 120px !important;
   width: 125px !important;
   height: 40px !important;
@@ -73,6 +80,7 @@ img {
 }
 .container {
   overflow: hidden;
+  margin-top: -55px;
 }
 .col-12 {
   /* text-align: center!important; */
@@ -83,8 +91,8 @@ img {
   border-color: #007fff !important;
 }
 .v-application .success {
-  background-color: #00eed4 !important;
-  border-color: #00eed4 !important;
+  background-color: #00d3b4 !important;
+  border-color: #00d3b4 !important;
 }
 .v-btn.v-size--x-large {
   font-size: 2rem;

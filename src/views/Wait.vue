@@ -16,6 +16,8 @@
       depressed
       large
       rounded
+      absolute
+      bottom
       color="primary"
       class="btn1"
       to="/status"
@@ -24,8 +26,7 @@
           this.$store.state.gameInit.playerNum &&
           this.$store.state.gameInit.name === '_God'
       "
-      >开始游戏</v-btn
-    >
+    >开始游戏</v-btn>
   </div>
 </template>
 <style scoped>
@@ -35,8 +36,8 @@ img {
   margin: 50px auto;
 }
 .circular {
-  color: #00eed4;
-  margin-top: 50px;
+  color: #00d3b4;
+  margin-top: 0px;
 }
 .rm {
   color: #007fff;
@@ -46,6 +47,10 @@ img {
 .rm span {
   color: white;
   background-color: #007fff;
+}
+.v-btn--absolute.v-btn--bottom,
+.v-btn--fixed.v-btn--bottom {
+  bottom: 75px;
 }
 </style>
 
@@ -59,11 +64,11 @@ export default {
   components: {
     Circular,
     // Title,
-    Header,
+    Header
   },
   data() {
     return {
-      timer: "",
+      timer: ""
     };
   },
   // created() {
@@ -77,19 +82,19 @@ export default {
           this.$store.state.gameInit.playerNum) *
         100
       );
-    },
+    }
   },
   methods: {
     update() {
       this.$store.dispatch("gameInit/updateCurrNum", {
-        roomID: this.$store.state.gameInit.roomID,
+        roomID: this.$store.state.gameInit.roomID
       });
       if (this.$store.state.gameStatus.isStart) {
         if (this.$store.state.gameInit.name !== "_God") {
           this.$router.push("player");
         }
       }
-    },
+    }
     // allJoin() {
     //   this.$store.dispatch("gameStatus/updateStatus", {
     //     roomID: this.$store.state.gameInit.roomID,
@@ -102,7 +107,7 @@ export default {
   },
   beforeDestroy() {
     clearInterval(this.timer);
-  },
+  }
 
   // computed: {
   //   progress: {

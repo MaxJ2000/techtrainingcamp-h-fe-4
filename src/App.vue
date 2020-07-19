@@ -10,7 +10,7 @@
         <router-link to="/status">游戏状态</router-link>|
         <router-link to="/result">游戏结果</router-link>
       </div>
-      <router-view class="font"/>
+      <router-view class="font" />
       <Footer />
     </div>
   </v-app>
@@ -37,11 +37,12 @@
   background-image: url(assets/timg1.jpg);
 } */
 .v-application--wrap {
-  background-color: white!important;
+  background-color: white !important;
   /* background-image: url("assets/timg2.jpg");*/
 }
 .font {
-  color:black;
+  color: black;
+  margin-top: 115px;
 }
 </style>
 
@@ -55,7 +56,7 @@ export default {
     //
   }),
   components: {
-    Footer,
+    Footer
   }
 };
 </script>

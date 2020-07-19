@@ -2,7 +2,9 @@
   <div class="d-flex flex-column align-center">
     <!-- <Title>[{{titleContent}}]</Title> -->
     <Header>{{ titleContent }}</Header>
-    <div>第{{ dayCount }}天</div>
+    <div class="day">
+      <span>第{{ this.$store.state.gameStatus.dayCount + 1 }}天</span>
+    </div>
     <List :eachStatus="printStatus" :isChecked="isChecked" :change="change" />
     <Button v-on:click.native="nextStep" msg="下一步"></Button>
     <Button v-on:click.native="abort" msg="强行结束"></Button>
@@ -13,9 +15,16 @@
   margin: 20px auto;
 }
 div {
-  margin: 20px auto;
+  margin: 70px auto;
   color: #007fff;
   font-weight: 700;
+}
+.day span {
+  position: absolute;
+  width: 100px;
+  height: 35px;
+  right: 20px;
+  font-size: 25px;
 }
 </style>
 

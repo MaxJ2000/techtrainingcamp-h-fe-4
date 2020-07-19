@@ -150,7 +150,10 @@ const mutations = {
   },
 
   [MARK_POISON]: (state, key) => {
-    if (state.playerInf[key].isAlive > 0 && state.waitingState.killedByPoison > -2) {
+    if (
+      state.playerInf[key].isAlive > 0 &&
+      state.waitingState.killedByPoison > -2
+    ) {
       state.waitingState.killedByPoison = key;
       return true;
     } else {
@@ -159,7 +162,10 @@ const mutations = {
   },
 
   [MARK_CURE]: (state, key) => {
-    if (state.playerInf[key].isAlive > 0 && state.waitingState.savedByCured > -2) {
+    if (
+      state.playerInf[key].isAlive > 0 &&
+      state.waitingState.savedByCured > -2
+    ) {
       state.waitingState.savedByCured = key;
       return true;
     } else {
@@ -336,12 +342,14 @@ const mutations = {
         } else {
           state.restNum.restDeities--;
         }
-        if (state.playerInf[state.waitingState.killedByPoison].identity == "hunter") {
+        if (
+          state.playerInf[state.waitingState.killedByPoison].identity ==
+          "hunter"
+        ) {
           state.waitingState.killedByPoison = -100;
         } else {
           state.waitingState.killedByPoison = -2;
         }
-        
       }
       // if (payload.canHunterShoot) {
       //   // about hunter
@@ -351,7 +359,7 @@ const mutations = {
       state.waitingState = {
         killedByKnife: -1,
         killedByPoison: Math.min(-1, state.waitingState.killedByPoison),
-        savedByCured: Math.min(-1, state.waitingState.savedByCured)
+        savedByCured: Math.min(-1, state.waitingState.savedByCured),
       };
     } else if (state.activeState[0] == 0 && state.activeState[1] == 0) {
       // from day to night
@@ -361,7 +369,7 @@ const mutations = {
 
   [GAME_OVER]: (state) => {
     state.isStart = false;
-    // restNum = 
+    // restNum =
   },
 };
 

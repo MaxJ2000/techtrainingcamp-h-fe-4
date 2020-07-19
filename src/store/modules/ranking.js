@@ -1,5 +1,10 @@
 import axios from "axios";
-import { WOLF_WIN, KIND_WIN, UPDATE_RANKINGS, SORT_LIST } from "../mutation_type";
+import {
+  WOLF_WIN,
+  KIND_WIN,
+  UPDATE_RANKINGS,
+  SORT_LIST,
+} from "../mutation_type";
 
 // initial state
 // rankings: [{ name, winTimes }]
@@ -13,9 +18,7 @@ const state = {
 
 // getters
 // sortedList: info to show on the leaderboard, shape: [{ name, winTimes }]
-const getters = {
-
-};
+const getters = {};
 
 // mutations
 // WOLF_WIN: seperate two groups and update winTimes
