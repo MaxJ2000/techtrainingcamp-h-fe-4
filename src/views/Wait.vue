@@ -16,6 +16,8 @@
       depressed
       large
       rounded
+      absolute
+      bottom
       color="primary"
       class="btn1"
       to="/status"
@@ -36,7 +38,7 @@ img {
 }
 .circular {
   color: #00d3b4;
-  margin-top: 50px;
+  margin-top: 0px;
 }
 .rm {
   color: #007fff;
@@ -46,6 +48,9 @@ img {
 .rm span {
   color: white;
   background-color: #007fff;
+}
+.v-btn--absolute.v-btn--bottom, .v-btn--fixed.v-btn--bottom {
+    bottom: 75px;
 }
 </style>
 
