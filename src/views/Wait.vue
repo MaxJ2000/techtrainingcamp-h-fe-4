@@ -26,7 +26,8 @@
           this.$store.state.gameInit.playerNum &&
           this.$store.state.gameInit.name === '_God'
       "
-    >开始游戏</v-btn>
+      >开始游戏</v-btn
+    >
   </div>
 </template>
 <style scoped>
@@ -65,11 +66,11 @@ export default {
   components: {
     Circular,
     // Title,
-    Header
+    Header,
   },
   data() {
     return {
-      timer: ""
+      timer: "",
     };
   },
   // created() {
@@ -83,19 +84,19 @@ export default {
           this.$store.state.gameInit.playerNum) *
         100
       );
-    }
+    },
   },
   methods: {
     update() {
       this.$store.dispatch("gameInit/updateCurrNum", {
-        roomID: this.$store.state.gameInit.roomID
+        roomID: this.$store.state.gameInit.roomID,
       });
       if (this.$store.state.gameStatus.isStart) {
         if (this.$store.state.gameInit.name !== "_God") {
           this.$router.push("player");
         }
       }
-    }
+    },
     // allJoin() {
     //   this.$store.dispatch("gameStatus/updateStatus", {
     //     roomID: this.$store.state.gameInit.roomID,
@@ -104,11 +105,11 @@ export default {
     // }
   },
   mounted() {
-    this.timer = setInterval(this.update, 1000);
+    this.timer = setInterval(this.update, 500);
   },
   beforeDestroy() {
     clearInterval(this.timer);
-  }
+  },
 
   // computed: {
   //   progress: {

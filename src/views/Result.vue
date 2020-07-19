@@ -116,6 +116,7 @@ export default {
   data() {
     return {
       dialog: false,
+      timer: 0,
       // winner: ["aaa - 女巫", "bbb - 预言家", "ccc - 猎人", "ddd - 平民"],
       // loser: ["eee - 狼人", "fff - 狼人"],
       // rank: [
@@ -168,7 +169,9 @@ export default {
   },
   mounted() {
     if (this.$store.state.gameInit.name !== "_God") {
-      this.$store.dispatch("ranking/updateRankings");
+      this.timer = setInterval(() => {
+        this.$store.dispatch("ranking/updateRankings");
+      }, 1000);
     } else {
       this.$store.dispatch("ranking/sortedList");
     }
@@ -186,6 +189,9 @@ export default {
         });
       }
     },
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);
   },
   components: {
     // Title,
