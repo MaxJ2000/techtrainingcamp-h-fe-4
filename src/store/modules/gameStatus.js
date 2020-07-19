@@ -138,6 +138,11 @@ const mutations = {
     // state.waitingState = payload.waitingState;
     state.isStart = true;
     state.hunterShoot = false;
+    state.waitingState = {
+      killedByKnife: -1,
+      killedByPoison: -1,
+      savedByCured: -1,
+    };
   },
 
   [MARK_KNIFE]: (state, key) => {
