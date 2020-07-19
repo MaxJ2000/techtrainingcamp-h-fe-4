@@ -22,6 +22,7 @@
           :label="'村民: ' + valueVillage"
           min="1"
           max="4"
+          thumb-label
         ></v-slider>
         <!-- <v-text-field label="村民人数" hint="请输入人数" v-model="valueVillage"></v-text-field> -->
       </div>
