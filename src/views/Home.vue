@@ -7,10 +7,11 @@
         房间号：
         <span>{{ getRoomId }}</span>
       </div>
-      <div :title="godList"></div>
+      <!-- <div :title="godList"></div> -->
       <div class="cb">
-        <v-text-field label="狼人人数" hide-details="auto" hint="请输入人数" @change="getValueWolf($event)"></v-text-field>
-        <v-text-field label="村民人数" hint="请输入人数" @change="getValueVillage($event)"></v-text-field>
+        <v-slider v-model="valueWolf" class="mt-4" :label="'狼人: '+valueWolf" min="1" max="4"></v-slider>
+        <v-slider v-model="valueVillage" class="mb-0" :label="'村民: '+valueVillage" min="1" max="4"></v-slider>
+        <!-- <v-text-field label="村民人数" hint="请输入人数" v-model="valueVillage"></v-text-field> -->
       </div>
       <!-- <div>
           <label for="name">昵称</label>
@@ -42,10 +43,10 @@
           ></v-combobox>
         </v-col>
       </v-row>
-      <v-row justify="center">
-        <v-chip-group active-class="primary--text" center-active>
-          <v-chip>屠边</v-chip>
-          <v-chip>屠城</v-chip>
+      <v-row justify="center" class="mb-5">
+        <v-chip-group mandatory v-model="mode" active-class="primary--text" center-active>
+          <v-chip key="TB">屠边</v-chip>
+          <v-chip key="TC">屠城</v-chip>
         </v-chip-group>
       </v-row>
       <!-- <div>
@@ -125,9 +126,12 @@ export default {
   data: function() {
     return {
       godList: [],
-      items: ["witch", "hunter", "prorhet"],
-      picked: "TC",
-      tags: ["屠边", "屠城"]
+      items: ["witch", "hunter", "prophet"],
+      // picked: "TC",
+      tags: ["屠边", "屠城"],
+      valueVillage: undefined,
+      valueWolf: undefined,
+      mode: 1
     };
   },
   methods: {
@@ -138,7 +142,7 @@ export default {
     //   this.godList[num] = 1 - this.godList[num];
     // },
     radiochange() {
-      if (this.picked === "TB") {
+      if (this.mode === 0) {
         this.$store.state.gameInit.killSideOrAll = 1;
       } else {
         this.$store.state.gameInit.killSideOrAll = 0;
@@ -169,17 +173,24 @@ export default {
       });
     },
     getValueWolf(e) {
-      this.$store.commit("gameInit/getValueWolf", e.target.value);
-      console.log(e.target.value);
+      this.$store.commit("gameInit/getValueWolf", e);
     },
     getValueVillage(e) {
-      this.$store.commit("gameInit/getValueVillage", e.target.value);
+      this.$store.commit("gameInit/getValueVillage", e);
     }
   },
   components: {
     // Title,
     // combobox,
     Header
+  },
+  watch: {
+    valueVillage(val) {
+      this.getValueVillage(val);
+    },
+    valueWolf(val) {
+      this.getValueWolf(val);
+    }
   },
   computed: {
     getRoomId() {

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="lighten-5">
+  <v-container class="lighten-5 ma-auto">
     <v-row class="mb-0" no-gutters v-for="(oneStatus, i) in eachStatus" :key="i">
       <v-col v-for="(inf, j) in oneStatus" :key="inf+isChecked[i]" :cols="j === 0 ? 8 : 4">
         <template v-if="j===1&&canBeChecked(inf)">
