@@ -104,6 +104,9 @@ h4 {
 .v-btn--fixed.v-btn--bottom {
   bottom: 80px;
 }
+div.v-card_text {
+  margin: 0!important;
+}
 </style>
 
 <script>

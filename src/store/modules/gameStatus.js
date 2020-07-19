@@ -318,9 +318,10 @@ const mutations = {
       // only two people can make one die: wolf and witch (even if milk through)
       // witch has absolute fatal poison
       // while wolf can be defended by cure and guard
-      if (payload.canHeDie) {
+      let diedPlayer = state.playerInf[state.waitingState.killedByKnife];
+
+      if (payload.canHeDie && diedPlayer) {
         // about wolf
-        let diedPlayer = state.playerInf[state.waitingState.killedByKnife];
         console.log("diedPlayer", diedPlayer);
         diedPlayer.isAlive = -1; // killed by knife
         if (diedPlayer.identity == "村民") {
@@ -337,6 +338,9 @@ const mutations = {
       if (state.waitingState.killedByPoison !== -1) {
         // about poison
         let diedPlayer = state.playerInf[state.waitingState.killedByPoison];
+        if (!diedPlayer) {
+          return;
+        }
         diedPlayer.isAlive = -3; // killed by poison
         if (diedPlayer.identity == "村民") {
           state.restNum.restVillagers--;

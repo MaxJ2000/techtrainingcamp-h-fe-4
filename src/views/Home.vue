@@ -44,7 +44,7 @@
           />
       </div>-->
       <v-row justify="center">
-        <v-col cols="10">
+        <v-col cols="11">
           <v-select
             v-model="godList"
             :items="items"
