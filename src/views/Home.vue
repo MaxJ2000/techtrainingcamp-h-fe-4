@@ -43,7 +43,7 @@
           />
       </div>-->
       <v-row justify="center">
-        <v-col cols="9">
+        <v-col cols="10">
           <v-select
             v-model="godList"
             :items="items"
@@ -51,6 +51,8 @@
             hint="witch - 女巫 hunter - 猎人 prophet - 预言家"
             multiple
             chips
+            solo
+            deletable-chips
           ></v-select>
         </v-col>
       </v-row>
