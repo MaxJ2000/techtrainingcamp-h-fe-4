@@ -2,6 +2,32 @@
   <div class="d-flex flex-column align-center">
     <!-- <Title>[{{titleContent}}]</Title> -->
     <Header>{{ titleContent }}</Header>
+    <v-btn color="primary" dark @click.stop="dialog = true" x-large absolute top left>上帝台词</v-btn>
+
+    <v-dialog v-model="dialog" max-width="290">
+      <v-card>
+        <v-card-title class="headline">上帝主持流程</v-card-title>
+
+        <v-card-text>
+          夜晚阶段：
+          1、天黑请闭眼，狼人请睁眼，狼人请杀人，狼人请闭眼。
+          2、女巫请睁眼，昨晚他死了，你有一瓶解药，要救吗？你有一瓶毒药要用吗？毒谁？好的，女巫请闭眼。
+          3、预言家请睁眼预言家请选择一位玩家查验身份，好人是向上，坏人是向下，他的身份是这个，预言家请闭眼。
+          4、猎人请睁眼，确认身份，你的开枪状态为这个，可开枪是向上，不可开枪是向下，猎人请闭眼。
+          白天阶段：
+          5、天亮了，竞选警徽的请举手，请发言，没有上警的玩家请投票，好，警长确定（第一天）。
+          6、昨晚死的是他，请发表遗言。
+          7、请警长选择从死左或死右开始发言。
+          8、开始投票。
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn color="green darken-1" text @click="dialog = false">关闭</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <div class="day">
       <span>第{{ this.$store.state.gameStatus.dayCount + 1 }}天</span>
     </div>
@@ -25,6 +51,10 @@ div {
   height: 35px;
   right: 20px;
   font-size: 25px;
+}
+.v-btn--absolute.v-btn--top,
+.v-btn--fixed.v-btn--top {
+  top: 115px;
 }
 </style>
 

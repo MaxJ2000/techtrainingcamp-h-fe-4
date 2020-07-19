@@ -52,7 +52,7 @@ h3 {
 }
 .row {
   position: relative;
-  width: 400px;
+  width: auto;
   margin: 0px auto 0;
   height: 320px;
 }
@@ -108,8 +108,8 @@ export default {
   components: {
     Dialogs,
     // Title,
-    Header
+    Header,
   },
-  methods: {}
+  methods: {},
 };
 </script>
