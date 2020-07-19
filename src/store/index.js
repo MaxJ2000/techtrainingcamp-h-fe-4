@@ -28,7 +28,7 @@ import Vuex from "vuex";
 import gameInit from "./modules/gameInit";
 import gameStatus from "./modules/gameStatus";
 import ranking from "./modules/ranking";
-import createPersistedState from "vuex-persistedstate";
+// import createPersistedState from "vuex-persistedstate";
 // import createLogger from '../../../src/plugins/logger'
 // import * as Cookies from "js-cookie";
 
@@ -43,9 +43,9 @@ export default new Vuex.Store({
     ranking,
   },
   plugins: [
-    createPersistedState({
-      storage: window.sessionStorage,
-    }),
+    // createPersistedState({
+    //   storage: window.sessionStorage,
+    // }),
   ],
   // plugins: [dataState]
   // strict: debug,
