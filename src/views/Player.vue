@@ -41,7 +41,7 @@
           top
           left
           v-on:click.native="watch"
-          >查看<br>身份</v-btn
+          >身份</v-btn
         >
 
         <v-dialog v-model="dialog" max-width="290">
@@ -100,9 +100,10 @@
   margin-top: 150px;
 }
 .two div {
-  margin: 50px;
+  margin: 50px auto;
   color: #007fff;
   font-weight: 700;
+  font-size: 30px;
 }
 .v-btn--absolute.v-btn--right,
 .v-btn--fixed.v-btn--right {

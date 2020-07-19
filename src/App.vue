@@ -43,6 +43,7 @@
 .font {
   color:black;
   margin-top: 115px;
+  font-size: 16px;
 }
 </style>
 
