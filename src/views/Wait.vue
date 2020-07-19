@@ -37,12 +37,13 @@ img {
 }
 .circular {
   color: #00d3b4;
-  margin-top: 0px;
+  margin-top: 25px;
 }
 .rm {
   color: #007fff;
   font-weight: 700;
   margin-top: 10px;
+  font-size: 24px;
 }
 .rm span {
   color: white;

@@ -8,6 +8,9 @@
   </v-footer>
 </template>
 <style scoped>
+.col-12 {
+  color: #BDBDBD;
+}
 </style>
 
 <script>
