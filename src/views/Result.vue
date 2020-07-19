@@ -105,7 +105,7 @@ h4 {
   bottom: 80px;
 }
 div.v-card_text {
-  margin: 0!important;
+  margin: 0 !important;
 }
 </style>
 
@@ -177,7 +177,7 @@ export default {
     restartGame: function() {
       this.$store.state.gameInit.currentPlayerNum = 0;
       if (this.name === "_God") {
-        this.$store.dispatch("gameInit/startGame");
+        // this.$store.dispatch("gameInit/startGame");
         // console.log("what's up bro");
       } else {
         this.$store.dispatch("gameInit/joinRoom", {

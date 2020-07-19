@@ -146,6 +146,7 @@
   /* position: relative; */
   width: 450px;
   margin: 100px auto;
+  padding: auto;
 }
 .two {
   margin-top: 150px;
