@@ -50,13 +50,13 @@ const getters = {
   // var nightNum = 1;
   // let x;
   // for (x in rootState.gameInit.deitiesList) {
-  //   if (x == "prophet") {
+  //   if (x == "预言家") {
   //     nightNum++;
-  //   } else if (x == "witch") {
+  //   } else if (x == "女巫") {
   //     nightNum++;
   //   } else if (x == "guard") {
   //     nightNum++;
-  //   } else if (x == "hunter") {
+  //   } else if (x == "猎人") {
   //     nightNum++;
   //   }
   // }
@@ -64,7 +64,7 @@ const getters = {
   // },
   canHunterShoot: (state) => {
     let key = state.playerInf.findIndex(
-      (element) => element.identity === "hunter"
+      (element) => element.identity === "猎人"
     );
     if (
       state.waitingState.killedByPoison === key ||
@@ -180,9 +180,9 @@ const mutations = {
     if (state.playerInf[key].isAlive > 0) {
       let deadPlayer = state.playerInf[key];
       deadPlayer.isAlive = -4; // killed by shoot
-      if (deadPlayer.identity == "villager") {
+      if (deadPlayer.identity == "村民") {
         state.restNum.restVillagers--;
-      } else if (deadPlayer.identity == "wolf") {
+      } else if (deadPlayer.identity == "狼人") {
         state.restNum.restWolves--;
       } else {
         state.restNum.restDeities--;
@@ -201,15 +201,15 @@ const mutations = {
     if (state.playerInf[key].isAlive > 0) {
       let deadPlayer = state.playerInf[key];
       deadPlayer.isAlive = -2; // killed by vote
-      if (deadPlayer.identity == "villager") {
+      if (deadPlayer.identity == "村民") {
         state.restNum.restVillagers--;
-      } else if (deadPlayer.identity == "wolf") {
+      } else if (deadPlayer.identity == "狼人") {
         state.restNum.restWolves--;
       } else {
         state.restNum.restDeities--;
       }
 
-      if (deadPlayer.identity == "hunter") {
+      if (deadPlayer.identity == "猎人") {
         // state.hunterShoot = true;
       }
       return true;
@@ -234,14 +234,14 @@ const mutations = {
 
     var nightNum = 1;
     for (let x of payload) {
-      if (x === "prophet") {
+      if (x === "预言家") {
         nightNum++;
-      } else if (x == "witch") {
+      } else if (x == "女巫") {
         nightNum++;
         nightNum++;
       } else if (x == "guard") {
         nightNum++;
-      } else if (x == "hunter") {
+      } else if (x == "猎人") {
         nightNum++;
       }
     }
@@ -300,14 +300,14 @@ const mutations = {
     // var nightNum = payload.deitiesList;
     var nightNum = 1;
     for (let x of payload.deitiesList) {
-      if (x == "prophet") {
+      if (x == "预言家") {
         nightNum++;
-      } else if (x == "witch") {
+      } else if (x == "女巫") {
         nightNum++;
         nightNum++;
       } else if (x == "guard") {
         nightNum++;
-      } else if (x == "hunter") {
+      } else if (x == "猎人") {
         nightNum++;
       }
     }
@@ -323,9 +323,9 @@ const mutations = {
         let diedPlayer = state.playerInf[state.waitingState.killedByKnife];
         console.log("diedPlayer", diedPlayer);
         diedPlayer.isAlive = -1; // killed by knife
-        if (diedPlayer.identity == "villager") {
+        if (diedPlayer.identity == "村民") {
           state.restNum.restVillagers--;
-        } else if (diedPlayer.identity == "wolf") {
+        } else if (diedPlayer.identity == "狼人") {
           state.restNum.restWolves--;
         } else {
           state.restNum.restDeities--;
@@ -338,16 +338,15 @@ const mutations = {
         // about poison
         let diedPlayer = state.playerInf[state.waitingState.killedByPoison];
         diedPlayer.isAlive = -3; // killed by poison
-        if (diedPlayer.identity == "villager") {
+        if (diedPlayer.identity == "村民") {
           state.restNum.restVillagers--;
-        } else if (diedPlayer.identity == "wolf") {
+        } else if (diedPlayer.identity == "狼人") {
           state.restNum.restWolves--;
         } else {
           state.restNum.restDeities--;
         }
         if (
-          state.playerInf[state.waitingState.killedByPoison].identity ==
-          "hunter"
+          state.playerInf[state.waitingState.killedByPoison].identity == "猎人"
         ) {
           state.waitingState.killedByPoison = -100;
         } else {

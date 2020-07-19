@@ -40,7 +40,7 @@ export default {
     // Title,
     List,
     Button,
-    Header
+    Header,
   },
   data: () => ({
     isChecked: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -50,21 +50,21 @@ export default {
         "夜晚：女巫解药",
         "夜晚：女巫毒药",
         "夜晚：预言家查验",
-        "夜晚：猎人状态"
+        "夜晚：猎人状态",
       ],
-      ["白天：昨日情况", "白天：玩家发言", "白天：投票放逐"]
+      ["白天：昨日情况", "白天：玩家发言", "白天：投票放逐"],
     ],
     statusFullDataBase: [
       ["狼人击杀", "女巫复活", "女巫毒杀", "预言家查验", "猎人状态"],
-      ["存活", "存活", "投票放逐"]
+      ["存活", "存活", "投票放逐"],
     ],
     status2Action: {
       狼人击杀: "markKnife",
       女巫复活: "markCure",
       女巫毒杀: "markPoison",
       // 猎人状态: "",
-      投票放逐: "voteOut"
-    }
+      投票放逐: "voteOut",
+    },
   }),
 
   computed: {
@@ -73,7 +73,7 @@ export default {
     },
     hunter: function() {
       const hunter = this.$store.state.gameStatus.playerInf.find(
-        item => item.identity === "hunter"
+        (item) => item.identity === "猎人"
       );
       return hunter;
     },
@@ -115,14 +115,14 @@ export default {
     titleDataBase: function() {
       let tmp = [[], []];
       tmp[0].push(this.titleFullDataBase[0][0]);
-      if (this.deitiesList.find(item => item === "witch")) {
+      if (this.deitiesList.find((item) => item === "女巫")) {
         tmp[0].push(this.titleFullDataBase[0][1]);
         tmp[0].push(this.titleFullDataBase[0][2]);
       }
-      if (this.deitiesList.find(item => item === "prophet")) {
+      if (this.deitiesList.find((item) => item === "预言家")) {
         tmp[0].push(this.titleFullDataBase[0][3]);
       }
-      if (this.deitiesList.find(item => item === "hunter")) {
+      if (this.deitiesList.find((item) => item === "猎人")) {
         tmp[0].push(this.titleFullDataBase[0][4]);
       }
       tmp[1] = this.titleFullDataBase[1];
@@ -131,14 +131,14 @@ export default {
     statusDataBase: function() {
       let tmp = [[], []];
       tmp[0].push(this.statusFullDataBase[0][0]);
-      if (this.deitiesList.find(item => item === "witch")) {
+      if (this.deitiesList.find((item) => item === "女巫")) {
         tmp[0].push(this.statusFullDataBase[0][1]);
         tmp[0].push(this.statusFullDataBase[0][2]);
       }
-      if (this.deitiesList.find(item => item === "prophet")) {
+      if (this.deitiesList.find((item) => item === "预言家")) {
         tmp[0].push(this.statusFullDataBase[0][3]);
       }
-      if (this.deitiesList.find(item => item === "hunter")) {
+      if (this.deitiesList.find((item) => item === "猎人")) {
         tmp[0].push(this.statusFullDataBase[0][4]);
       }
       tmp[1] = this.statusFullDataBase[1];
@@ -222,7 +222,7 @@ export default {
               tmp.push("死亡");
             }
           } else {
-            if (i.identity === "hunter") {
+            if (i.identity === "猎人") {
               tmp.push(i.name + "是" + i.identity);
               if (
                 this.$store.getters["gameStatus/canHunterShoot"] &&
@@ -250,7 +250,7 @@ export default {
         }
       }
       return status;
-    }
+    },
   },
   methods: {
     reload() {
@@ -304,7 +304,7 @@ export default {
     abort() {
       this.$store.dispatch("gameStatus/abort");
       this.$router.push("result");
-    }
+    },
   },
   mounted: function() {
     this.$store.dispatch("gameInit/startGame");
@@ -314,7 +314,7 @@ export default {
       if (!val) {
         this.$router.push("result");
       }
-    }
-  }
+    },
+  },
 };
 </script>

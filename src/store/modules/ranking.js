@@ -35,7 +35,7 @@ const mutations = {
     let winGroup = [];
     let loseGroup = [];
     for (let x of playerInf) {
-      if (x.identity == "wolf") {
+      if (x.identity == "狼人") {
         winGroup.push({ name: x.name, identity: x.identity });
         state.rankings.find((element) => element.name == x.name).winTimes++;
       } else {
@@ -51,7 +51,7 @@ const mutations = {
     let winGroup = [];
     let loseGroup = [];
     for (let x of playerInf) {
-      if (x.identity == "wolf") {
+      if (x.identity == "狼人") {
         loseGroup.push({ name: x.name, identity: x.identity });
       } else {
         winGroup.push({ name: x.name, identity: x.identity });
