@@ -54,6 +54,9 @@ h4 {
 .v-btn--absolute.v-btn--bottom, .v-btn--fixed.v-btn--bottom {
     bottom: 80px;
 }
+div.v-card_text {
+  margin: 0!important;
+}
 </style>
 
 <script>

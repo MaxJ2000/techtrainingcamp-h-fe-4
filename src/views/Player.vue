@@ -147,6 +147,7 @@ export default {
   data() {
     return {
       dialog: false,
+      dialog1: false,
       timer: "",
       statu: ["游戏中", "被狼人刀", "被投票出局", "被毒杀", "被猎杀"],
       stage: ["夜晚", "宣告昨夜情况", "发言阶段", "投票阶段"],
