@@ -26,7 +26,7 @@
       </div>
       <div class="one">
         <div class="text-center">
-          <v-btn rounded absolute left color="#00eed4" dark>状态刷新</v-btn>
+          <v-btn rounded absolute left color="#00eed4">状态刷新</v-btn>
         </div>
         <div class="text-center">
           <v-btn
@@ -34,7 +34,6 @@
             absolute
             right
             color="#00eed4"
-            dark
             @click.stop="dialog1 = true"
             v-on:click.native="watchskill"
             >查看技能</v-btn
@@ -307,6 +306,9 @@ export default {
     //   }
     // },
     status: function() {
+      if (!this.$store.state.gameStatus.playerInf[0]) {
+        return "网络信号不佳";
+      }
       if (this.$store.state.gameStatus.playerInf[0].isAlive === 1) {
         return this.statu[0];
       } else if (this.$store.state.gameStatus.playerInf[0].isAlive === -1) {

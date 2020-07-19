@@ -16,7 +16,6 @@
             transition="scale-transition"
             :class="['pa-2', isChecked[i] ? 'red accent-2' : '']"
             outlined
-            flat
             tile
             @click="
               () => {
