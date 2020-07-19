@@ -2,6 +2,7 @@
   "name": "bytedancewolfkill",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://maxj2000.github.io/techtrainingcamp-h-fe-4/",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
