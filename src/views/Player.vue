@@ -29,24 +29,55 @@
           <v-btn rounded absolute left color="#00eed4" dark>状态刷新</v-btn>
         </div>
         <div class="text-center">
-          <v-btn rounded absolute right color="#00eed4" dark @click.stop="dialog1 = true" v-on:click.native="watchskill">查看技能</v-btn>
+          <v-btn
+            rounded
+            absolute
+            right
+            color="#00eed4"
+            dark
+            @click.stop="dialog1 = true"
+            v-on:click.native="watchskill"
+            >查看技能</v-btn
+          >
         </div>
         <v-dialog v-model="dialog1" max-width="390">
           <v-card>
             <v-card-title class="headline">您的技能是</v-card-title>
 
-            <v-card-text  class="skill">
-              <img alt="Skill" src="../assets/wolfrule.jpg" v-if="this.srcimg[0]" />
-              <img alt="Skill" src="../assets/prophetrule.jpg" v-if="this.srcimg[1]" />
-              <img alt="Skill" src="../assets/villagerule.jpg" v-if="this.srcimg[2]" />
-              <img alt="Skill" src="../assets/witchrule.jpg" v-if="this.srcimg[3]" />
-              <img alt="Skill" src="../assets/hunterrule.jpg" v-if="this.srcimg[4]" />
+            <v-card-text class="skill">
+              <img
+                alt="Skill"
+                src="../assets/wolfrule.jpg"
+                v-if="this.srcimg[0]"
+              />
+              <img
+                alt="Skill"
+                src="../assets/prophetrule.jpg"
+                v-if="this.srcimg[1]"
+              />
+              <img
+                alt="Skill"
+                src="../assets/villagerule.jpg"
+                v-if="this.srcimg[2]"
+              />
+              <img
+                alt="Skill"
+                src="../assets/witchrule.jpg"
+                v-if="this.srcimg[3]"
+              />
+              <img
+                alt="Skill"
+                src="../assets/hunterrule.jpg"
+                v-if="this.srcimg[4]"
+              />
             </v-card-text>
 
             <v-card-actions>
               <v-spacer></v-spacer>
 
-              <v-btn color="green darken-1" text @click="dialog1 = false">关闭</v-btn>
+              <v-btn color="green darken-1" text @click="dialog1 = false"
+                >关闭</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -62,24 +93,47 @@
           top
           left
           v-on:click.native="watch"
-        >身份</v-btn>
+          >身份</v-btn
+        >
 
         <v-dialog v-model="dialog" max-width="290">
           <v-card>
             <v-card-title class="headline">您当前的身份是</v-card-title>
 
             <v-card-text>
-              <img alt="Identity" src="../assets/wolfes.jpg" v-if="this.srcimg[0]" />
-              <img alt="Identity" src="../assets/prophet.jpg" v-if="this.srcimg[1]" />
-              <img alt="Identity" src="../assets/village.jpg" v-if="this.srcimg[2]" />
-              <img alt="Identity" src="../assets/witch.jpg" v-if="this.srcimg[3]" />
-              <img alt="Identity" src="../assets/hunter.jpg" v-if="this.srcimg[4]" />
+              <img
+                alt="Identity"
+                src="../assets/wolfes.jpg"
+                v-if="this.srcimg[0]"
+              />
+              <img
+                alt="Identity"
+                src="../assets/prophet.jpg"
+                v-if="this.srcimg[1]"
+              />
+              <img
+                alt="Identity"
+                src="../assets/village.jpg"
+                v-if="this.srcimg[2]"
+              />
+              <img
+                alt="Identity"
+                src="../assets/witch.jpg"
+                v-if="this.srcimg[3]"
+              />
+              <img
+                alt="Identity"
+                src="../assets/hunter.jpg"
+                v-if="this.srcimg[4]"
+              />
             </v-card-text>
 
             <v-card-actions>
               <v-spacer></v-spacer>
 
-              <v-btn color="green darken-1" text @click="dialog = false">关闭</v-btn>
+              <v-btn color="green darken-1" text @click="dialog = false"
+                >关闭</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -134,7 +188,7 @@
   top: 140px;
   font-size: 25px;
 }
-.skill img{
+.skill img {
   width: 100%;
 }
 </style>
@@ -150,31 +204,31 @@ export default {
       timer: "",
       statu: ["游戏中", "被狼人刀", "被投票出局", "被毒杀", "被猎杀"],
       stage: ["夜晚", "宣告昨夜情况", "发言阶段", "投票阶段"],
-      srcimg: [false, false, false, false, false]
+      srcimg: [false, false, false, false, false],
     };
   },
   components: {
     // Title,
-    Header
+    Header,
   },
   // computed: {
   //   watch: function() {
-  //     if (this.$store.state.gameStatus.playerInf[0].identity === "wolf") {
+  //     if (this.$store.state.gameStatus.playerInf[0].identity === "狼人") {
   //       return require("../assets/" + this.srcimg[0] + ".jpg")
   //     } else if (
-  //       this.$store.state.gameStatus.playerInf[0].identity === "prophet"
+  //       this.$store.state.gameStatus.playerInf[0].identity === "预言家"
   //     ) {
   //       return require("../assets/" + this.srcimg[1] + ".jpg")
   //     } else if (
-  //       this.$store.state.gameStatus.playerInf[0].identity === "villager"
+  //       this.$store.state.gameStatus.playerInf[0].identity === "村民"
   //     ) {
   //       return require("../assets/" + this.srcimg[2] + ".jpg")
   //     } else if (
-  //       this.$store.state.gameStatus.playerInf[0].identity === "witch"
+  //       this.$store.state.gameStatus.playerInf[0].identity === "女巫"
   //     ) {
   //       return require("../assets/" + this.srcimg[3] + ".jpg")
   //     } else if (
-  //       this.$store.state.gameStatus.playerInf[4].identity === "hunter"
+  //       this.$store.state.gameStatus.playerInf[4].identity === "猎人"
   //     ) {
   //       return require("../assets/" + this.srcimg[0] + ".jpg")
   //     }
@@ -184,47 +238,47 @@ export default {
     update() {
       this.$store.dispatch("gameStatus/updateStatus", {
         roomID: this.$store.state.gameInit.roomID,
-        name: this.$store.state.gameInit.name
+        name: this.$store.state.gameInit.name,
       });
     },
     watch: function() {
-      if (this.$store.state.gameStatus.playerInf[0].identity === "wolf") {
+      if (this.$store.state.gameStatus.playerInf[0].identity === "狼人") {
         this.srcimg[0] = true;
       } else if (
-        this.$store.state.gameStatus.playerInf[0].identity === "prophet"
+        this.$store.state.gameStatus.playerInf[0].identity === "预言家"
       ) {
         this.srcimg[1] = true;
       } else if (
-        this.$store.state.gameStatus.playerInf[0].identity === "villager"
+        this.$store.state.gameStatus.playerInf[0].identity === "村民"
       ) {
         this.srcimg[2] = true;
       } else if (
-        this.$store.state.gameStatus.playerInf[0].identity === "witch"
+        this.$store.state.gameStatus.playerInf[0].identity === "女巫"
       ) {
         this.srcimg[3] = true;
       } else if (
-        this.$store.state.gameStatus.playerInf[0].identity === "hunter"
+        this.$store.state.gameStatus.playerInf[0].identity === "猎人"
       ) {
         this.srcimg[4] = true;
       }
     },
     watchskill: function() {
-      if (this.$store.state.gameStatus.playerInf[0].identity === "wolf") {
+      if (this.$store.state.gameStatus.playerInf[0].identity === "狼人") {
         this.srcimg[0] = true;
       } else if (
-        this.$store.state.gameStatus.playerInf[0].identity === "prophet"
+        this.$store.state.gameStatus.playerInf[0].identity === "预言家"
       ) {
         this.srcimg[1] = true;
       } else if (
-        this.$store.state.gameStatus.playerInf[0].identity === "villager"
+        this.$store.state.gameStatus.playerInf[0].identity === "村民"
       ) {
         this.srcimg[2] = true;
       } else if (
-        this.$store.state.gameStatus.playerInf[0].identity === "witch"
+        this.$store.state.gameStatus.playerInf[0].identity === "女巫"
       ) {
         this.srcimg[3] = true;
       } else if (
-        this.$store.state.gameStatus.playerInf[0].identity === "hunter"
+        this.$store.state.gameStatus.playerInf[0].identity === "猎人"
       ) {
         this.srcimg[4] = true;
       }
@@ -232,19 +286,19 @@ export default {
     // watch() {
     //   switch(this.$store.state.gameStatus.playerInf[0].identity){
     //     // wolf, prophet, witch, village, hunter
-    //     case "wolf":
+    //     case "狼人":
     //       this.srcimg = require("../assets/wolfes.jpg");
     //       break;
-    //     case "prophet":
+    //     case "预言家":
     //       this.srcimg = require("../assets/prophet.jpg");
     //       break;
-    //     case "witch":
+    //     case "女巫":
     //       this.srcimg = require("../assets/witch.jpg");
     //       break;
-    //     case "villager":
+    //     case "村民":
     //       this.srcimg = require("../assets/village.jpg");
     //       break;
-    //     case "hunter":
+    //     case "猎人":
     //       this.srcimg = require("../assets/hunter.jpg");
     //       break;
     //     default:
@@ -276,7 +330,7 @@ export default {
       } else if (this.$store.state.gameStatus.activeState[0] === 0) {
         return this.stage[0];
       }
-    }
+    },
   },
   computed: {
     isStart: function() {
@@ -284,7 +338,7 @@ export default {
     },
     isAbort: function() {
       return this.$store.state.gameStatus.isAbort;
-    }
+    },
   },
   mounted() {
     this.update();
@@ -304,7 +358,7 @@ export default {
       if (val) {
         this.$router.push("result");
       }
-    }
-  }
+    },
+  },
 };
 </script>

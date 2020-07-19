@@ -30,8 +30,8 @@
           <input type="text" placeholder="请输入昵称" id="name" />
       </div>-->
       <!-- <div>
-          <label for="wolf">狼人人数</label>
-          <input type="number" placeholder="请输入人数" id="wolf" @change="getValueWolf($event)" />
+          <label for="狼人">狼人人数</label>
+          <input type="number" placeholder="请输入人数" id="狼人" @change="getValueWolf($event)" />
         </div>
         <div>
           <label for="village">村民人数</label>
@@ -48,7 +48,6 @@
             v-model="godList"
             :items="items"
             label="可选神职"
-            hint="witch - 女巫 hunter - 猎人 prophet - 预言家"
             multiple
             chips
             solo
@@ -164,7 +163,7 @@ export default {
   data: function() {
     return {
       godList: [],
-      items: ["witch", "hunter", "prophet"],
+      items: ["女巫", "猎人", "预言家"],
       // picked: "TC",
       tags: ["屠边", "屠城"],
       valueVillage: undefined,
@@ -190,13 +189,13 @@ export default {
       // for (let i = 0; i < this.godList.length; i++) {
       //   if (this.godList[i] === 1) {
       //     if (i === 0) {
-      //       this.$store.state.gameInit.deitiesList.push("witch");
+      //       this.$store.state.gameInit.deitiesList.push("女巫");
       //     }
       //     if (i === 1) {
-      //       this.$store.state.gameInit.deitiesList.push("hunter");
+      //       this.$store.state.gameInit.deitiesList.push("猎人");
       //     }
       //     if (i === 2) {
-      //       this.$store.state.gameInit.deitiesList.push("prophet");
+      //       this.$store.state.gameInit.deitiesList.push("预言家");
       //     }
       //   }
       // }
