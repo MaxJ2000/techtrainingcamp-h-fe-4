@@ -1,6 +1,7 @@
 <template>
   <div class="result">
     <!-- <Title>[游戏结果页]</Title> -->
+
     <Header>[游戏结果页]</Header>
     <h4>当前局赢家:</h4>
     <div class="three" v-for="(item, index) in winner" v-bind:key="'winner' + index">{{ item }}</div>
@@ -27,6 +28,14 @@
         </v-card>
       </v-dialog>
     </v-row>
+    <v-btn
+      depressed
+      large
+      color="primary"
+      class="btn1"
+      to="/wait"
+      v-on:click.native="restartGame"
+    >重新开始</v-btn>
   </div>
 </template>
 

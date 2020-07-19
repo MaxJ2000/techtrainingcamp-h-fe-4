@@ -97,12 +97,14 @@ const getters = {
       }
     } else {
       if (
-        (state.restNum.restWolves == 1 &&
-          !state.restNum.restVillagers &&
-          state.restNum.restDeities == 1) ||
-        (state.restNum.restWolves == 1 &&
-          state.restNum.restVillagers == 1 &&
-          !state.restNum.restDeities)
+        state.restNum.restVillagers == 0 &&
+        state.restNum.restDeities == 0
+        // (state.restNum.restWolves == 1 &&
+        //   !state.restNum.restVillagers &&
+        //   state.restNum.restDeities == 1) ||
+        // (state.restNum.restWolves == 1 &&
+        //   state.restNum.restVillagers == 1 &&
+        //   !state.restNum.restDeities)
       ) {
         return 2;
       }
@@ -161,7 +163,8 @@ const mutations = {
     }
   },
 
-  [MARK_CURE]: (state, key) => {
+  [MARK_CURE]: (state) => {
+    const key = state.waitingState.killedByKnife;
     if (
       state.playerInf[key].isAlive > 0 &&
       state.waitingState.savedByCured > -2

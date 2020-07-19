@@ -43,7 +43,7 @@ export default {
     Header
   },
   data: () => ({
-    isChecked: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    isChecked: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     titleFullDataBase: [
       [
         "夜晚：狼人行动",
@@ -164,6 +164,12 @@ export default {
         return this.titleDataBase[1][this.activeState[1]];
       }
     },
+    isCuring: function() {
+      return this.titleContent === "夜晚：女巫解药" ? 1 : 0;
+    },
+    isPosion: function() {
+      return this.titleContent === "夜晚：女巫毒药" ? 1 : 0;
+    },
     printStatus: function() {
       let status = [];
       // console.log(this.$store);
@@ -181,10 +187,36 @@ export default {
       if (this.activeState[0] === 0) {
         for (let i of this.personalInf) {
           let tmp = [];
-          if (this.titleContent !== "夜晚：猎人状态") {
+          if (
+            this.titleContent !== "夜晚：猎人状态" &&
+            !this.isCuring &&
+            !this.isPosion
+          ) {
             // console.log(i);
             tmp.push(i.name + "是" + i.identity);
             if (i.isAlive > 0) {
+              tmp.push(this.statusContent);
+            } else {
+              tmp.push("死亡");
+            }
+          } else if (this.isCuring) {
+            let killedGuy = this.personalInf[
+              this.$store.state.gameStatus.waitingState.killedByKnife
+            ];
+            console.log(killedGuy);
+            if (killedGuy && killedGuy.name === i.name) {
+              tmp.push(i.name + "被狼击杀");
+              if (this.$store.state.gameStatus.waitingState.savedByCured < -1) {
+                tmp.push("解药不可用");
+              } else {
+                tmp.push(this.statusContent);
+              }
+            }
+          } else if (this.isPosion) {
+            tmp.push(i.name + "是" + i.identity);
+            if (this.$store.state.gameStatus.waitingState.killedByPoison < -1) {
+              tmp.push("毒药不可用");
+            } else if (i.isAlive > 0) {
               tmp.push(this.statusContent);
             } else {
               tmp.push("死亡");
@@ -225,7 +257,11 @@ export default {
       this.$forceUpdate();
     },
     change(num) {
-      this.isChecked[num] = 1 - this.isChecked[num];
+      setTimeout(() => {
+        const val = 1 - this.isChecked[num];
+        this.isChecked.fill(0);
+        this.isChecked.splice(num, 1, val);
+      }, 100);
     },
     checkedKey() {
       for (let [index, item] of this.isChecked.entries()) {
@@ -237,6 +273,9 @@ export default {
     nextStep() {
       const key = this.checkedKey();
       console.log("key" + key);
+      if (key === undefined && this.statusContent === "狼人击杀") {
+        return; //todo tips
+      }
       // if (key) {
       //   if (this.activeState[0] === 0) {
       //     if (this.activeState[1] === 0) {
