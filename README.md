@@ -15,6 +15,8 @@ yarn serve
 ```
 
 ### 文件结构
+
+```
 .
 ├── README.md
 ├── babel.config.js
@@ -80,3 +82,9 @@ yarn serve
 │       └── Wait.vue
 ├── vue.config.js
 └── yarn.lock
+```
+
+
+### API文档
+
+https://www.showdoc.cc/bytedancewolfkill?page_id=4945236509480161
