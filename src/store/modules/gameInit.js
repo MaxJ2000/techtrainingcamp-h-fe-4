@@ -159,15 +159,15 @@ const actions = {
         });
   },
 
-  startGame: ({ dispatch, state }) => {
+  startGame: (context) => {
     // player's key starts from 0
     axios
       .post("https://afe5o5.fn.thelarkcloud.com/startGame", {
-        roomID: state.roomID,
+        roomID: context.state.roomID,
       })
       .then(function(response) {
-        console.log(response);
-        dispatch("gameStatus/initGame", response.data.gameState, {
+        console.log("bro this is my response", response);
+        context.dispatch("gameStatus/initGame", response.data.gameState, {
           root: true,
         }); // need to be completed after assign an action in gameStatus
       })
