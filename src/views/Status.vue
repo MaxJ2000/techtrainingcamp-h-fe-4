@@ -2,7 +2,7 @@
   <div class="d-flex flex-column align-center">
     <!-- <Title>[{{titleContent}}]</Title> -->
     <Header>{{ titleContent }}</Header>
-    <v-btn color="primary" dark @click.stop="dialog = true" x-large absolute top left>上帝台词</v-btn>
+    <v-btn color="primary" dark @click.stop="dialog = true" large absolute bottom right>上帝台词</v-btn>
 
     <v-dialog v-model="dialog" max-width="290">
       <v-card>
@@ -53,9 +53,8 @@ div {
   right: 20px;
   font-size: 25px;
 }
-.v-btn--absolute.v-btn--top,
-.v-btn--fixed.v-btn--top {
-  top: 115px;
+.v-btn--absolute.v-btn--bottom, .v-btn--fixed.v-btn--bottom {
+    bottom: 50px;
 }
 .v-card {
   margin: 0!important;
