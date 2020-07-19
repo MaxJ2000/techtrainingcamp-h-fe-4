@@ -1,6 +1,6 @@
 # ByteDanceWolfKill
 
-字节跳动前端训练营狼人杀项目～～～
+字节跳动前端训练营狼人杀项目～
 
 ## Project setup
 
