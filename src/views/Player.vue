@@ -39,47 +39,24 @@
           bottom
           right
           v-on:click.native="watch"
-          >查看身份</v-btn
-        >
+        >查看身份</v-btn>
 
         <v-dialog v-model="dialog" max-width="290">
           <v-card>
             <v-card-title class="headline">您当前的身份是</v-card-title>
 
             <v-card-text>
-              <img
-                alt="Identity"
-                src="../assets/wolfes.jpg"
-                v-if="this.srcimg[0]"
-              />
-              <img
-                alt="Identity"
-                src="../assets/prophet.jpg"
-                v-if="this.srcimg[1]"
-              />
-              <img
-                alt="Identity"
-                src="../assets/village.jpg"
-                v-if="this.srcimg[2]"
-              />
-              <img
-                alt="Identity"
-                src="../assets/witch.jpg"
-                v-if="this.srcimg[3]"
-              />
-              <img
-                alt="Identity"
-                src="../assets/hunter.jpg"
-                v-if="this.srcimg[4]"
-              />
+              <img alt="Identity" src="../assets/wolfes.jpg" v-if="this.srcimg[0]" />
+              <img alt="Identity" src="../assets/prophet.jpg" v-if="this.srcimg[1]" />
+              <img alt="Identity" src="../assets/village.jpg" v-if="this.srcimg[2]" />
+              <img alt="Identity" src="../assets/witch.jpg" v-if="this.srcimg[3]" />
+              <img alt="Identity" src="../assets/hunter.jpg" v-if="this.srcimg[4]" />
             </v-card-text>
 
             <v-card-actions>
               <v-spacer></v-spacer>
 
-              <v-btn color="green darken-1" text @click="dialog = false"
-                >关闭</v-btn
-              >
+              <v-btn color="green darken-1" text @click="dialog = false">关闭</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -132,12 +109,12 @@ export default {
       timer: "",
       statu: ["游戏中", "被狼人刀", "被投票出局", "被毒杀", "被猎杀"],
       stage: ["夜晚", "宣告昨夜情况", "发言阶段", "投票阶段"],
-      srcimg: [false, false, false, false, false],
+      srcimg: [false, false, false, false, false]
     };
   },
   components: {
     // Title,
-    Header,
+    Header
   },
   // computed: {
   //   watch: function() {
@@ -166,7 +143,7 @@ export default {
     update() {
       this.$store.dispatch("gameStatus/updateStatus", {
         roomID: this.$store.state.gameInit.roomID,
-        name: this.$store.state.gameInit.name,
+        name: this.$store.state.gameInit.name
       });
     },
     watch: function() {
@@ -237,7 +214,7 @@ export default {
       } else if (this.$store.state.gameStatus.activeState[0] === 0) {
         return this.stage[0];
       }
-    },
+    }
   },
   computed: {
     isStart: function() {
@@ -245,9 +222,10 @@ export default {
     },
     isAbort: function() {
       return this.$store.state.gameStatus.isAbort;
-    },
+    }
   },
   mounted() {
+    this.update();
     this.timer = setInterval(this.update, 1000);
   },
   beforeDestroy() {
@@ -264,7 +242,7 @@ export default {
       if (val) {
         this.$router.push("result");
       }
-    },
-  },
+    }
+  }
 };
 </script>

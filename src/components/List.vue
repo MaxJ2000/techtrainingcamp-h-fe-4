@@ -27,6 +27,11 @@ export default {
     isChecked: Array,
     change: Function
   },
+  computed: {
+    wasChecked: function() {
+      return false;
+    }
+  },
   data: () => ({}),
   methods: {
     reload() {

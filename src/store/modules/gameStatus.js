@@ -66,7 +66,10 @@ const getters = {
     let key = state.playerInf.findIndex(
       (element) => element.identity === "hunter"
     );
-    if (state.waitingState.killedByPoison === key) {
+    if (
+      state.waitingState.killedByPoison === key ||
+      state.waitingState.killedByPoison === -100
+    ) {
       return false;
     } else {
       return true;
