@@ -352,6 +352,7 @@ const mutations = {
 
   [GAME_OVER]: (state) => {
     state.isStart = false;
+    // restNum = 
   },
 };
 

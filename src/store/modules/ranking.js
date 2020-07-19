@@ -1,5 +1,5 @@
 import axios from "axios";
-import { WOLF_WIN, KIND_WIN, UPDATE_RANKINGS } from "../mutation_type";
+import { WOLF_WIN, KIND_WIN, UPDATE_RANKINGS, SORT_LIST } from "../mutation_type";
 
 // initial state
 // rankings: [{ name, winTimes }]
@@ -14,11 +14,7 @@ const state = {
 // getters
 // sortedList: info to show on the leaderboard, shape: [{ name, winTimes }]
 const getters = {
-  sortedList: (state) => {
-    return state.rankings.sort(function(a, b) {
-      return a.winTimes - b.winTimes;
-    });
-  },
+
 };
 
 // mutations
@@ -26,6 +22,12 @@ const getters = {
 // KIND_WIN: seperate two groups and update winTimes
 // UPDATE_RANKINGS: update players' interface with data received from database
 const mutations = {
+  [SORT_LIST]: (state) => {
+    state.rankings = state.rankings.sort(function(a, b) {
+      return b.winTimes - a.winTimes;
+    });
+  },
+
   [WOLF_WIN]: (state, playerInf) => {
     let winGroup = [];
     let loseGroup = [];
@@ -70,12 +72,16 @@ const mutations = {
 // kindWin: same as wolfWin
 // updateRankings: after find isStart is false, launch the action
 const actions = {
+  sortedList: (context) => {
+    context.commit("SORT_LIST");
+  },
+
   seperWinAndLose: (context, payload) => {
     // 1 - wolves win, 2 - kind win
     // console.log("payload:", payload);
-    if (payload.flag == 1) {
+    if (payload.flag == 2) {
       context.dispatch("wolfWin", payload.playerInf);
-    } else if (payload.flag == 2) {
+    } else if (payload.flag == 1) {
       context.dispatch("kindWin", payload.playerInf);
     }
   },

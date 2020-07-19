@@ -130,13 +130,16 @@ export default {
   mounted() {
     if (this.$store.state.gameInit.name !== "_God") {
       this.$store.dispatch("ranking/updateRankings");
+    } else {
+      this.$store.dispatch("ranking/sortedList");
     }
   },
   methods: {
     restartGame: function() {
       this.$store.state.gameInit.currentPlayerNum = 0;
       if (this.name === "_God") {
-        // this.$store.dispatch("gameInit/startGame");
+        this.$store.dispatch("gameInit/startGame");
+        // console.log("what's up bro");
       } else {
         this.$store.dispatch("gameInit/joinRoom", {
           roomID: this.$store.state.gameInit.roomID,
