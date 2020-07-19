@@ -61,7 +61,7 @@ h3 {
 } */
 .right {
   position: absolute;
-  right: 10px;
+  right: 0px;
 }
 #rule {
   position: absolute !important;
