@@ -1,0 +1,118 @@
+<template>
+  <div class="result">
+    <!-- <Title>[游戏结果页]</Title> -->
+    <Header>[游戏结果页]</Header>
+    <h4>当前局赢家:</h4>
+    <div
+      class="three"
+      v-for="(item, index) in winner"
+      v-bind:key="'winner' + index"
+    >
+      {{ item }}
+    </div>
+    <h4>其余玩家:</h4>
+    <div
+      class="three"
+      v-for="(item, index) in loser"
+      v-bind:key="'loser' + index"
+    >
+      {{ item }}
+    </div>
+    <v-row justify="center">
+      <v-btn color="primary" dark @click.stop="dialog = true" absolute right
+        >排行榜</v-btn
+      >
+
+      <v-dialog v-model="dialog" max-width="290">
+        <v-card>
+          <v-card-title class="headline">
+            <p class="ma-auto">[排行榜]</p>
+          </v-card-title>
+
+          <v-card-text>
+            <div v-for="(item, index) in ranking" :key="'ranking' + index">
+              {{ item }}
+            </div>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+
+            <v-btn color="green darken-1" text @click="dialog = false"
+              >关闭</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
+  </div>
+</template>
+
+<style scoped>
+.three {
+  border: 1px solid black;
+  width: 200px;
+  margin: 20px auto;
+}
+h4 {
+  margin-top: 50px;
+}
+</style>
+
+<script>
+// import Title from "@/components/Title.vue";
+import Header from "@/components/Header.vue";
+export default {
+  data() {
+    return {
+      dialog: false,
+      // winner: ["aaa - 女巫", "bbb - 预言家", "ccc - 猎人", "ddd - 平民"],
+      // loser: ["eee - 狼人", "fff - 狼人"],
+      // rank: [
+      //   "aaa 赢三局",
+      //   "bbb 赢三局",
+      //   "ccc 赢两局",
+      //   "ddd 赢两局",
+      //   "eee 赢一局",
+      //   "fff 赢一局",
+      // ],
+    };
+  },
+  computed: {
+    winGroup: function() {
+      return this.$store.state.ranking.winGroup;
+    },
+    loseGroup: function() {
+      return this.$store.state.ranking.loseGroup;
+    },
+    rankings: function() {
+      return this.$store.state.ranking.rankings;
+    },
+    winner: function() {
+      let tmp = [];
+      for (let item of this.winGroup) {
+        tmp.push(item.name + " - " + item.identity);
+      }
+      return tmp;
+    },
+    loser: function() {
+      let tmp = [];
+      for (let item of this.loseGroup) {
+        tmp.push(item.name + " - " + item.identity);
+      }
+      return tmp;
+    },
+    ranking: function() {
+      let tmp = [];
+      for (let item of this.rankings) {
+        tmp.push(item.name + "  赢" + +item.winTimes + "局");
+      }
+      return tmp;
+    },
+  },
+  components: {
+    // Title,
+    Header,
+  },
+};
+</script>
