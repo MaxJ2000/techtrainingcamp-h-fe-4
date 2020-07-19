@@ -30,6 +30,7 @@
           to="/wait"
           v-on:click.native="join"
         >加入房间</v-btn>
+        <v-btn depressed x-large color="primary" class="btn1" to="/">返回首页</v-btn>
       </div>
       <img alt="WolfKill logo" src="../assets/wolf1.jpg" />
     </v-container>
@@ -57,6 +58,7 @@ label {
 img {
   width: 150px;
   height: 150px;
+  margin-top: 40px;
 }
 .rm {
   color: #007fff;
@@ -74,6 +76,10 @@ img {
 }
 .v-input {
   margin: 40px auto;
+}
+.v-btn {
+  margin-right: 30px;
+  margin-left: 30px;
 }
 </style>
 <script>

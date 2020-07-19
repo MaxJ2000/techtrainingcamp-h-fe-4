@@ -29,8 +29,27 @@
           <v-btn rounded absolute left color="#00eed4" dark>状态刷新</v-btn>
         </div>
         <div class="text-center">
-          <v-btn rounded absolute right color="#00eed4" dark>查看技能</v-btn>
+          <v-btn rounded absolute right color="#00eed4" dark @click.stop="dialog1 = true" v-on:click.native="watchskill">查看技能</v-btn>
         </div>
+        <v-dialog v-model="dialog1" max-width="390">
+          <v-card>
+            <v-card-title class="headline">您的技能是</v-card-title>
+
+            <v-card-text  class="skill">
+              <img alt="Skill" src="../assets/wolfrule.jpg" v-if="this.srcimg[0]" />
+              <img alt="Skill" src="../assets/prophetrule.jpg" v-if="this.srcimg[1]" />
+              <img alt="Skill" src="../assets/villagerule.jpg" v-if="this.srcimg[2]" />
+              <img alt="Skill" src="../assets/witchrule.jpg" v-if="this.srcimg[3]" />
+              <img alt="Skill" src="../assets/hunterrule.jpg" v-if="this.srcimg[4]" />
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+
+              <v-btn color="green darken-1" text @click="dialog1 = false">关闭</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </div>
       <v-row justify="center">
         <v-btn
@@ -115,6 +134,9 @@
   top: 140px;
   font-size: 25px;
 }
+.skill img{
+  width: 100%;
+}
 </style>
 
 <script>
@@ -166,6 +188,27 @@ export default {
       });
     },
     watch: function() {
+      if (this.$store.state.gameStatus.playerInf[0].identity === "wolf") {
+        this.srcimg[0] = true;
+      } else if (
+        this.$store.state.gameStatus.playerInf[0].identity === "prophet"
+      ) {
+        this.srcimg[1] = true;
+      } else if (
+        this.$store.state.gameStatus.playerInf[0].identity === "villager"
+      ) {
+        this.srcimg[2] = true;
+      } else if (
+        this.$store.state.gameStatus.playerInf[0].identity === "witch"
+      ) {
+        this.srcimg[3] = true;
+      } else if (
+        this.$store.state.gameStatus.playerInf[0].identity === "hunter"
+      ) {
+        this.srcimg[4] = true;
+      }
+    },
+    watchskill: function() {
       if (this.$store.state.gameStatus.playerInf[0].identity === "wolf") {
         this.srcimg[0] = true;
       } else if (

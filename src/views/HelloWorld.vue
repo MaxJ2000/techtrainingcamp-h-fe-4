@@ -3,7 +3,7 @@
     <Header>字节跳动狼人杀</Header>
     <v-container fluid>
       <!-- <Title>[首页]</Title> -->
-      <v-row no-gutters class="mb-0">
+      <v-row no-gutters class="mb-0" justify="center">
         <v-col cols="12">
           <img alt="WolfKill logo" src="../assets/wolf1.jpg" />
         </v-col>
@@ -54,14 +54,14 @@ h3 {
   position: relative;
   width: 400px;
   margin: 0px auto 0;
-  height: 290px;
+  height: 320px;
 }
 /* .btn1 {
   background-color: #AA5F2C !important;
 } */
 .right {
   position: absolute;
-  right: 45px;
+  right: 10px;
 }
 #rule {
   position: absolute !important;
