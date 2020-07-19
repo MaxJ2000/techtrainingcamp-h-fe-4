@@ -8,7 +8,7 @@
     <h4>其余玩家:</h4>
     <div class="three" v-for="(item, index) in loser" v-bind:key="'loser' + index">{{ item }}</div>
     <v-row justify="center">
-      <v-btn color="primary" dark @click.stop="dialog = true" absolute right>排行榜</v-btn>
+      <v-btn color="primary" dark @click.stop="dialog = true" absolute right bottom>排行榜</v-btn>
 
       <v-dialog v-model="dialog" max-width="290">
         <v-card>
@@ -47,6 +47,12 @@
 }
 h4 {
   margin-top: 50px;
+}
+.v-btn {
+  margin-top: 30px;
+}
+.v-btn--absolute.v-btn--bottom, .v-btn--fixed.v-btn--bottom {
+    bottom: 80px;
 }
 </style>
 
