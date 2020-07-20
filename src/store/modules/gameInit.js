@@ -100,7 +100,7 @@ const actions = {
         return true;
       })
       .catch(function(error) {
-        //console.log(error);
+        console.log(error);
         return false;
       });
   },
@@ -119,7 +119,7 @@ const actions = {
           parseInt(payload.villagerNum) +
           parseInt(payload.deitiesList.length),
       })
-      .then(function(response) {
+      .then(function() {
         //console.log(response);
         context.commit("INIT_ROOM", {
           wolfNum: parseInt(payload.wolfNum),
@@ -130,7 +130,7 @@ const actions = {
         return true;
       })
       .catch(function(error) {
-        //console.log(error);
+        console.log(error);
         return false;
       });
   },
@@ -153,7 +153,7 @@ const actions = {
         return true;
       })
       .catch(function(error) {
-        //console.log(error);
+        console.log(error);
         return false;
       });
   },
@@ -171,7 +171,7 @@ const actions = {
         }); // need to be completed after assign an action in gameStatus
       })
       .catch(function(error) {
-        //console.log(error);
+        console.log(error);
       });
   },
 
@@ -190,7 +190,7 @@ const actions = {
         return true;
       })
       .catch(function(error) {
-        //console.log(error);
+        console.log(error);
         return false;
       });
   },

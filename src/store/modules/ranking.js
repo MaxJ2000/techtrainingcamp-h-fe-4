@@ -101,11 +101,11 @@ const actions = {
         winGroup: context.state.winGroup,
         loseGroup: context.state.loseGroup,
       })
-      .then(function(response) {
+      .then(function() {
         //console.log(response);
       })
       .catch(function(error) {
-        //console.log(error);
+        console.log(error);
       });
   },
 
@@ -120,11 +120,11 @@ const actions = {
         winGroup: context.state.winGroup,
         loseGroup: context.state.loseGroup,
       })
-      .then(function(response) {
+      .then(function() {
         //console.log(response);
       })
       .catch(function(error) {
-        //console.log(error);
+        console.log(error);
       });
   },
 
@@ -140,7 +140,7 @@ const actions = {
         return true;
       })
       .catch(function(error) {
-        //console.log(error);
+        console.log(error);
         return false;
       });
   },

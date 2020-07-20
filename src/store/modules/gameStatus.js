@@ -306,19 +306,19 @@ const mutations = {
 
   [CHECK_EVENTS]: (state, payload) => {
     // var nightNum = payload.deitiesList;
-    var nightNum = 1;
-    for (let x of payload.deitiesList) {
-      if (x == "预言家") {
-        nightNum++;
-      } else if (x == "女巫") {
-        nightNum++;
-        nightNum++;
-      } else if (x == "guard") {
-        nightNum++;
-      } else if (x == "猎人") {
-        nightNum++;
-      }
-    }
+    // var nightNum = 1;
+    // for (let x of payload.deitiesList) {
+    //   if (x == "预言家") {
+    //     nightNum++;
+    //   } else if (x == "女巫") {
+    //     nightNum++;
+    //     nightNum++;
+    //   } else if (x == "guard") {
+    //     nightNum++;
+    //   } else if (x == "猎人") {
+    //     nightNum++;
+    //   }
+    // }
     //console.log("nightNum" + nightNum);
 
     if (state.activeState[0] === 1 && state.activeState[1] == 0) {
@@ -464,11 +464,11 @@ const actions = {
         // restNum: context.state.restNum,
         isAbort: context.state.isAbort,
       })
-      .then(function(response) {
+      .then(function() {
         //console.log(response);
       })
       .catch(function(error) {
-        //console.log(error);
+        console.log(error);
       });
   },
   abort: (context) => {
@@ -484,11 +484,11 @@ const actions = {
         // restNum: context.state.restNum,
         isAbort: context.state.isAbort,
       })
-      .then(function(response) {
+      .then(function() {
         //console.log(response);
       })
       .catch(function(error) {
-        //console.log(error);
+        console.log(error);
       });
   },
   // players fetch status from database
@@ -510,7 +510,7 @@ const actions = {
         return true;
       })
       .catch(function(error) {
-        //console.log(error);
+        console.log(error);
         return false;
       });
   },
