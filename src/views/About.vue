@@ -18,18 +18,8 @@
         </div>
       </form>-->
       <div class="ip">
-        <v-text-field
-          label="玩家名"
-          :rules="rules"
-          hide-details="auto"
-          hint="请输入昵称"
-          v-model="name"
-        ></v-text-field>
-        <v-text-field
-          label="房间号"
-          hint="请输入房间号"
-          v-model="roomID"
-        ></v-text-field>
+        <v-text-field label="玩家名" :rules="rules" hide-details="auto" hint="请输入昵称" v-model="name"></v-text-field>
+        <v-text-field label="房间号" hint="请输入房间号" v-model="roomID"></v-text-field>
       </div>
       <div>
         <v-btn
@@ -39,11 +29,8 @@
           class="btn1"
           to="/wait"
           v-on:click.native="join"
-          >加入房间</v-btn
-        >
-        <v-btn depressed x-large color="primary" class="btn1" to="/"
-          >返回首页</v-btn
-        >
+        >加入房间</v-btn>
+        <v-btn depressed x-large color="primary" class="btn1" to="/">返回首页</v-btn>
       </div>
       <img alt="WolfKill logo" src="../assets/wolf1.jpg" />
     </v-container>
@@ -91,8 +78,8 @@ img {
   margin: 40px auto;
 }
 .v-btn {
-  margin-right: 20px;
-  margin-left: 20px;
+  margin-right: 15px;
+  margin-left: 15px;
 }
 </style>
 <script>
@@ -102,25 +89,25 @@ import Header from "@/components/Header.vue";
 export default {
   components: {
     // Title,
-    Header,
+    Header
   },
   data: function() {
     return {
       name,
       roomID: "",
       rules: [
-        (value) => !!value || "Required.",
-        (value) => (value && value.length >= 3) || "Min 3 characters",
-      ],
+        value => !!value || "Required.",
+        value => (value && value.length >= 3) || "Min 3 characters"
+      ]
     };
   },
   methods: {
     join() {
       this.$store.dispatch("gameInit/joinRoom", {
         roomID: this.roomID,
-        name: this.name,
+        name: this.name
       });
-    },
-  },
+    }
+  }
 };
 </script>
