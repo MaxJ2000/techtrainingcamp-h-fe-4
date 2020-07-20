@@ -224,10 +224,13 @@ const mutations = {
   },
 
   [UPDATE_STATUS]: (state, payload) => {
-    state.playerInf = payload.playerInf;
+    if (payload.playerInf) {
+      state.playerInf = payload.playerInf;
+    }
     state.isStart = payload.isStart;
     state.dayCount = payload.dayCount;
     state.activeState = payload.activeState;
+    state.isAbort = payload.isAbort;
   },
 
   [NEXT_STEP]: (state, payload) => {
@@ -501,6 +504,7 @@ const actions = {
           playerInf: response.data.gameState.playerInf,
           dayCount: response.data.gameState.dayCount,
           activeState: response.data.gameState.activeState,
+          isAbort: response.data.gameState.isAbort,
         });
         console.log(response);
         return true;

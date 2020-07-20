@@ -2,34 +2,14 @@
   <div class="result">
     <!-- <Title>[游戏结果页]</Title> -->
 
-    <template v-if="!isAbort"
-      ><Header>[游戏结果页]</Header>
+    <template v-if="!isAbort">
+      <Header>[游戏结果页]</Header>
       <h4>当前局赢家:</h4>
-      <div
-        class="three"
-        v-for="(item, index) in winner"
-        v-bind:key="'winner' + index"
-      >
-        {{ item }}
-      </div>
+      <div class="three" v-for="(item, index) in winner" v-bind:key="'winner' + index">{{ item }}</div>
       <h4>其余玩家:</h4>
-      <div
-        class="three"
-        v-for="(item, index) in loser"
-        v-bind:key="'loser' + index"
-      >
-        {{ item }}
-      </div>
+      <div class="three" v-for="(item, index) in loser" v-bind:key="'loser' + index">{{ item }}</div>
       <v-row justify="center">
-        <v-btn
-          color="primary"
-          dark
-          @click.stop="dialog = true"
-          absolute
-          right
-          bottom
-          >排行榜</v-btn
-        >
+        <v-btn color="primary" dark @click.stop="dialog = true" absolute right bottom>排行榜</v-btn>
         <v-dialog v-model="dialog" max-width="290">
           <v-card>
             <v-card-title class="headline">
@@ -37,17 +17,13 @@
             </v-card-title>
 
             <v-card-text>
-              <div v-for="(item, index) in ranking" :key="'ranking' + index">
-                {{ item }}
-              </div>
+              <div v-for="(item, index) in ranking" :key="'ranking' + index">{{ item }}</div>
             </v-card-text>
 
             <v-card-actions>
               <v-spacer></v-spacer>
 
-              <v-btn color="green darken-1" text @click="dialog = false"
-                >关闭</v-btn
-              >
+              <v-btn color="green darken-1" text @click="dialog = false">关闭</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -55,18 +31,13 @@
     </template>
     <template v-else>
       <Header>[游戏强制结束]</Header>
-      <div
-        class="mt-20
-      "
-      >
+      <div class="mt-20">
         <v-card class="ma-auto" flat>
           <v-card-title class="headline mb-5">
             <p class="ma-auto">[排行榜]</p>
           </v-card-title>
-          <v-card-text class="subtitle-1 ">
-            <div v-for="(item, index) in ranking" :key="'ranking' + index">
-              {{ item }}
-            </div>
+          <v-card-text class="subtitle-1">
+            <div v-for="(item, index) in ranking" :key="'ranking' + index">{{ item }}</div>
           </v-card-text>
 
           <v-card-actions>
@@ -83,8 +54,7 @@
       class="btn1"
       to="/wait"
       v-on:click.native="restartGame"
-      >重新开始</v-btn
-    >
+    >重新开始</v-btn>
   </div>
 </template>
 
@@ -116,7 +86,7 @@ export default {
   data() {
     return {
       dialog: false,
-      timer: 0,
+      timer: 0
       // winner: ["aaa - 女巫", "bbb - 预言家", "ccc - 猎人", "ddd - 平民"],
       // loser: ["eee - 狼人", "fff - 狼人"],
       // rank: [
@@ -165,7 +135,7 @@ export default {
         tmp.push(item.name + "  赢" + +item.winTimes + "局");
       }
       return tmp;
-    },
+    }
   },
   mounted() {
     if (this.$store.state.gameInit.name !== "_God") {
@@ -185,17 +155,17 @@ export default {
       } else {
         this.$store.dispatch("gameInit/joinRoom", {
           roomID: this.$store.state.gameInit.roomID,
-          name: this.$store.state.gameInit.name,
+          name: this.$store.state.gameInit.name
         });
       }
-    },
+    }
   },
   beforeDestroy() {
     clearInterval(this.timer);
   },
   components: {
     // Title,
-    Header,
-  },
+    Header
+  }
 };
 </script>
