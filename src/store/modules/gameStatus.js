@@ -146,8 +146,8 @@ const mutations = {
   },
 
   [MARK_KNIFE]: (state, key) => {
-    console.log(state);
-    console.log(key);
+    //console.log(state);
+    //console.log(key);
     if (state.playerInf[key].isAlive > 0) {
       state.waitingState.killedByKnife = key;
       return true;
@@ -234,7 +234,7 @@ const mutations = {
   },
 
   [NEXT_STEP]: (state, payload) => {
-    console.log("I am here!");
+    //console.log("I am here!");
     var curState = state.activeState;
     // var dayNum = 2
     var dayNum = 3;
@@ -253,11 +253,11 @@ const mutations = {
         nightNum++;
       }
     }
-    console.log("nightNum" + nightNum);
+    //console.log("nightNum" + nightNum);
     // var nightNum = getNightNum;
 
-    console.log(nightNum);
-    console.log(state.activeState);
+    //console.log(nightNum);
+    //console.log(state.activeState);
     if (state.dayCount === 0) {
       if (curState[0] === 0) {
         // night
@@ -319,7 +319,7 @@ const mutations = {
         nightNum++;
       }
     }
-    console.log("nightNum" + nightNum);
+    //console.log("nightNum" + nightNum);
 
     if (state.activeState[0] === 1 && state.activeState[1] == 0) {
       // from night to day
@@ -330,7 +330,7 @@ const mutations = {
 
       if (payload.canHeDie && diedPlayer) {
         // about wolf
-        console.log("diedPlayer", diedPlayer);
+        //console.log("diedPlayer", diedPlayer);
         diedPlayer.isAlive = -1; // killed by knife
         if (diedPlayer.identity == "村民") {
           state.restNum.restVillagers--;
@@ -399,7 +399,7 @@ const mutations = {
 // abortGame: restart the game right away
 const actions = {
   initGame: (context, payload) => {
-    console.log(payload);
+    //console.log(payload);
     context.commit("INIT_GAME", payload);
     context.rootState.ranking.rankings = payload.rankings;
   },
@@ -425,7 +425,7 @@ const actions = {
   },
 
   nextStep: (context) => {
-    console.log("sss");
+    //console.log("sss");
     context.commit("NEXT_STEP", context.rootState.gameInit.deitiesList);
     context.commit("CHECK_EVENTS", {
       canHeDie: context.getters.canHeDie,
@@ -465,10 +465,10 @@ const actions = {
         isAbort: context.state.isAbort,
       })
       .then(function(response) {
-        console.log(response);
+        //console.log(response);
       })
       .catch(function(error) {
-        console.log(error);
+        //console.log(error);
       });
   },
   abort: (context) => {
@@ -485,10 +485,10 @@ const actions = {
         isAbort: context.state.isAbort,
       })
       .then(function(response) {
-        console.log(response);
+        //console.log(response);
       })
       .catch(function(error) {
-        console.log(error);
+        //console.log(error);
       });
   },
   // players fetch status from database
@@ -506,11 +506,11 @@ const actions = {
           activeState: response.data.gameState.activeState,
           isAbort: response.data.gameState.isAbort,
         });
-        console.log(response);
+        //console.log(response);
         return true;
       })
       .catch(function(error) {
-        console.log(error);
+        //console.log(error);
         return false;
       });
   },

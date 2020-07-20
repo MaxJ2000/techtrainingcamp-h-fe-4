@@ -42,7 +42,7 @@ const mutations = {
         loseGroup.push({ name: x.name, identity: x.identity });
       }
     }
-    console.log("winGroup", winGroup);
+    //console.log("winGroup", winGroup);
     state.winGroup = winGroup;
     state.loseGroup = loseGroup;
   },
@@ -91,7 +91,7 @@ const actions = {
 
   wolfWin: (context, playerInf) => {
     context.commit("WOLF_WIN", playerInf);
-    console.log(context.state);
+    //console.log(context.state);
 
     axios
       .post("https://afe5o5.fn.thelarkcloud.com/setRank", {
@@ -102,16 +102,16 @@ const actions = {
         loseGroup: context.state.loseGroup,
       })
       .then(function(response) {
-        console.log(response);
+        //console.log(response);
       })
       .catch(function(error) {
-        console.log(error);
+        //console.log(error);
       });
   },
 
   kindWin: (context, playerInf) => {
     context.commit("KIND_WIN", playerInf);
-    console.log(context.state);
+    //console.log(context.state);
     axios
       .post("https://afe5o5.fn.thelarkcloud.com/setRank", {
         // from gods to database
@@ -121,26 +121,26 @@ const actions = {
         loseGroup: context.state.loseGroup,
       })
       .then(function(response) {
-        console.log(response);
+        //console.log(response);
       })
       .catch(function(error) {
-        console.log(error);
+        //console.log(error);
       });
   },
 
   updateRankings: (context) => {
-    console.log("roomID", context.rootState.gameInit.roomID);
+    //console.log("roomID", context.rootState.gameInit.roomID);
     axios
       .post("https://afe5o5.fn.thelarkcloud.com/getRank", {
         roomID: context.rootState.gameInit.roomID,
       }) // from database to player
       .then(function(response) {
-        console.log(response);
+        //console.log(response);
         context.commit("UPDATE_RANKINGS", response.data);
         return true;
       })
       .catch(function(error) {
-        console.log(error);
+        //console.log(error);
         return false;
       });
   },

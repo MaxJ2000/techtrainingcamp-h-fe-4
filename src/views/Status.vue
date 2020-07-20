@@ -2,41 +2,30 @@
   <div class="d-flex flex-column align-center">
     <!-- <Title>[{{titleContent}}]</Title> -->
     <Header>{{ titleContent }}</Header>
-    <v-btn
-      color="primary"
-      dark
-      @click.stop="dialog = true"
-      large
-      absolute
-      bottom
-      right
-      >上帝台词</v-btn
-    >
+    <v-btn color="primary" dark @click.stop="dialog = true" large absolute bottom right>上帝台词</v-btn>
 
     <v-dialog v-model="dialog" max-width="290">
       <v-card>
         <v-card-title class="headline ma-auto">上帝主持流程</v-card-title>
 
         <v-card-text left>
-          夜晚阶段：<br />
-          &nbsp;&nbsp;&nbsp;&nbsp;1、天黑请闭眼，狼人请睁眼，狼人请杀人，狼人请闭眼。<br />
-          2、女巫请睁眼，昨晚他死了，你有一瓶解药，要救吗？你有一瓶毒药要用吗？毒谁？好的，女巫请闭眼。<br />
-          3、预言家请睁眼预言家请选择一位玩家查验身份，好人是向上，坏人是向下，他的身份是这个，预言家请闭眼。<br />
-          4、猎人请睁眼，确认身份，你的开枪状态为这个，可开枪是向上，不可开枪是向下，猎人请闭眼。<br />
-          白天阶段：<br />
-          5、天亮了，竞选警徽的请举手，请发言，没有上警的玩家请投票，好，警长确定（第一天）。<br />
-          6、昨晚死的是他，请发表遗言。<br />
-          7、请警长选择从死左或死右开始发言。<br />
-          8、开始投票。
+          夜晚阶段：
+          <br />&nbsp;&nbsp;&nbsp;&nbsp;1、天黑请闭眼，狼人请睁眼，狼人请杀人，狼人请闭眼。
+          <br />2、女巫请睁眼，昨晚他死了，你有一瓶解药，要救吗？你有一瓶毒药要用吗？毒谁？好的，女巫请闭眼。
+          <br />3、预言家请睁眼预言家请选择一位玩家查验身份，好人是向上，坏人是向下，他的身份是这个，预言家请闭眼。
+          <br />4、猎人请睁眼，确认身份，你的开枪状态为这个，可开枪是向上，不可开枪是向下，猎人请闭眼。
+          <br />白天阶段：
+          <br />5、天亮了，竞选警徽的请举手，请发言，没有上警的玩家请投票，好，警长确定（第一天）。
+          <br />6、昨晚死的是他，请发表遗言。
+          <br />7、请警长选择从死左或死右开始发言。
+          <br />8、开始投票。
           <v-spacer></v-spacer>
         </v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
 
-          <v-btn color="green darken-1" text @click="dialog = false"
-            >关闭</v-btn
-          >
+          <v-btn color="green darken-1" text @click="dialog = false">关闭</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -95,7 +84,7 @@ export default {
     // Title,
     List,
     Button,
-    Header,
+    Header
   },
   data: () => ({
     isChecked: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -106,21 +95,21 @@ export default {
         "夜晚：女巫解药",
         "夜晚：女巫毒药",
         "夜晚：预言家查验",
-        "夜晚：猎人状态",
+        "夜晚：猎人状态"
       ],
-      ["白天：昨日情况", "白天：玩家发言", "白天：投票放逐"],
+      ["白天：昨日情况", "白天：玩家发言", "白天：投票放逐"]
     ],
     statusFullDataBase: [
       ["狼人击杀", "女巫复活", "女巫毒杀", "预言家查验", "猎人状态"],
-      ["存活", "存活", "投票放逐"],
+      ["存活", "存活", "投票放逐"]
     ],
     status2Action: {
       狼人击杀: "markKnife",
       女巫复活: "markCure",
       女巫毒杀: "markPoison",
       // 猎人状态: "",
-      投票放逐: "voteOut",
-    },
+      投票放逐: "voteOut"
+    }
   }),
 
   computed: {
@@ -129,7 +118,7 @@ export default {
     },
     hunter: function() {
       const hunter = this.$store.state.gameStatus.playerInf.find(
-        (item) => item.identity === "猎人"
+        item => item.identity === "猎人"
       );
       return hunter;
     },
@@ -171,14 +160,14 @@ export default {
     titleDataBase: function() {
       let tmp = [[], []];
       tmp[0].push(this.titleFullDataBase[0][0]);
-      if (this.deitiesList.find((item) => item === "女巫")) {
+      if (this.deitiesList.find(item => item === "女巫")) {
         tmp[0].push(this.titleFullDataBase[0][1]);
         tmp[0].push(this.titleFullDataBase[0][2]);
       }
-      if (this.deitiesList.find((item) => item === "预言家")) {
+      if (this.deitiesList.find(item => item === "预言家")) {
         tmp[0].push(this.titleFullDataBase[0][3]);
       }
-      if (this.deitiesList.find((item) => item === "猎人")) {
+      if (this.deitiesList.find(item => item === "猎人")) {
         tmp[0].push(this.titleFullDataBase[0][4]);
       }
       tmp[1] = this.titleFullDataBase[1];
@@ -187,14 +176,14 @@ export default {
     statusDataBase: function() {
       let tmp = [[], []];
       tmp[0].push(this.statusFullDataBase[0][0]);
-      if (this.deitiesList.find((item) => item === "女巫")) {
+      if (this.deitiesList.find(item => item === "女巫")) {
         tmp[0].push(this.statusFullDataBase[0][1]);
         tmp[0].push(this.statusFullDataBase[0][2]);
       }
-      if (this.deitiesList.find((item) => item === "预言家")) {
+      if (this.deitiesList.find(item => item === "预言家")) {
         tmp[0].push(this.statusFullDataBase[0][3]);
       }
-      if (this.deitiesList.find((item) => item === "猎人")) {
+      if (this.deitiesList.find(item => item === "猎人")) {
         tmp[0].push(this.statusFullDataBase[0][4]);
       }
       tmp[1] = this.statusFullDataBase[1];
@@ -228,7 +217,7 @@ export default {
     },
     witchIsAlive: function() {
       const witch = this.$store.state.gameStatus.playerInf.find(
-        (item) => item.identity === "女巫"
+        item => item.identity === "女巫"
       );
       if (!witch) {
         return false;
@@ -272,7 +261,7 @@ export default {
             let killedGuy = this.personalInf[
               this.$store.state.gameStatus.waitingState.killedByKnife
             ];
-            console.log(killedGuy);
+            //console.log(killedGuy);
             if (killedGuy && killedGuy.name === i.name) {
               tmp.push(i.name + "被狼击杀");
               if (
@@ -325,7 +314,7 @@ export default {
         }
       }
       return status;
-    },
+    }
   },
   methods: {
     reload() {
@@ -347,7 +336,7 @@ export default {
     },
     nextStep() {
       const key = this.checkedKey();
-      console.log("key" + key);
+      //console.log("key" + key);
       if (key === undefined && this.statusContent === "狼人击杀") {
         return; //todo tips
       }
@@ -369,7 +358,7 @@ export default {
         this.$store.dispatch("gameStatus/shootOut", key);
       }
       let action = this.status2Action[this.statusContent];
-      console.log(action);
+      //console.log(action);
       if (action && key !== undefined) {
         this.$store.dispatch("gameStatus/" + action, key);
       }
@@ -379,7 +368,7 @@ export default {
     abort() {
       this.$store.dispatch("gameStatus/abort");
       this.$router.push("result");
-    },
+    }
   },
   mounted: function() {
     this.$store.dispatch("gameInit/startGame");
@@ -389,7 +378,7 @@ export default {
       if (!val) {
         this.$router.push("result");
       }
-    },
-  },
+    }
+  }
 };
 </script>

@@ -2,6 +2,9 @@
 
 字节跳动前端训练营狼人杀项目～
 
+在线demo：[GihubPage](https://maxj2000.github.io/techtrainingcamp-h-fe-4/)
+[TecentCloud](https://wolfkill.chuanggao.run/#/)
+
 ## Project setup
 
 ```

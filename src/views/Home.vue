@@ -9,13 +9,7 @@
       </div>
       <!-- <div :title="godList"></div> -->
       <div class="cb">
-        <v-slider
-          v-model="valueWolf"
-          class="mt-4"
-          :label="'狼人: ' + valueWolf"
-          min="1"
-          max="4"
-        ></v-slider>
+        <v-slider v-model="valueWolf" class="mt-4" :label="'狼人: ' + valueWolf" min="1" max="4"></v-slider>
         <v-slider
           v-model="valueVillage"
           class="mb-0"
@@ -57,12 +51,7 @@
         </v-col>
       </v-row>
       <v-row justify="center" class="mb-5">
-        <v-chip-group
-          mandatory
-          v-model="mode"
-          active-class="primary--text"
-          center-active
-        >
+        <v-chip-group mandatory v-model="mode" active-class="primary--text" center-active>
           <v-chip key="TB">屠边</v-chip>
           <v-chip key="TC">屠城</v-chip>
         </v-chip-group>
@@ -88,18 +77,8 @@
           />屠城
       </div>-->
       <div class="cr">
-        <v-btn
-          depressed
-          large
-          color="primary"
-          class="btn1"
-          to="/wait"
-          v-on:click.native="init"
-          >创建房间</v-btn
-        >
-        <v-btn depressed large color="primary" class="btn1" to="/"
-          >返回首页</v-btn
-        >
+        <v-btn depressed large color="primary" class="btn1" to="/wait" v-on:click.native="init">创建房间</v-btn>
+        <v-btn depressed large color="primary" class="btn1" to="/">返回首页</v-btn>
       </div>
       <img alt="WolfKill logo" src="../assets/wolf1.jpg" />
     </v-container>
@@ -169,7 +148,7 @@ export default {
       tags: ["屠边", "屠城"],
       valueVillage: undefined,
       valueWolf: undefined,
-      mode: 1,
+      mode: 1
     };
   },
   methods: {
@@ -207,7 +186,7 @@ export default {
         wolfNum: this.$store.state.gameInit.wolfNum,
         villagerNum: this.$store.state.gameInit.villagerNum,
         deitiesList: this.$store.state.gameInit.deitiesList,
-        killSideOrAll: this.$store.state.gameInit.killSideOrAll,
+        killSideOrAll: this.$store.state.gameInit.killSideOrAll
       });
     },
     getValueWolf(e) {
@@ -215,12 +194,12 @@ export default {
     },
     getValueVillage(e) {
       this.$store.commit("gameInit/getValueVillage", e);
-    },
+    }
   },
   components: {
     // Title,
     // combobox,
-    Header,
+    Header
   },
   watch: {
     valueVillage(val) {
@@ -228,17 +207,17 @@ export default {
     },
     valueWolf(val) {
       this.getValueWolf(val);
-    },
+    }
   },
   computed: {
     getRoomId() {
-      console.log(this.$store.state.gameInit.roomID);
+      //console.log(this.$store.state.gameInit.roomID);
       return this.$store.state.gameInit.roomID;
-    },
+    }
   },
   mounted: function() {
     this.$store.dispatch("gameInit/createRoom");
     this.$store.state.gameInit.deitiesList = [];
-  },
+  }
 };
 </script>
